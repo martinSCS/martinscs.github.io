@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function generateCompositeNumber() {
         let num;
         do {
-            num = Math.floor(Math.random() * 900) + 100;
+            num = Math.floor(Math.random() * 9900) + 100;
         } while (isPrime(num));
         return num;
     }
