@@ -1,0 +1,348 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    margin: 0;
+    color: #333;
+    overflow: hidden;
+}
+
+.game-container {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px 10px;
+}
+
+.game-title {
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.number-plate {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.number-left {
+    font-size: 72px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    transition: color 0.3s;
+    color: #444;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shake {
+    animation: shake 0.5s;
+    color: #e74c3c;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.input-panel {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.prime-input {
+    padding: 15px;
+    font-size: 20px;
+    width: 150px;
+    margin-right: 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border 0.3s;
+    text-align: center;
+    -webkit-appearance: none; /* 移除iOS默认样式 */
+    appearance: none;
+}
+
+.prime-input:focus {
+    outline: none;
+    border-color: #a777e3;
+    box-shadow: 0 0 8px rgba(167, 119, 227, 0.4);
+}
+
+button {
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+.equation {
+    font-size: 32px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    word-wrap: break-word; /* 确保长公式可以换行 */
+    overflow-x: auto; /* 允许横向滚动 */
+}
+
+.alert {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e74c3c;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 100;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+.alert.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(10px);
+}
+
+.celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.celebration-content {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    animation: scale 0.6s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+}
+
+.celebration-content h2 {
+    font-size: 36px;
+    color: #a777e3;
+    margin-bottom: 20px;
+}
+
+.celebration-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+@keyframes scale {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    opacity: 0;
+}
+
+.instructions {
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .number-plate {
+        padding: 25px 15px;
+    }
+
+    .number-left {
+        font-size: 60px;
+        margin-bottom: 20px;
+    }
+
+    .equation {
+        font-size: 24px;
+        padding: 15px;
+    }
+
+    .prime-input {
+        width: 120px;
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .celebration-content {
+        padding: 30px 20px;
+    }
+
+    .celebration-content h2 {
+        font-size: 28px;
+    }
+
+    .celebration-content p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .number-plate {
+        padding: 20px 10px;
+    }
+
+    .number-left {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .input-panel {
+        margin: 20px 0;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .prime-input {
+        width: 80%;
+        margin-right: 0;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 80%;
+        padding: 10px 15px;
+    }
+
+    .equation {
+        font-size: 20px;
+        padding: 12px;
+        margin-top: 20px;
+    }
+
+    .alert {
+        width: 85%;
+        padding: 12px 15px;
+        font-size: 16px;
+    }
+
+    .celebration-content {
+        padding: 25px 15px;
+    }
+
+    .celebration-content h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .celebration-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+}
+
+/* 竖屏手机特别优化 */
+@media (max-width: 380px) {
+    .number-left {
+        font-size: 40px;
+    }
+
+    .equation {
+        font-size: 18px;
+    }
+}
+
+/* 处理键盘弹出时的视口高度变化 */
+@media (max-height: 500px) {
+    .game-container {
+        padding: 10px 5px;
+    }
+
+    .game-title {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .number-left {
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .input-panel {
+        margin: 10px 0;
+    }
+
+    .equation {
+        margin-top: 10px;
+    }
+
+    .instructions {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+}
