@@ -1,203 +1,255 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Arsha Bootstrap Template - Index</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Arsha
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数学游戏集</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+        
+        .game-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .game-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+        }
+        
+        .game-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        
+        .game-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .game-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            color: #666;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .play-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+        }
+        
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .play-button:active {
+            transform: translateY(0);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .game-image {
+                height: 160px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
-    <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="index.html">Proper Sports Symbols</a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Our Original Aspiration</a></li>>
-          <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-          <li><a class="getstarted scrollto" href="#">Get Started</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-
     <div class="container">
-      <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>Proper symbols,<br/>Show respect.</h1>
-          <h2>Proper anthems, flags, and names</h2>
-          <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="#about" class="btn-get-started scrollto">Learn more</a>
-          </div>
-        </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="assets/img/main.png" class="img-fluid animated" alt="">
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <main id="main">
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Our Original Aspiration</h2>
-        </div>
-
-        <div class="row content">
-          <div class="col-lg-6">
-            <p>
-              Accurate representation of national anthems and flags in international competitions is crucial for respecting cultural identities, fostering goodwill among nations, and upholding the principles of sportsmanship and professionalism. Mistakes in this regard can offend and strain diplomatic relations, undermining the core values of these events.
-            </p>
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <p>
-              So we provide these information.
-            </p>
-            <ul>
-              <li><i class="ri-check-double-line"></i> Proper anthems</li>
-              <li><i class="ri-check-double-line"></i> Proper flags</li>
-              <li><i class="ri-check-double-line"></i> Proper IOC code</li>
-              <li><i class="ri-check-double-line"></i> Proper names in several languages</li>
-            </ul>
-            <a href="#" class="btn-learn-more">Learn More</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-    <section id="pricing" class="pricing">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Pricing</h2>
-          <p>Why should we be paid to provide service? Of course, all for free!</p>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
-            <div class="box featured">
-              <h3>The only Plan</h3>
-              <h4><sup>$</sup>0<span>per month</span></h4>
-              <ul>
-                <li><i class="bx bx-check"></i> Proper anthems</li>
-                <li><i class="bx bx-check"></i> Proper flags</li>
-                <li><i class="bx bx-check"></i> Proper names in several languages</li>
-                <li><i class="bx bx-check"></i> Proper IOC code</li>
-              </ul>
-              <a href="#" class="buy-btn">Get Started</a>
+        <header>
+            <h1>趣味数学游戏集</h1>
+            <p class="subtitle">通过有趣的游戏提升您的数学技能，从基础计算到复杂概念，边玩边学！</p>
+        </header>
+        
+        <div class="games-grid">
+            <!-- 质因数分解游戏 -->
+            <div class="game-card">
+                <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="game-content">
+                    <h2 class="game-title">质因数分解大挑战</h2>
+                    <p class="game-description">将数字分解为质因数的乘积，测试您的数学思维和质数知识！</p>
+                    <div class="game-tags">
+                        <span class="game-tag">质数</span>
+                        <span class="game-tag">因数</span>
+                        <span class="game-tag">中等难度</span>
+                    </div>
+                    <a href="prime-factorization/index.html" class="play-button">开始游戏</a>
+                </div>
             </div>
-          </div>
+            
+            <!-- 为未来的游戏预留位置 -->
+            <div class="game-card">
+                <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1594912491598-955c5bd2d4ac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="game-content">
+                    <h2 class="game-title">数独挑战</h2>
+                    <p class="game-description">经典的数独游戏，测试您的逻辑推理能力和策略思维！</p>
+                    <div class="game-tags">
+                        <span class="game-tag">逻辑</span>
+                        <span class="game-tag">推理</span>
+                        <span class="game-tag">多难度</span>
+                    </div>
+                    <a href="#" class="play-button" style="background: linear-gradient(135deg, #ccc, #999); pointer-events: none;">即将推出</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1611128856891-d56d36dc8d60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="game-content">
+                    <h2 class="game-title">心算高手</h2>
+                    <p class="game-description">快速计算练习，提升您的心算能力和反应速度！</p>
+                    <div class="game-tags">
+                        <span class="game-tag">计算</span>
+                        <span class="game-tag">速度</span>
+                        <span class="game-tag">所有年龄段</span>
+                    </div>
+                    <a href="#" class="play-button" style="background: linear-gradient(135deg, #ccc, #999); pointer-events: none;">即将推出</a>
+                </div>
+            </div>
+            
+            <div class="game-card">
+                <div class="game-image" style="background-image: url('https://images.unsplash.com/photo-1509228468518-180dd4864904?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="game-content">
+                    <h2 class="game-title">几何形状拼图</h2>
+                    <p class="game-description">通过拼接不同的几何形状，锻炼空间想象力和创造思维！</p>
+                    <div class="game-tags">
+                        <span class="game-tag">几何</span>
+                        <span class="game-tag">空间</span>
+                        <span class="game-tag">创造</span>
+                    </div>
+                    <a href="#" class="play-button" style="background: linear-gradient(135deg, #ccc, #999); pointer-events: none;">即将推出</a>
+                </div>
+            </div>
         </div>
-
-      </div>
-    </section>
-  </main>
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-12 footer-contact">
-            <h3>PROPER SPORTS SYMBOLS</h3>
-            <p>
-             We are everywhere<br><br>
-              <strong>Email:</strong> <a href="mailto:me@martingrocery.top">me@martingrocery.top</a><br>
-            </p>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#about">Our Original Aspiration</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-4 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://olympics.com/">Olympics</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="https://www.paralympic.org/">Paralympics</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        
+        <footer>
+            <p>© 2023 趣味数学游戏集 | 设计与开发：您的名字</p>
+        </footer>
     </div>
-
-    <div class="container footer-bottom clearfix">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Martinscs</span></strong>, <strong><span>Arsha</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-
 </body>
-
 </html>
