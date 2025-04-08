@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>扫雷挑战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>扫雷挑战</h1>
+        
+        <!-- 游戏设置面板 -->
+        <div id="settings-panel" class="settings-panel">
+            <h2>游戏设置</h2>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label for="width">宽度:</label>
+                    <input type="number" id="width" min="5" max="30" value="10">
+                </div>
+                <div class="setting-item">
+                    <label for="height">高度:</label>
+                    <input type="number" id="height" min="5" max="30" value="10">
+                </div>
+                <div class="setting-item">
+                    <label for="mines">地雷数:</label>
+                    <input type="number" id="mines" min="1" max="99" value="10">
+                </div>
+            </div>
+            <div class="difficulty-presets">
+                <button class="preset-btn" data-width="9" data-height="9" data-mines="10">初级</button>
+                <button class="preset-btn" data-width="16" data-height="16" data-mines="40">中级</button>
+                <button class="preset-btn" data-width="30" data-height="16" data-mines="99">高级</button>
+            </div>
+            <button id="start-game" class="start-btn">开始游戏</button>
+        </div>
+        
+        <!-- 游戏状态栏 -->
+        <div id="game-stats" class="game-stats hidden">
+            <div class="stat-item">
+                <span class="stat-icon">🚩</span>
+                <span id="flags-count">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon">⏱️</span>
+                <span id="timer">0</span>
+            </div>
+            <button id="reset-game" class="reset-btn">😊</button>
+        </div>
+        
+        <!-- 游戏棋盘容器 -->
+        <div id="board-container" class="board-container hidden">
+            <div id="game-board" class="game-board"></div>
+        </div>
+        
+        <!-- 游戏结果弹窗 -->
+        <div id="result-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="result-title"></h2>
+                <p id="result-message"></p>
+                <div class="modal-buttons">
+                    <button id="restart-same">重玩本局</button>
+                    <button id="restart-new">新游戏</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 移动设备操作提示 -->
+        <div id="mobile-instructions" class="mobile-instructions hidden">
+            <p>点击揭示格子 | 长按标记地雷</p>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>

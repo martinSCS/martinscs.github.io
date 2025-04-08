@@ -1,0 +1,302 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.game-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #3498db;
+}
+
+.settings-panel {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.difficulty-presets {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.preset-btn {
+    padding: 8px 15px;
+    background-color: #ecf0f1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.preset-btn:hover {
+    background-color: #dfe6e9;
+}
+
+.start-btn, .modal-buttons button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.start-btn:hover, .modal-buttons button:hover {
+    background-color: #2980b9;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.stat-icon {
+    margin-right: 5px;
+}
+
+.reset-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.reset-btn:hover {
+    transform: scale(1.1);
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 5px;
+}
+
+.game-board {
+    display: inline-grid;
+    gap: 2px;
+    margin: 0 auto;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bdc3c7;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    touch-action: manipulation;
+}
+
+.cell:hover {
+    background-color: #a9b2bc;
+}
+
+.cell.revealed {
+    background-color: #ecf0f1;
+}
+
+.cell.mine {
+    background-color: #e74c3c;
+}
+
+.cell.flagged {
+    background-color: #f1c40f;
+}
+
+/* 数字颜色 */
+.cell[data-count="1"] { color: #3498db; }
+.cell[data-count="2"] { color: #27ae60; }
+.cell[data-count="3"] { color: #e74c3c; }
+.cell[data-count="4"] { color: #8e44ad; }
+.cell[data-count="5"] { color: #d35400; }
+.cell[data-count="6"] { color: #16a085; }
+.cell[data-count="7"] { color: #2c3e50; }
+.cell[data-count="8"] { color: #7f8c8d; }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.mobile-instructions {
+    text-align: center;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .difficulty-presets {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .preset-btn {
+        flex: 1 0 30%;
+    }
+    
+    .cell {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cell {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    .modal-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .stat-item {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 350px) {
+    .cell {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+}
