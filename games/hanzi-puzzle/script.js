@@ -358,21 +358,23 @@ document.addEventListener('DOMContentLoaded', () => {
         let suffix;
         switch (gameState.currentLanguage) {
           case 'zh-CN':
-            suffix = 'g';
+            suffix = '-g';
             break;
           case 'zh-TW':
-            suffix = 't';
+            suffix = '-t';
             break;
           case 'ja':
-            suffix = 'j';
+            suffix = '-j';
             break;
           case 'ko':
-            suffix = 'k';
+            suffix = '-k';
             break;
+          default:
+            suffix='';
         }
         
         // 构造GlyphWiki URL
-        gameState.originalImageUrl = `https://glyphwiki.org/glyph/u${gameState.characterCode}-${suffix}.svg`;
+        gameState.originalImageUrl = `https://glyphwiki.org/glyph/u${gameState.characterCode}${suffix}.svg`;
         
         // 确保图像加载成功
         try {
