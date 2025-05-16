@@ -357,24 +357,139 @@ footer {
     display: none !important;
 }
 
-@media (max-width: 600px) {
-    .game-controls {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .game-stats {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .stat-box {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .size-selector {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+/* 基本响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .game-controls {
+    padding: 10px;
+  }
+  
+  .size-btn {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .primary-btn, .secondary-btn {
+    padding: 8px 15px;
+    font-size: 0.95rem;
+  }
+  
+  .modal-content {
+    padding: 20px;
+    max-width: 90%;
+  }
+}
+
+/* 窄屏设备特定修复 */
+@media (max-width: 480px) {
+  /* 修复input-group溢出问题 */
+  .input-group {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .input-group input,
+  .input-group button {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  #character-guess {
+    padding: 12px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  /* 调整模态框内容 */
+  .modal-content {
+    width: 85%;
+    padding: 15px;
+  }
+  
+  .completed-puzzle-preview {
+    width: 120px;
+    height: 120px;
+    margin: 10px auto;
+  }
+  
+  /* 调整自定义大小模态框 */
+  .custom-size-controls {
+    margin: 15px 0;
+  }
+  
+  .size-preview {
+    font-size: 1.5rem;
+  }
+  
+  .size-range {
+    margin-bottom: 10px;
+  }
+  
+  /* 调整语言选择器 */
+  .language-selector {
+    gap: 3px;
+  }
+  
+  .lang-btn {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+  
+  /* 调整完成统计信息 */
+  .completion-stats {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .highlight {
+    font-size: 1.1rem;
+  }
+  
+  /* 调整模态框按钮 */
+  .modal-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .modal-buttons button {
+    width: 100%;
+  }
+}
+
+/* 超窄屏设备 */
+@media (max-width: 320px) {
+  .puzzle-container {
+    padding: 10px;
+  }
+  
+  .game-stats {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .stat-box {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+  }
+  
+  .completed-puzzle-preview {
+    width: 100px;
+    height: 100px;
+  }
 }
