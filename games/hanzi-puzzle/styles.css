@@ -21,7 +21,7 @@
 }
 
 body {
-    font-family: 'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', 'Apple SD Gothic Neo', 'Noto Sans CJK', sans-serif;
+    font-family: sans-serif;
     line-height: 1.6;
     background-color: var(--light-gray);
     color: var(--text-color);
