@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="game-title">汉字拼图猜字游戏</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 data-i18n="game-title">汉字拼图猜字游戏</h1>
+            <p class="subtitle" data-i18n="game-subtitle">拼出汉字，猜出它是什么</p>
+            <div class="language-selector">
+                <button class="lang-btn" data-lang="zh-CN">简体中文</button>
+                <button class="lang-btn" data-lang="zh-TW">繁體中文</button>
+                <button class="lang-btn" data-lang="ja">日本語</button>
+                <button class="lang-btn" data-lang="ko">한국어</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </header>
+        
+        <div class="game-controls">
+            <div class="control-group">
+                <label for="grid-size" data-i18n="puzzle-size">拼图大小:</label>
+                <div class="size-selector">
+                    <button class="size-btn preset-size" data-size="3">3×3</button>
+                    <button class="size-btn preset-size active" data-size="4">4×4</button>
+                    <button class="size-btn preset-size" data-size="5">5×5</button>
+                    <button class="size-btn custom-size" data-i18n="custom-size">自定义</button>
+                </div>
+            </div>
+            <button id="start-game" class="primary-btn"><i class="fas fa-play"></i> <span data-i18n="start-game">开始游戏</span></button>
+        </div>
+        
+        <div class="game-stats">
+            <div class="stat-box">
+                <i class="fas fa-stopwatch"></i>
+                <span id="timer">00:00</span>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-shoe-prints"></i>
+                <span id="move-count">0</span> <span data-i18n="moves">步</span>
+            </div>
+        </div>
+        
+        <div class="puzzle-wrapper">
+            <div class="puzzle-container">
+                <div id="puzzle-grid"></div>
+            </div>
+        </div>
+        
+        <!-- 自定义大小模态框 -->
+        <div id="custom-size-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 data-i18n="custom-size-title">自定义拼图大小</h2>
+                <p data-i18n="custom-size-desc">请选择2-8之间的数字</p>
+                
+                <div class="custom-size-controls">
+                    <div class="size-range">
+                        <span>2</span>
+                        <input type="range" id="custom-size-slider" min="2" max="8" value="4">
+                        <span>8</span>
+                    </div>
+                    <div class="size-preview">
+                        <span id="size-preview-value">4</span> × <span id="size-preview-value-2">4</span>
+                    </div>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button id="cancel-custom-size" class="secondary-btn" data-i18n="cancel">取消</button>
+                    <button id="confirm-custom-size" class="primary-btn" data-i18n="confirm">确认</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 猜字模态框 -->
+        <div id="guess-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 data-i18n="puzzle-complete">拼图完成！</h2>
+                <p data-i18n="guess-prompt">请猜一猜这个汉字是什么？</p>
+                
+                <!-- 添加拼图预览区域 -->
+                <div class="completed-puzzle-preview">
+                    <div id="completed-character-image"></div>
+                </div>
+                
+                <div class="input-group">
+                    <input type="text" id="character-guess" maxlength="1" data-i18n-placeholder="enter-character">
+                    <button id="submit-guess" class="primary-btn" data-i18n="confirm-guess">确认</button>
+                </div>
+                <p id="guess-feedback" class="hidden"></p>
+            </div>
+        </div>
+        
+        <!-- 完成消息模态框 -->
+        <div id="complete-message" class="modal hidden">
+            <div class="modal-content">
+                <h2><i class="fas fa-trophy"></i> <span data-i18n="congratulations">恭喜！挑战成功！</span></h2>
+                <div class="completion-stats">
+                    <p><span data-i18n="correct-character">正确汉字:</span> <span id="correct-character" class="highlight"></span></p>
+                    <p><span data-i18n="time-spent">用时:</span> <span id="final-time" class="highlight"></span></p>
+                    <p><span data-i18n="total-moves">步数:</span> <span id="final-moves" class="highlight"></span></p>
+                </div>
+                <button id="play-again" class="primary-btn"><i class="fas fa-redo"></i> <span data-i18n="play-again">再玩一次</span></button>
+            </div>
+        </div>
+
+        <footer>
+            <p data-i18n="game-hint">提示：完成拼图后，需要猜出正确的汉字才能获胜</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
