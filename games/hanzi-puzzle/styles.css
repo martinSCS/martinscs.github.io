@@ -381,6 +381,64 @@ footer {
     opacity: 1;
 }
 
+/* 大小选择器的基本样式 */
+.size-selector {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap; /* 大屏幕默认不换行 */
+}
+
+.size-btn {
+    padding: 8px 12px;
+    background-color: var(--mid-gray);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 0 0 auto; /* 防止按钮被拉伸 */
+}
+
+/* 窄屏设备的网格布局 */
+@media (max-width: 480px) {
+    .size-selector {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2列网格 */
+        gap: 8px;
+        width: 100%; /* 确保占满容器宽度 */
+    }
+    
+    .size-btn {
+        width: 100%; /* 按钮占满单元格 */
+        padding: 10px 5px; /* 增加垂直内边距，减少水平内边距 */
+        font-size: 0.95rem;
+    }
+    
+    /* 自定义按钮可以占据整行 */
+    .size-btn.custom-size {
+        grid-column: 1 / -1; /* 从第一列到最后一列 */
+        margin-top: 4px;
+    }
+    
+    /* 调整控制组的布局 */
+    .control-group {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .control-group label {
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+}
+
+/* 超窄屏设备优化 */
+@media (max-width: 320px) {
+    .size-selector {
+        grid-template-columns: 1fr; /* 单列网格 */
+    }
+}
+
 /* 基本响应式设计 */
 @media (max-width: 768px) {
   .container {
