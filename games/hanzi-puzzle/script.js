@@ -489,6 +489,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 tileElement.style.backgroundSize = `${size * 100}%`;
                 tileElement.style.backgroundPosition = `-${originalCol * 100}% -${originalRow * 100}%`;
                 
+                // 添加序号提示元素
+                const tileNumber = document.createElement('div');
+                tileNumber.classList.add('tile-number');
+                // 计算原始序号 (从1开始)
+                const originalNumber = tileValue + 1;
+                tileNumber.textContent = originalNumber;
+                tileElement.appendChild(tileNumber);
+                
+                // 添加悬停事件来显示序号
+                let hoverTimer;
+                tileElement.addEventListener('mouseenter', () => {
+                    hoverTimer = setTimeout(() => {
+                        tileNumber.classList.add('visible');
+                    }, 500); // 悬停0.5秒后显示
+                });
+                
+                tileElement.addEventListener('mouseleave', () => {
+                    clearTimeout(hoverTimer);
+                    tileNumber.classList.remove('visible');
+                });
+                
+                // 为移动设备添加触摸事件支持
+                if ('ontouchstart' in window) {
+                    tileElement.addEventListener('touchstart', () => {
+                        hoverTimer = setTimeout(() => {
+                            tileNumber.classList.add('visible');
+                        }, 500);
+                    });
+                    
+                    tileElement.addEventListener('touchend', () => {
+                        clearTimeout(hoverTimer);
+                        setTimeout(() => {
+                            tileNumber.classList.remove('visible');
+                        }, 1000); // 触摸结束后保留显示1秒
+                    });
+                    
+                    tileElement.addEventListener('touchmove', () => {
+                        clearTimeout(hoverTimer);
+                        tileNumber.classList.remove('visible');
+                    });
+                }
+                
                 // 添加点击事件（如果拼图未完成）
                 if (!gameState.isPuzzleFinished) {
                     tileElement.addEventListener('click', () => {
