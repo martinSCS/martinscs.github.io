@@ -471,11 +471,6 @@ footer {
         font-size: 0.95rem;
     }
     
-    .size-btn.custom-size {
-        grid-column: 1 / -1;
-        margin-top: 4px;
-    }
-    
     /* 输入组调整 */
     .input-group {
         flex-direction: column;
