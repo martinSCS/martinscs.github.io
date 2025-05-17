@@ -357,6 +357,30 @@ footer {
     display: none !important;
 }
 
+/* 拼图块序号提示样式 */
+.puzzle-tile {
+    position: relative;
+}
+
+.tile-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* 防止提示标签影响鼠标事件 */
+    z-index: 10;
+}
+
+.tile-number.visible {
+    opacity: 1;
+}
+
 /* 基本响应式设计 */
 @media (max-width: 768px) {
   .container {
