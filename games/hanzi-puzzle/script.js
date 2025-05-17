@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'time-spent': '用时:',
             'total-moves': '步数:',
             'play-again': '再玩一次',
-            'game-hint': '提示：完成拼图后，需要猜出正确的汉字才能获胜'
+            'game-hint': '提示：完成拼图后，需要猜出正确的汉字才能获胜',
+            'glyph-copyright': '字形数据来自',
+            'glyphwiki': '字形维基',
+            'game-operation-hint-1': '可使用键盘的',
+            'game-operation-hint-2': '操纵'
         },
         'zh-TW': {
             'game-title': '漢字拼圖猜字遊戲',
@@ -47,7 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'time-spent': '用時:',
             'total-moves': '步數:',
             'play-again': '再玩一次',
-            'game-hint': '提示：完成拼圖後，需要猜出正確的漢字才能獲勝'
+            'game-hint': '提示：完成拼圖後，需要猜出正確的漢字才能獲勝',
+            'glyph-copyright': '字形數據來自',
+            'glyphwiki': '字形維基',
+            'game-operation-hint-1': '可使用鍵盤的',
+            'game-operation-hint-2': '操縱'
         },
         'ja': {
             'game-title': '漢字パズル当てゲーム',
@@ -71,7 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'time-spent': '所要時間:',
             'total-moves': '手数:',
             'play-again': 'もう一度プレイ',
-            'game-hint': 'ヒント：パズルを完成させた後、正しい漢字を当てると勝利です'
+            'game-hint': 'ヒント：パズルを完成させた後、正しい漢字を当てると勝利です',
+            'glyph-copyright': '字体出典：',
+            'glyphwiki': 'グリフウィキ',
+            'game-operation-hint-1': 'キーボードの',
+            'game-operation-hint-2': 'で操縦できます'
         },
         'ko': {
             'game-title': '한자 퍼즐 맞추기 게임',
@@ -95,7 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'time-spent': '소요 시간:',
             'total-moves': '이동 횟수:',
             'play-again': '다시 하기',
-            'game-hint': '힌트: 퍼즐을 완성한 후 정확한 한자를 맞춰야 승리합니다'
+            'game-hint': '힌트: 퍼즐을 완성한 후 정확한 한자를 맞춰야 승리합니다',
+            'glyph-copyright': '자형 출처: ',
+            'glyphwiki': '글리프위키',
+            'game-operation-hint-1': '키보드의 ',
+            'game-operation-hint-2': '로 조작할 수 있습니다'
         },
         'en': {
             'game-title': 'Chinese Character Puzzle Game',
@@ -119,7 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
             'time-spent': 'Time Spent:',
             'total-moves': 'Total Moves:',
             'play-again': 'Play Again',
-            'game-hint': 'Hint: After completing the puzzle, you need to guess the correct character to win'
+            'game-hint': 'Hint: After completing the puzzle, you need to guess the correct character to win',
+            'glyph-copyright': 'The glyph data is from ',
+            'glyphwiki': 'GlyphWiki',
+            'game-operation-hint-1': 'You can use ',
+            'game-operation-hint-2': ' on your keyboard to control it'
         }
     };
 
@@ -197,32 +217,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (emptyRow < size - 1) {
                     targetIndex = emptyIndex + size;
                     // 阻止默认行为（页面滚动）
-                    event.preventDefault();
                 }
+                event.preventDefault();
                 break;
             case 'ArrowDown':
                 // 空格向下移动 = 上方的块向下移动
                 if (emptyRow > 0) {
                     targetIndex = emptyIndex - size;
                     // 阻止默认行为（页面滚动）
-                    event.preventDefault();
                 }
+                event.preventDefault();
                 break;
             case 'ArrowLeft':
                 // 空格向左移动 = 右侧的块向左移动
                 if (emptyCol < size - 1) {
                     targetIndex = emptyIndex + 1;
                     // 阻止默认行为（页面滚动）
-                    event.preventDefault();
                 }
+                event.preventDefault();
                 break;
             case 'ArrowRight':
                 // 空格向右移动 = 左侧的块向右移动
                 if (emptyCol > 0) {
                     targetIndex = emptyIndex - 1;
                     // 阻止默认行为（页面滚动）
-                    event.preventDefault();
                 }
+                event.preventDefault();
                 break;
             default:
                 return; // 其他按键不处理
