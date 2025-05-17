@@ -192,9 +192,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // 更新按钮状态
         sizeBtns.forEach(btn => btn.classList.remove('active'));
         customSizeBtn.classList.add('active');
+
+        // 更新自定义按钮文本
+        updateCustomSizeButtonText(newSize);
         
         customSizeModal.classList.add('hidden');
     });
+
+    function updateCustomSizeButtonText(size) {
+        // 检查是否是预设尺寸
+        const isPresetSize = [3, 4, 5].includes(size);
+        
+        // 如果是预设尺寸且不是通过自定义按钮设置的，显示"自定义"文本
+        if (isPresetSize && !customSizeBtn.classList.contains('active')) {
+            customSizeBtn.textContent = i18n[gameState.currentLanguage]['custom-size'];
+        } else {
+            // 否则显示尺寸
+            customSizeBtn.textContent = `${size}×${size}`;
+        }
+    }
 
     // 预设大小按钮
     document.querySelectorAll('.preset-size').forEach(btn => {
@@ -205,6 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // 更新按钮状态
             sizeBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+
+            // 重置自定义按钮文本
+            customSizeBtn.textContent = i18n[gameState.currentLanguage]['custom-size'];
         });
     });
 
@@ -289,6 +308,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 element.placeholder = i18n[lang][key];
             }
         });
+
+        // 检查自定义按钮是否处于活动状态
+        if (customSizeBtn.classList.contains('active')) {
+            // 如果活动，显示当前尺寸
+            customSizeBtn.textContent = `${gameState.gridSize}×${gameState.gridSize}`;
+        } else {
+            // 否则显示新语言的"自定义"文本
+            customSizeBtn.textContent = i18n[lang]['custom-size'];
+        }
         
         // 更新页面标题
         document.title = i18n[lang]['game-title'];
@@ -305,6 +333,13 @@ document.addEventListener('DOMContentLoaded', () => {
         timerSpan.textContent = '00:00';
         completeMessage.classList.add('hidden');
         guessModal.classList.add('hidden');
+
+        // 更新自定义按钮文本
+        if (customSizeBtn.classList.contains('active')) {
+            customSizeBtn.textContent = `${gameState.gridSize}×${gameState.gridSize}`;
+        } else {
+            customSizeBtn.textContent = i18n[gameState.currentLanguage]['custom-size'];
+        }
         
         // 清除之前的计时器
         if (gameState.timerInterval) {
