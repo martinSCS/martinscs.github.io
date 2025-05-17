@@ -1,3 +1,4 @@
+/* ========== 变量定义 ========== */
 :root {
     --primary-color: #3498db;
     --primary-dark: #2980b9;
@@ -14,6 +15,7 @@
     --transition: all 0.3s ease;
 }
 
+/* ========== 基础样式 ========== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -34,6 +36,11 @@ body {
     padding: 20px;
 }
 
+.hidden {
+    display: none !important;
+}
+
+/* ========== 头部样式 ========== */
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -50,6 +57,7 @@ h1 {
     margin-bottom: 15px;
 }
 
+/* ========== 语言选择器 ========== */
 .language-selector {
     display: flex;
     justify-content: center;
@@ -73,55 +81,7 @@ h1 {
     color: white;
 }
 
-.game-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    background-color: white;
-    padding: 15px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-}
-
-.control-group {
-    display: flex;
-    align-items: center;
-}
-
-.control-group label {
-    margin-right: 10px;
-    font-weight: bold;
-}
-
-.size-selector {
-    display: flex;
-    gap: 5px;
-}
-
-.size-btn {
-    padding: 8px 12px;
-    background-color: var(--mid-gray);
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.size-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.custom-size {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-.custom-size:hover {
-    background-color: var(--accent-dark);
-}
-
+/* ========== 按钮样式 ========== */
 .primary-btn {
     padding: 10px 20px;
     background-color: var(--secondary-color);
@@ -157,6 +117,60 @@ h1 {
     background-color: #d0d0d0;
 }
 
+/* ========== 游戏控制区域 ========== */
+.game-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+}
+
+.control-group label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* ========== 大小选择器 ========== */
+.size-selector {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap;
+}
+
+.size-btn {
+    padding: 8px 12px;
+    background-color: var(--mid-gray);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 0 0 auto;
+}
+
+.size-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.custom-size {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.custom-size:hover {
+    background-color: var(--accent-dark);
+}
+
+/* ========== 游戏统计区域 ========== */
 .game-stats {
     display: flex;
     justify-content: center;
@@ -179,6 +193,7 @@ h1 {
     color: var(--primary-color);
 }
 
+/* ========== 拼图容器 ========== */
 .puzzle-wrapper {
     display: flex;
     justify-content: center;
@@ -200,7 +215,9 @@ h1 {
     border-radius: 4px;
 }
 
+/* ========== 拼图块样式 ========== */
 .puzzle-tile {
+    position: relative;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -226,6 +243,27 @@ h1 {
     cursor: default;
 }
 
+/* ========== 拼图块序号提示 ========== */
+.tile-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 12px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.tile-number.visible {
+    opacity: 1;
+}
+
+/* ========== 模态框样式 ========== */
 .modal {
     position: fixed;
     top: 0;
@@ -254,6 +292,13 @@ h1 {
     margin-bottom: 15px;
 }
 
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* ========== 完成预览 ========== */
 .completed-puzzle-preview {
     margin: 15px auto;
     width: 150px;
@@ -275,6 +320,7 @@ h1 {
     background-repeat: no-repeat;
 }
 
+/* ========== 输入组 ========== */
 .input-group {
     display: flex;
     margin: 20px 0;
@@ -306,6 +352,7 @@ h1 {
     color: #27ae60;
 }
 
+/* ========== 自定义大小控制 ========== */
 .custom-size-controls {
     margin: 20px 0;
 }
@@ -328,12 +375,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-
+/* ========== 完成统计 ========== */
 .completion-stats {
     background-color: var(--light-gray);
     padding: 15px;
@@ -347,79 +389,64 @@ h1 {
     font-size: 1.2rem;
 }
 
+/* ========== 页脚 ========== */
 footer {
     text-align: center;
     margin-top: 30px;
     color: var(--dark-gray);
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* 拼图块序号提示样式 */
-.puzzle-tile {
-    position: relative;
-}
-
-.tile-number {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    font-size: 12px;
-    padding: 3px 6px;
-    border-radius: 12px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none; /* 防止提示标签影响鼠标事件 */
-    z-index: 10;
-}
-
-.tile-number.visible {
-    opacity: 1;
-}
-
-/* 大小选择器的基本样式 */
-.size-selector {
-    display: flex;
-    gap: 5px;
-    flex-wrap: nowrap; /* 大屏幕默认不换行 */
-}
-
-.size-btn {
-    padding: 8px 12px;
-    background-color: var(--mid-gray);
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: var(--transition);
-    flex: 0 0 auto; /* 防止按钮被拉伸 */
-}
-
-/* 窄屏设备的网格布局 */
-@media (max-width: 480px) {
-    .size-selector {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2列网格 */
-        gap: 8px;
-        width: 100%; /* 确保占满容器宽度 */
+/* ========== 响应式设计 ========== */
+/* 平板设备 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
     }
     
-    .size-btn {
-        width: 100%; /* 按钮占满单元格 */
-        padding: 10px 5px; /* 增加垂直内边距，减少水平内边距 */
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .game-controls {
+        padding: 10px;
+    }
+    
+    .primary-btn, .secondary-btn {
+        padding: 8px 15px;
         font-size: 0.95rem;
     }
     
-    /* 自定义按钮可以占据整行 */
-    .size-btn.custom-size {
-        grid-column: 1 / -1; /* 从第一列到最后一列 */
-        margin-top: 4px;
+    .modal-content {
+        padding: 20px;
+        max-width: 90%;
+    }
+}
+
+/* 中小屏设备 */
+@media (max-width: 600px) {
+    .game-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
     }
     
-    /* 调整控制组的布局 */
+    .control-group {
+        width: 100%;
+    }
+    
+    .primary-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* 窄屏设备 */
+@media (max-width: 480px) {
+    /* 大小选择器调整 */
     .control-group {
         flex-direction: column;
         align-items: flex-start;
@@ -430,148 +457,113 @@ footer {
         margin-bottom: 8px;
         margin-right: 0;
     }
-}
-
-/* 超窄屏设备优化 */
-@media (max-width: 320px) {
+    
     .size-selector {
-        grid-template-columns: 1fr; /* 单列网格 */
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        width: 100%;
     }
-}
-
-/* 基本响应式设计 */
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
-  }
-  
-  h1 {
-    font-size: 1.5rem;
-  }
-  
-  .subtitle {
-    font-size: 1rem;
-  }
-  
-  .game-controls {
-    padding: 10px;
-  }
-  
-  .size-btn {
-    padding: 6px 10px;
-    font-size: 0.9rem;
-  }
-  
-  .primary-btn, .secondary-btn {
-    padding: 8px 15px;
-    font-size: 0.95rem;
-  }
-  
-  .modal-content {
-    padding: 20px;
-    max-width: 90%;
-  }
-}
-
-/* 窄屏设备特定修复 */
-@media (max-width: 480px) {
-  /* 修复input-group溢出问题 */
-  .input-group {
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-  
-  .input-group input,
-  .input-group button {
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  #character-guess {
-    padding: 12px;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-  
-  /* 调整模态框内容 */
-  .modal-content {
-    width: 85%;
-    padding: 15px;
-  }
-  
-  .completed-puzzle-preview {
-    width: 120px;
-    height: 120px;
-    margin: 10px auto;
-  }
-  
-  /* 调整自定义大小模态框 */
-  .custom-size-controls {
-    margin: 15px 0;
-  }
-  
-  .size-preview {
-    font-size: 1.5rem;
-  }
-  
-  .size-range {
-    margin-bottom: 10px;
-  }
-  
-  /* 调整语言选择器 */
-  .language-selector {
-    gap: 3px;
-  }
-  
-  .lang-btn {
-    padding: 4px 8px;
-    font-size: 0.8rem;
-  }
-  
-  /* 调整完成统计信息 */
-  .completion-stats {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
-  
-  .highlight {
-    font-size: 1.1rem;
-  }
-  
-  /* 调整模态框按钮 */
-  .modal-buttons {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .modal-buttons button {
-    width: 100%;
-  }
+    
+    .size-btn {
+        width: 100%;
+        padding: 10px 5px;
+        font-size: 0.95rem;
+    }
+    
+    .size-btn.custom-size {
+        grid-column: 1 / -1;
+        margin-top: 4px;
+    }
+    
+    /* 输入组调整 */
+    .input-group {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .input-group input,
+    .input-group button {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    /* 其他元素调整 */
+    .completed-puzzle-preview {
+        width: 120px;
+        height: 120px;
+        margin: 10px auto;
+    }
+    
+    .custom-size-controls {
+        margin: 15px 0;
+    }
+    
+    .size-preview {
+        font-size: 1.5rem;
+    }
+    
+    .language-selector {
+        gap: 3px;
+    }
+    
+    .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .completion-stats {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .highlight {
+        font-size: 1.1rem;
+    }
+    
+    .modal-content {
+        width: 85%;
+        padding: 15px;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+    }
 }
 
 /* 超窄屏设备 */
 @media (max-width: 320px) {
-  .puzzle-container {
-    padding: 10px;
-  }
-  
-  .game-stats {
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .stat-box {
-    padding: 5px 10px;
-    font-size: 0.9rem;
-  }
-  
-  h2 {
-    font-size: 1.2rem;
-  }
-  
-  .completed-puzzle-preview {
-    width: 100px;
-    height: 100px;
-  }
+    .size-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    .puzzle-container {
+        padding: 10px;
+    }
+    
+    .game-stats {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .stat-box {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+    }
+    
+    .completed-puzzle-preview {
+        width: 100px;
+        height: 100px;
+    }
 }
