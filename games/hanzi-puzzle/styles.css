@@ -396,6 +396,19 @@ footer {
     color: var(--dark-gray);
 }
 
+/* ========== 键盘操作高亮效果 ========== */
+/* 键盘操作高亮效果 */
+.tile-highlight {
+    box-shadow: 0 0 0 3px var(--primary-color);
+    z-index: 5;
+    transform: scale(1.05);
+}
+
+/* 确保高亮效果的过渡平滑 */
+.puzzle-tile {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
 /* ========== 响应式设计 ========== */
 /* 平板设备 */
 @media (max-width: 768px) {

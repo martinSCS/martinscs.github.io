@@ -164,6 +164,97 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLanguage: 'zh-CN' // 默认语言
     };
 
+    // 添加键盘控制功能
+    function setupKeyboardControls() {
+        document.addEventListener('keydown', handleKeyPress);
+    }
+
+    // 移除键盘控制（在游戏完成时调用）
+    function removeKeyboardControls() {
+        document.removeEventListener('keydown', handleKeyPress);
+    }
+
+    // 处理键盘按键事件
+    function handleKeyPress(event) {
+        // 如果拼图已完成或模态框正在显示，不响应键盘
+        if (gameState.isPuzzleFinished ||
+            !document.getElementById('custom-size-modal').classList.contains('hidden') ||
+            !document.getElementById('guess-modal').classList.contains('hidden') ||
+            !document.getElementById('complete-message').classList.contains('hidden')) {
+            return;
+        }
+
+        const size = gameState.gridSize;
+        const emptyIndex = gameState.emptyTileIndex;
+        const emptyRow = Math.floor(emptyIndex / size);
+        const emptyCol = emptyIndex % size;
+
+        let targetIndex = -1;
+
+        switch (event.key) {
+            case 'ArrowUp':
+                // 空格向上移动 = 下方的块向上移动
+                if (emptyRow < size - 1) {
+                    targetIndex = emptyIndex + size;
+                    // 阻止默认行为（页面滚动）
+                    event.preventDefault();
+                }
+                break;
+            case 'ArrowDown':
+                // 空格向下移动 = 上方的块向下移动
+                if (emptyRow > 0) {
+                    targetIndex = emptyIndex - size;
+                    // 阻止默认行为（页面滚动）
+                    event.preventDefault();
+                }
+                break;
+            case 'ArrowLeft':
+                // 空格向左移动 = 右侧的块向左移动
+                if (emptyCol < size - 1) {
+                    targetIndex = emptyIndex + 1;
+                    // 阻止默认行为（页面滚动）
+                    event.preventDefault();
+                }
+                break;
+            case 'ArrowRight':
+                // 空格向右移动 = 左侧的块向右移动
+                if (emptyCol > 0) {
+                    targetIndex = emptyIndex - 1;
+                    // 阻止默认行为（页面滚动）
+                    event.preventDefault();
+                }
+                break;
+            default:
+                return; // 其他按键不处理
+        }
+
+        // 如果找到了有效的目标块，移动它
+        if (targetIndex >= 0 && targetIndex < size * size) {
+            moveTile(targetIndex);
+
+            // 添加视觉反馈
+            highlightMovedTile(targetIndex);
+        }
+    }
+
+    // 为移动的块添加视觉反馈
+    function highlightMovedTile(index) {
+        // 找到对应的DOM元素
+        const tiles = document.querySelectorAll('.puzzle-tile');
+        const tileElement = tiles[index];
+
+        if (tileElement) {
+            // 添加高亮类
+            tileElement.classList.add('tile-highlight');
+
+            // 短暂延迟后移除高亮
+            setTimeout(() => {
+                tileElement.classList.remove('tile-highlight');
+            }, 200);
+        }
+    }
+
+
     // 初始化语言
     initializeLanguage();
 
@@ -215,8 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 预设大小按钮
     document.querySelectorAll('.preset-size').forEach(btn => {
         btn.addEventListener('click', () => {
-            const size = parseInt(btn.dataset.size);
-            gameState.gridSize = size;
+            gameState.gridSize = parseInt(btn.dataset.size);
             
             // 更新按钮状态
             sizeBtns.forEach(b => b.classList.remove('active'));
@@ -351,6 +441,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 生成拼图
         createPuzzle();
+
+        // 设置键盘控制
+        setupKeyboardControls();
         
         // 开始计时
         startTimer();
@@ -528,8 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tileNumber = document.createElement('div');
                 tileNumber.classList.add('tile-number');
                 // 计算原始序号 (从1开始)
-                const originalNumber = tileValue + 1;
-                tileNumber.textContent = originalNumber;
+                tileNumber.textContent = tileValue + 1;
                 tileElement.appendChild(tileNumber);
                 
                 // 添加悬停事件来显示序号
@@ -651,6 +743,9 @@ document.addEventListener('DOMContentLoaded', () => {
         guessModal.classList.remove('hidden');
         characterGuessInput.value = '';
         guessFeedback.classList.add('hidden');
+
+        // 暂时移除键盘控制
+        removeKeyboardControls();
         
         // 在猜字弹窗中显示完整的拼图结果
         const completedCharacterImage = document.getElementById('completed-character-image');
@@ -705,7 +800,10 @@ document.addEventListener('DOMContentLoaded', () => {
         correctCharacterSpan.textContent = gameState.character;
         finalTimeSpan.textContent = timerSpan.textContent;
         finalMovesSpan.textContent = gameState.moveCount;
-        
+
+        // 移除键盘控制
+        removeKeyboardControls();
+
         // 标记游戏完成
         gameState.isComplete = true;
     }
