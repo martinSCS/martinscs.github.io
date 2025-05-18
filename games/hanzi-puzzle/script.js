@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 生成随机汉字
-    async function generateRandomCharacter() {
+    async function generateRandomCharacter(language=false) {
         // 汉字Unicode范围：4E00-9FFF
         const min = 0x4E00;
         const max = 0x9FFF;
@@ -502,23 +502,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 获取十六进制表示
         gameState.characterCode = codePoint.toString(16).toLowerCase();
-      
+
         let suffix;
-        switch (gameState.currentLanguage) {
-          case 'zh-CN':
-            suffix = '-g';
-            break;
-          case 'zh-TW':
-            suffix = '-t';
-            break;
-          case 'ja':
-            suffix = '-j';
-            break;
-          case 'ko':
-            suffix = '-k';
-            break;
-          default:
-            suffix='';
+        if (!language) {
+            switch (gameState.currentLanguage) {
+                case 'zh-CN':
+                    suffix = '-g';
+                    break;
+                case 'zh-TW':
+                    suffix = '-t';
+                    break;
+                case 'ja':
+                    suffix = '-j';
+                    break;
+                case 'ko':
+                    suffix = '-k';
+                    break;
+                default:
+                    suffix='';
+            }
+        } else {
+            suffix = '';
         }
         
         // 构造GlyphWiki URL
@@ -531,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('加载汉字图像失败:', error);
             // 如果加载失败，重新尝试
-            return generateRandomCharacter();
+            return generateRandomCharacter(true);
         }
     }
 
