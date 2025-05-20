@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>この漢字なんだ～</title>
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>漢</text></svg>">
+</head>
+<body>
+<!-- API 设置模态框 -->
+<div id="apiModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-key"></i> Gemini APIを設定</h2>
+            <p>ゲームを始めるために、Gemini API Keyが必要です</p>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <input type="text" id="apiKey" placeholder="Gemini API Key を入力してください">
+            </div>
+            <div class="api-info">
+                <p><i class="fas fa-info-circle"></i> API Keyは<a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a>で取得できます</p>
+            </div>
+            <button id="saveApiKey" class="primary-btn full-width"><i class="fas fa-save"></i> 保存する</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <header>
+        <div class="logo-container">
+            <h1>この漢字なんだ <span class="logo-icon">?</span></h1>
+            <span class="subtitle">by Martin</span>
+        </div>
+        <div class="actions">
+            <button id="startGame" class="primary-btn pulse-animation"><i class="fas fa-play"></i> スタート</button>
+            <button id="giveUpBtn" class="secondary-btn" disabled><i class="fas fa-flag"></i> ギブアップ</button>
+            <button id="settingsBtn" class="icon-btn" title="API設定"><i class="fas fa-cog"></i></button>
+        </div>
+    </header>
+
+    <main>
+        <div class="game-area">
+            <div id="gameStatus" class="game-status">
+                <i class="fas fa-gamepad status-icon"></i>
+                <p>「この漢字なんだ～」へようこそ！「スタート」ボタンを押して、ゲームを始めましょう。</p>
+            </div>
+
+            <div class="chat-container">
+                <div id="chatMessages" class="chat-messages">
+                    <!-- Messages will be added here -->
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="userQuestion" placeholder="質問を入力してください..." disabled>
+                    <button id="sendQuestion" disabled><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-info">
+            <div class="game-rules card">
+                <div class="card-header">
+                    <h3><i class="fas fa-book"></i> ゲームルール</h3>
+                </div>
+                <div class="card-body">
+                    <ol class="rule-list">
+                        <li>システムがランダムに漢字を一つ選びます</li>
+                        <li>AIにその漢字に関する質問ができます</li>
+                        <li>AIの回答を参考に、何の漢字か当ててください</li>
+                        <li>漢字を直接入力して推測してください</li>
+                        <li>正解すれば勝利です。いつでも諦めることもできます</li>
+                    </ol>
+                </div>
+            </div>
+            <div id="gameStats" class="game-stats card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-bar"></i> 統計</h3>
+                </div>
+                <div class="card-body">
+                    <div class="stat-item">
+                        <span class="stat-label">質問回数:</span>
+                        <span id="questionCount" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 <span lang="zh-Hans">Martin的杂货铺</span> | <a href="https://github.com/martinSCS" target="_blank">GitHub</a></p>
+    </footer>
+</div>
+
+<script src="js/apiHandler.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
