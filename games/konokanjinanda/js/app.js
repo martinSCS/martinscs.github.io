@@ -91,10 +91,13 @@ class KanjiGame {
             // 随机选择一个汉字
             const randomIndex = Math.floor(Math.random() * kanjiChars.length);
             const selectedChar = kanjiChars[randomIndex];
+            const kanjiInfo = JSON.parse(JSON.stringify(kanjiData[selectedChar]));
+
+            kanjiInfo.unicode = {dec: selectedChar.codePointAt(0), hex: selectedChar.codePointAt(0).toString(16)}
 
             return {
                 character: selectedChar,
-                data: kanjiData[selectedChar]
+                data: kanjiInfo,
             };
         } catch (error) {
             console.error('加载汉字数据失败:', error);
@@ -173,7 +176,7 @@ class KanjiGame {
     giveUp() {
         if (!this.isGameActive) return;
 
-        this.addSystemMessage(`ゲーム終了。正解は「${this.currentKanjiChar}」です。`);
+        this.addSystemMessage(`残念！失敗しました！正解は「${this.currentKanjiChar}」です。`);
         this.showKanjiInfo();
         this.endGame(false);
     }
