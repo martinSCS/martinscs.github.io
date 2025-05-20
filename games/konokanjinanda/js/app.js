@@ -253,7 +253,7 @@ class KanjiGame {
 
     addAiMessage(message) {
         const messageElement = document.createElement('div');
-        const jsonPattern = /^```json\n*([\s\S]+?)\n*```$/gs;
+        const jsonPattern = /```json\n*([\s\S]+?)\n*```/gs;
         let answer;
         if (jsonPattern.test(message)){
             jsonPattern.lastIndex = 0;
