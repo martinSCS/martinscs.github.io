@@ -121,7 +121,7 @@ class KanjiGame {
         this.enableUserInput(false);
 
         // 检查是否是猜测
-        if (question.length === 1 && this.isChinese(question)) {
+        if ([...question].length === 1 && this.isChinese(question)) {
             this.handleGuess(question);
             return;
         }
@@ -317,7 +317,7 @@ class KanjiGame {
     }
 
     isChinese(text) {
-        return /[\u4e00-\u9fa5]/.test(text);
+        return /\p{Script=Han}/gu.test(text);
     }
 }
 
