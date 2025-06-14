@@ -93,7 +93,7 @@ class KanjiGame {
             const selectedChar = kanjiChars[randomIndex];
             const kanjiInfo = JSON.parse(JSON.stringify(kanjiData[selectedChar]));
 
-            kanjiInfo.unicode = {dec: selectedChar.codePointAt(0), hex: selectedChar.codePointAt(0).toString(16)}
+            kanjiInfo.unicode = {dec: selectedChar.codePointAt(0), hex: selectedChar.codePointAt(0).toString(16), unicodeText: 'U+' + selectedChar.codePointAt(0).toString(16).toUpperCase()}
 
             return {
                 character: selectedChar,
