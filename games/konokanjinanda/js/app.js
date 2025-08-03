@@ -89,8 +89,14 @@ class KanjiGame {
             }
 
             // 随机选择一个汉字
-            const randomIndex = Math.floor(Math.random() * kanjiChars.length);
-            const selectedChar = kanjiChars[randomIndex];
+            const params = new URLSearchParams(window.location.search);
+            let selectedChar;
+            if (params.has('char')) {
+                selectedChar = params.get('char');
+            } else {
+                const randomIndex = Math.floor(Math.random() * kanjiChars.length);
+                selectedChar = kanjiChars[randomIndex];
+            }
             const kanjiInfo = JSON.parse(JSON.stringify(kanjiData[selectedChar]));
 
             kanjiInfo.unicode = {dec: selectedChar.codePointAt(0), hex: selectedChar.codePointAt(0).toString(16), unicodeText: 'U+' + selectedChar.codePointAt(0).toString(16).toUpperCase()}
