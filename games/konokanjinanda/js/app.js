@@ -91,7 +91,7 @@ class KanjiGame {
             // 随机选择一个汉字
             const params = new URLSearchParams(window.location.search);
             let selectedChar;
-            if (params.has('char')) {
+            if (params.has('char') && Object.keys(kanjiData).includes(params.get('char'))) {
                 selectedChar = params.get('char');
             } else {
                 const randomIndex = Math.floor(Math.random() * kanjiChars.length);
