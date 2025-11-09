@@ -3,16 +3,25 @@ import { Quiz } from './quiz-class.js';
 function getTodayQuizData() {
     const today = new Date();
 
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const options = {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const parts = formatter.formatToParts(today);
+
+    const year = parts.find(p => p.type === 'year').value;
+    const month = parts.find(p => p.type === 'month').value;
+    const dayOfMonthKey = parts.find(p => p.type === 'day').value;
 
     const fileName = `${year}-${month}.json`;
     const filePath = `quizzes/${fileName}`;
-    const dayOfMonthKey = today.getDate().toString();
 
     let quiz;
 
-    // --- 开始请求 ---
     fetch(filePath)
         .then(response => {
             if (!response.ok) {
