@@ -35,6 +35,7 @@ function getTodayQuizData() {
                         triggerErrorShake();
                     } else {
                         triggerCorrectPulse();
+                        quiz.showAll();
                         const shareButton = document.createElement('button');
                         shareButton.setAttribute('id', 'share-button');
                         shareButton.textContent = '分享';

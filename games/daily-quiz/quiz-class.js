@@ -48,4 +48,14 @@ export class Quiz {
 ${showText}
 ${window.location.href}`;
     }
+
+    showAll() {
+        let questionList = [...this.question];
+        this.elementArray.forEach((e) => {
+            if (e.getAttribute('data-character') === '' || !e.getAttribute('data-character')) {
+                let ch = questionList[parseInt(e.getAttribute('data-number'))];
+                e.setAttribute('data-character', ch);
+            }
+        });
+    }
 }
