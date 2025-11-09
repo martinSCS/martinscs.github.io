@@ -32,7 +32,6 @@ export class Quiz {
         let guessedTimes = this.guessedList.length;
         let score = totalLength - guessedTimes;
         let showText = '';
-        console.log(this.guessedList);
         for (let i=0; i < totalLength; i++) {
             if (!this.guessedList.includes(i)) {
                 showText += '🎈'

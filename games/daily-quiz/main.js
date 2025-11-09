@@ -24,11 +24,8 @@ function getTodayQuizData() {
             const todayQuiz = monthData[dayOfMonthKey];
 
             if (todayQuiz) {
-                console.log("问题:", todayQuiz.question);
-                console.log("答案:", todayQuiz.answer);
                 quiz = new Quiz(todayQuiz.question, todayQuiz.answer, `${year}-${month}-${dayOfMonthKey}`);
                 quiz.renderPage();
-                console.log(quiz.question, quiz.answer, quiz.elementArray);
                 quiz.elementArray.forEach(ele => {
                     document.querySelector('.quiz-question').appendChild(ele);
                 });
