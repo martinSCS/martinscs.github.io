@@ -242,6 +242,13 @@ div.answer {
     color: var(--correct-color, #2ecc71);
 }
 
+a.latest-link {
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--primary-color);
+    margin-left: 1em;
+}
+
 @media (max-width: 600px) {
     div.answer {
         flex-wrap: wrap;

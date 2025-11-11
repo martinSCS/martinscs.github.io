@@ -169,9 +169,15 @@ function removeUrlParameterIf(paramName, condition) {
         params.delete(paramName);
         const newUrl = url.pathname + url.search + url.hash;
         window.history.replaceState(null, '', newUrl);
-
-        console.log(`✅ 条件满足，参数 '${paramName}' 已从 URL 中移除。`);
     }
 }
 
 document.addEventListener('DOMContentLoaded', getTodayQuizData);
+document.addEventListener('DOMContentLoaded', () => {
+    let link = window.location.origin + window.location.pathname;
+    const latestLink = document.createElement('a');
+    latestLink.textContent = '最新问题';
+    latestLink.setAttribute('href', link);
+    latestLink.classList.add('latest-link');
+    document.querySelector('.header').appendChild(latestLink);
+})
