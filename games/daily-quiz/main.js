@@ -27,7 +27,7 @@ function getTodayQuizData() {
             const todayQuiz = monthData[dayOfMonthKey];
 
             if (todayQuiz) {
-                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, `${year}-${month}-${dayOfMonthKey}`);
+                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`);
                 quiz.renderPage();
                 quiz.elementArray.forEach(ele => {
                     document.querySelector('.quiz-question').appendChild(ele);
@@ -140,11 +140,13 @@ function getQuizDateComponents() {
         isItToday: false
     };
 
-    if (year > yearToday) {
+    const isDebug = window.location.hostname === 'localhost';
+
+    if (year > yearToday && !isDebug) {
         return todayInfo;
-    } else if (month > monthToday) {
+    } else if (month > monthToday && !isDebug) {
         return todayInfo;
-    } else if (dayOfMonthKey > dayOfMonthKeyToday) {
+    } else if (dayOfMonthKey > dayOfMonthKeyToday && !isDebug) {
         return todayInfo;
     } else if (isValidDate) {
         return setInfo;

@@ -1,13 +1,18 @@
 export class Quiz {
-    constructor(question, answer, date) {
+    constructor(question, answer, answerInRegex, date) {
         this.question = question;
         this.answer = answer;
+        this.answerInRegex = answerInRegex || false;
         this.elementArray = [];
-        this.guessedList  =[];
+        this.guessedList = [];
         this.date = date;
     }
 
     checkAnswer(userAnswer) {
+        if (this.answerInRegex) {
+            const regex = new RegExp(this.answer, 'g');
+            return regex.test(userAnswer);
+        }
         return userAnswer === this.answer;
     }
 

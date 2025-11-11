@@ -1,26 +1,37 @@
 {
   "10": {
     "question": "位于中国和尼泊尔边界，属于喜马拉雅山脉的世界最高峰是哪一座？",
-    "answer": "珠穆朗玛峰"
+    "answer": "珠穆朗玛峰",
+    "answerInRegex": false
   },
   "11": {
     "question": "可以组成遗传指令，由脱氧核糖核苷酸通过酯键相连而成的，英文简称DNA的生物大分子是什么？",
-    "answer": "脱氧核糖核酸"
+    "answer": "脱氧核糖核酸",
+    "answerInRegex": false
   },
   "12": {
     "question": "说明孤立系统的熵不会自发减少，否定第二类永动机存在可能，揭示自然过程具有方向性的热力学定律是什么？",
-    "answer": "热力学第二定律"
+    "answer": "热力学第二定律",
+    "answerInRegex": false
   },
   "13": {
     "question": "位于也门南部，在19世纪至20世纪中期曾为英国直辖殖民地，现在作为也门临时首都的是哪一座城市？",
-    "answer": "亚丁"
+    "answer": "亚丁",
+    "answerInRegex": false
   },
   "14": {
     "question": "中国传统语文学“小学”的分支之一，基本形成于汉代，以古代词义、语法、修辞为主要研究对象的学科是什么？",
-    "answer": "训诂学"
+    "answer": "训诂学",
+    "answerInRegex": false
   },
   "15": {
     "question": "工尺谱唱名为“六”、中国五声音阶中定名为“徵”、西方唱名为“sol”的音名，用大写字母表示是什么？",
-    "answer": "G"
+    "answer": "G",
+    "answerInRegex": false
+  },
+  "16": {
+    "question": "二战后期由中、美、英三国政府首脑联合发表，要求日本立即无条件投降，催生了《开罗宣言》后续行动的国际文件是什么？",
+    "answer": "^波茨坦公告|《波茨坦公告》$",
+    "answerInRegex": true
   }
 }
