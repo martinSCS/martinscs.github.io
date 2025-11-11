@@ -1,21 +1,15 @@
 import { Quiz } from './quiz-class.js';
 
 function getTodayQuizData() {
-    const today = new Date();
+    const dateComponents = getQuizDateComponents();
 
-    const options = {
-        timeZone: 'Asia/Shanghai',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    };
+    const year = dateComponents.year;
+    const month = dateComponents.month;
+    const dayOfMonthKey = dateComponents.dayOfMonthKey;
+    const dateSet = dateComponents.dateSet;
+    const isItToday = dateComponents.isItToday;
 
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    const parts = formatter.formatToParts(today);
-
-    const year = parts.find(p => p.type === 'year').value;
-    const month = parts.find(p => p.type === 'month').value;
-    const dayOfMonthKey = parts.find(p => p.type === 'day').value;
+    removeUrlParameterIf('date', dateSet && isItToday);
 
     const fileName = `${year}-${month}.json`;
     const filePath = `quizzes/${fileName}`;
@@ -43,6 +37,7 @@ function getTodayQuizData() {
                     if (!quiz.checkAnswer(answerInput)) {
                         triggerErrorShake();
                     } else {
+                        document.querySelector('#answer-submit').setAttribute('disabled', 'true');
                         triggerCorrectPulse();
                         quiz.showAll();
                         const shareButton = document.createElement('button');
@@ -89,6 +84,94 @@ function triggerCorrectPulse() {
         answerInput.classList.add('correct-static');
         answerInput.style.color = 'var(--correct-color)';
     }, animationDuration);
+}
+
+function getQuizDateComponents() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlDateString = urlParams.get('date');
+
+    const dateRegex = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+    let isValidDate = false;
+    let _, year, month, dayOfMonthKey;
+
+    if (urlDateString && dateRegex.test(urlDateString)) {
+        const match = urlDateString.match(dateRegex);
+        [_, year, month, dayOfMonthKey] = match;
+
+        const checkDate = new Date(Number(year), Number(month) - 1, Number(dayOfMonthKey));
+
+        isValidDate = (
+            !isNaN(checkDate) && // 必须是有效日期
+            checkDate.getFullYear() === Number(year) &&
+            checkDate.getMonth() === Number(month) - 1 &&
+            checkDate.getDate() === Number(dayOfMonthKey)
+        );
+    }
+
+    const today = new Date();
+    const options = {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    };
+
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    const parts = formatter.formatToParts(today);
+
+    const yearToday = parts.find(p => p.type === 'year').value;
+    const monthToday = parts.find(p => p.type === 'month').value;
+    const dayOfMonthKeyToday = parts.find(p => p.type === 'day').value;
+
+    const todayInfo = {
+        year: yearToday,
+        month: monthToday,
+        dayOfMonthKey: dayOfMonthKeyToday,
+        dateSet: !!urlDateString,
+        isItToday: true
+    }
+
+    const setInfo = {
+        year: year,
+        month: month,
+        dayOfMonthKey: dayOfMonthKey,
+        dateSet: !!urlDateString,
+        isItToday: false
+    };
+
+    if (year > yearToday) {
+        return todayInfo;
+    } else if (month > monthToday) {
+        return todayInfo;
+    } else if (dayOfMonthKey > dayOfMonthKeyToday) {
+        return todayInfo;
+    } else if (isValidDate) {
+        return setInfo;
+    } else {
+        return todayInfo;
+    }
+}
+
+/**
+ * 检查条件是否满足，如果满足，则从当前 URL 中移除指定的参数。
+ *
+ * @param {string} paramName - 要移除的参数名称 (例如: 'date')。
+ * @param {boolean} condition - 移除参数的条件 (如果为 true 则移除)。
+ */
+function removeUrlParameterIf(paramName, condition) {
+    if (!condition) {
+        return;
+    }
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+    if (params.has(paramName)) {
+        params.delete(paramName);
+        const newUrl = url.pathname + url.search + url.hash;
+        window.history.replaceState(null, '', newUrl);
+
+        console.log(`✅ 条件满足，参数 '${paramName}' 已从 URL 中移除。`);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', getTodayQuizData);

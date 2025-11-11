@@ -16,11 +16,12 @@ export class Quiz {
         textArray.forEach((ch, index) => {
             const chElement = document.createElement('div');
             chElement.classList.add('quiz-character');
-            chElement.setAttribute('data-number', index.toString())
+            chElement.setAttribute('data-number', index.toString());
             chElement.addEventListener('click', (e) => {
                 if (e.target.getAttribute('data-character') === '' || !e.target.getAttribute('data-character')) {
                     e.target.setAttribute('data-character', ch);
                     this.guessedList.push(parseInt(e.target.getAttribute('data-number')));
+                    e.target.classList.add('click-show');
                 }
             });
             this.elementArray.push(chElement);
