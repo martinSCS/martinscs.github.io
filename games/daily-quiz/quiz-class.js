@@ -43,11 +43,20 @@ export class Quiz {
                 showText += '\n';
             }
         }
+
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        let showUrl = window.location.href;
+        if (!params.has('date')) {
+            params.set('date', this.date);
+            showUrl = url.toString();
+        }
+
         return `${this.date}
 
 分数: ${score}/${totalLength} 
 ${showText}
-${window.location.href}`;
+${showUrl}`;
     }
 
     showAll() {
