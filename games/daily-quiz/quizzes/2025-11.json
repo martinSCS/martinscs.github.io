@@ -38,5 +38,10 @@
     "question": "用于由条件概率求逆向条件概率，揭示先验概率与后验概率关系，由托马斯·贝叶斯提出的公式是什么？",
     "answer": "(?:贝叶斯|Bayes) ?(?:法则|定理|公式)",
     "answerInRegex": true
+  },
+  "18": {
+    "question": "使用JavaScript编写，通过原生组件实现跨平台移动应用，由Meta推出的框架是什么？",
+    "answer": "^(?:RN|React Native)(?: *框架| Framework)?$",
+    "answerInRegex": true
   }
 }
