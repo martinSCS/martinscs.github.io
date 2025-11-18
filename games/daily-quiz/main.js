@@ -25,9 +25,12 @@ function getTodayQuizData() {
         })
         .then(monthData => {
             const todayQuiz = monthData[dayOfMonthKey];
-
+            let submitter = null;
+            if (todayQuiz.submitter) {
+                submitter = todayQuiz.submitter;
+            }
             if (todayQuiz) {
-                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`);
+                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`, submitter);
                 quiz.renderPage();
                 quiz.elementArray.forEach(ele => {
                     document.querySelector('.quiz-question').appendChild(ele);

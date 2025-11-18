@@ -48,5 +48,11 @@
     "question": "位于日本最南端，主要由琉球群岛组成，在二战后曾由美国托管并于1972年重回日本治理的都道府县是什么？",
     "answer": "^冲绳县?$",
     "answerInRegex": true
+  },
+  "20": {
+    "question": "F1蒙特卡洛赛道的所在地，世界上面积第二小也是人口密度最大的国家是哪里？",
+    "answer": "^摩纳哥(?:公国)?$",
+    "answerInRegex": true,
+    "submitter": "记忆°Blank丶"
   }
 }

@@ -26,7 +26,7 @@ body {
     min-height: 100vh;
 }
 
-div.header, div.quiz, div.answer {
+div.header, div.quiz, div.answer, div.submitted-by {
     width: 100%;
 }
 
@@ -133,6 +133,15 @@ div.quiz-character.incorrect {
 
 div.quiz-character.incorrect::after {
     color: white;
+}
+
+div.submitted-by {
+    padding: 1em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: var(--primary-color);
+    font-weight: bold;
 }
 
 div.answer {

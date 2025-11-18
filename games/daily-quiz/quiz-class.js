@@ -1,11 +1,12 @@
 export class Quiz {
-    constructor(question, answer, answerInRegex, date) {
+    constructor(question, answer, answerInRegex, date, submitter) {
         this.question = question;
         this.answer = answer;
         this.answerInRegex = answerInRegex || false;
         this.elementArray = [];
         this.guessedList = [];
         this.date = date;
+        this.submitter = submitter;
     }
 
     checkAnswer(userAnswer) {
@@ -31,6 +32,9 @@ export class Quiz {
             });
             this.elementArray.push(chElement);
         });
+        if (this.submitter) {
+            document.querySelector('.submitted-by').textContent = `此问题由 “${this.submitter}” 投稿`;
+        }
     }
 
     copyInfo() {
