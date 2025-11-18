@@ -43,5 +43,10 @@
     "question": "使用JavaScript编写，通过原生组件实现跨平台移动应用，由Meta推出的框架是什么？",
     "answer": "^(?:RN|React Native)(?: *框架| Framework)?$",
     "answerInRegex": true
+  },
+  "19": {
+    "question": "位于日本最南端，主要由琉球群岛组成，在二战后曾由美国托管并于1972年重回日本治理的都道府县是什么？",
+    "answer": "^冲绳县?$",
+    "answerInRegex": true
   }
 }
