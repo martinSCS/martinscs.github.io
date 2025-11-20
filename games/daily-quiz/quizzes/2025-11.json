@@ -54,5 +54,11 @@
     "answer": "^摩纳哥(?:公国)?$",
     "answerInRegex": true,
     "submitter": "记忆°Blank丶"
+  },
+  "21": {
+    "question": "川菜中，由鸡、鸭和火腿等食材吊汤6小时，汤色清澈如水，列国宴经典菜品之一的美食是什么",
+    "answer": "开水白菜",
+    "answerInRegex": false,
+    "submitter": "无名"
   }
 }
