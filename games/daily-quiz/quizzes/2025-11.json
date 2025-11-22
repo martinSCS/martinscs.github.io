@@ -64,6 +64,11 @@
   "22": {
     "question": "由硅半导体构成，用于解释计算机指令以及处理计算机软件中的数据，被称为计算机的“大脑”的部件是什么？",
     "answer": "^(?:中央处理器|CPU|ЦП)$",
-    "answerInRegex": true,
+    "answerInRegex": true
+  },
+  "23": {
+    "question": "主要分布于日本北海道，现存流利使用者已不足数十人，属于孤立语言并与周边语言无显著亲缘关系的语言是什么？",
+    "answer": "阿伊努语",
+    "answerInRegex": false
   }
 }
