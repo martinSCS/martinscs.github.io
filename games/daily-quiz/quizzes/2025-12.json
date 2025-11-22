@@ -3,5 +3,10 @@
     "question": "以物理学家欧内斯特·卢瑟福命名，锕系后的第一个元素，原子序数为104的人工合成的过渡金属元素是什么？",
     "answer": "^(?:\\u{2cb3b}|鑪|Rutherfordium|Rf)$",
     "answerInRegex": true
+  },
+  "02": {
+    "question": "多建在山区或河岸，用木柱将房屋部分抬离地面，并常见于中国西南少数民族聚居区的传统民居形式是什么？",
+    "answer": "吊脚楼",
+    "answerInRegex": false
   }
 }
