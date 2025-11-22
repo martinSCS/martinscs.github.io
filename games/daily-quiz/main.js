@@ -25,12 +25,16 @@ function getTodayQuizData() {
         })
         .then(monthData => {
             const todayQuiz = monthData[dayOfMonthKey];
-            let submitter = null;
-            if (todayQuiz.submitter) {
-                submitter = todayQuiz.submitter;
-            }
             if (todayQuiz) {
-                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`, submitter);
+                let submitter = null;
+                if (todayQuiz.submitter) {
+                    submitter = todayQuiz.submitter;
+                }
+                let quote = null;
+                if (todayQuiz.quote) {
+                    quote = todayQuiz.quote;
+                }
+                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`, submitter, quote);
                 quiz.renderPage();
                 quiz.elementArray.forEach(ele => {
                     document.querySelector('.quiz-question').appendChild(ele);
@@ -60,6 +64,7 @@ function getTodayQuizData() {
                 });
             } else {
                 console.warn(`⚠️ 文件 ${fileName} 中找不到日期为 ${dayOfMonthKey} 的题目。`);
+                removeUrlParameterIfAndReload('date', true);
             }
         })
         .catch(error => {
@@ -145,13 +150,20 @@ function getQuizDateComponents() {
 
     const isDebug = window.location.hostname === 'localhost';
 
-    if (year > yearToday && !isDebug) {
-        return todayInfo;
-    } else if (month > monthToday && !isDebug) {
-        return todayInfo;
-    } else if (dayOfMonthKey > dayOfMonthKeyToday && !isDebug) {
-        return todayInfo;
-    } else if (isValidDate) {
+    if (!isDebug) {
+        if (year > yearToday) {
+            return todayInfo;
+        } else if (year === yearToday) {
+            if (month > monthToday) {
+                return todayInfo;
+            } else if (month === monthToday) {
+                if (dayOfMonthKey > dayOfMonthKeyToday) {
+                    return todayInfo;
+                }
+            }
+        }
+    }
+    if (isValidDate) {
         return setInfo;
     } else {
         return todayInfo;
@@ -174,6 +186,21 @@ function removeUrlParameterIf(paramName, condition) {
         params.delete(paramName);
         const newUrl = url.pathname + url.search + url.hash;
         window.history.replaceState(null, '', newUrl);
+    }
+}
+
+function removeUrlParameterIfAndReload(paramName, condition) {
+    if (!condition) {
+        return;
+    }
+
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+
+    if (params.has(paramName)) {
+        params.delete(paramName);
+        const newUrl = url.pathname + url.search + url.hash;
+        window.location.replace(newUrl);
     }
 }
 

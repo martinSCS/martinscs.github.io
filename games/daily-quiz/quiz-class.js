@@ -1,5 +1,5 @@
 export class Quiz {
-    constructor(question, answer, answerInRegex, date, submitter) {
+    constructor(question, answer, answerInRegex, date, submitter, quote) {
         this.question = question;
         this.answer = answer;
         this.answerInRegex = answerInRegex || false;
@@ -7,11 +7,12 @@ export class Quiz {
         this.guessedList = [];
         this.date = date;
         this.submitter = submitter;
+        this.quote = quote;
     }
 
     checkAnswer(userAnswer) {
         if (this.answerInRegex) {
-            const regex = new RegExp(this.answer, 'g');
+            const regex = new RegExp(this.answer, 'gu');
             return regex.test(userAnswer);
         }
         return userAnswer === this.answer;
@@ -34,6 +35,28 @@ export class Quiz {
         });
         if (this.submitter) {
             document.querySelector('.submitted-by').textContent = `此问题由 “${this.submitter}” 投稿`;
+        }
+        if (this.quote) {
+            const quoteBlock = document.createElement('div');
+            quoteBlock.appendChild(document.createTextNode('此问题参考了'));
+            this.quote.forEach((quote, index, array) => {
+                if (!quote.site) {
+                    const quoteElement = document.createTextNode(quote.name);
+                    quoteBlock.appendChild(quoteElement);
+                } else {
+                    const quoteElement = document.createElement('a');
+                    quoteElement.setAttribute('href', quote.site);
+                    quoteElement.textContent = quote.name;
+                    quoteBlock.appendChild(quoteElement);
+                }
+                if (index <= array.length - 3) {
+                    quoteBlock.appendChild(document.createTextNode('、'));
+                } else if (index === array.length - 2) {
+                    quoteBlock.appendChild(document.createTextNode('和'));
+                }
+            });
+            quoteBlock.appendChild(document.createTextNode('等内容。'));
+            document.querySelector('.quote').appendChild(quoteBlock);
         }
     }
 
