@@ -12,6 +12,7 @@
   "03": {
     "question": "主要分布在纬度较高的沿海地区，气候凉爽潮湿，拥有巨大的常绿乔木和极高的年降水量，地面通常覆盖着厚厚的苔藓和蕨类植物的，是哪种生物群系？",
     "answer": "^温带季?雨林$",
-    "answerInRegex": true
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
   }
 }
