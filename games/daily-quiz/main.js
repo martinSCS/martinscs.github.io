@@ -12,7 +12,7 @@ function getTodayQuizData() {
     removeUrlParameterIf('date', dateSet && isItToday);
 
     const fileName = `${year}-${month}.json`;
-    const filePath = `quizzes/${fileName}`;
+    const filePath = `quizzes/${fileName}?v=${Date.now()}`;
 
     let quiz;
 
