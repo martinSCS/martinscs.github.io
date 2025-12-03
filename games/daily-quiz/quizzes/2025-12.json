@@ -18,6 +18,6 @@
   "04": {
     "question": "编于清代，收字四万七千余个，以部首与笔画顺序编排，并长期作为传统汉字检字标准的古代大型字典是什么？",
     "answer": "^(?:《康熙字典》|康熙字典)$",
-    "answerInRegex": true,
+    "answerInRegex": true
   }
 }
