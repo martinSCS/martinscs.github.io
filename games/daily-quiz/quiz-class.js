@@ -19,7 +19,7 @@ export class Quiz {
     }
 
     renderPage() {
-        let textArray = [...this.question];
+        let textArray = characterBreak(this.question);
         textArray.forEach((ch, index) => {
             const chElement = document.createElement('div');
             chElement.classList.add('quiz-character');
@@ -92,7 +92,7 @@ ${showUrl}`;
     }
 
     showAll() {
-        let questionList = [...this.question];
+        let questionList = characterBreak(this.question);
         this.elementArray.forEach((e) => {
             if (e.getAttribute('data-character') === '' || !e.getAttribute('data-character')) {
                 let ch = questionList[parseInt(e.getAttribute('data-number'))];
@@ -100,4 +100,13 @@ ${showUrl}`;
             }
         });
     }
+}
+
+const characterBreak = (p) => {
+    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+    const segments = segmenter.segment(p);
+    const textArray = Array.from(segments, s => s.segment);
+
+    console.log(textArray);
+    return textArray;
 }
