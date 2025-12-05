@@ -12,10 +12,10 @@ export class Quiz {
 
     checkAnswer(userAnswer) {
         if (this.answerInRegex) {
-            const regex = new RegExp(this.answer, 'gu');
+            const regex = new RegExp(this.answer, 'gui');
             return regex.test(userAnswer);
         }
-        return userAnswer === this.answer;
+        return userAnswer.toLowerCase() === this.answer.toLowerCase();
     }
 
     renderPage() {
