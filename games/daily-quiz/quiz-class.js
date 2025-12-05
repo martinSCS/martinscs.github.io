@@ -107,6 +107,5 @@ const characterBreak = (p) => {
     const segments = segmenter.segment(p);
     const textArray = Array.from(segments, s => s.segment);
 
-    console.log(textArray);
     return textArray;
 }
