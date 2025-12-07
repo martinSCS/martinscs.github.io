@@ -51,7 +51,7 @@
     "answerInRegex": false
   },
   "11": {
-    "question": "五胡十六国时期统一了北方，推崇儒学任用王猛，在淝水之战战败的前秦皇帝是？",
+    "question": "五胡十六国时期统一了北方，推崇儒学任用王猛，在淝水之战战败的前秦皇帝是谁？",
     "answer": "苻坚",
     "answerInRegex": false,
     "submitter": "Yamasuso"
@@ -60,5 +60,47 @@
     "question": "在布依族、苗族等民族的文化中，以蓝靛为主要染料，通过反复浸染获得深蓝色基调，并常用于制作服饰与家居用品的手工染织技艺叫什么？",
     "answer": "蓝靛染",
     "answerInRegex": false
+  },
+  "13": {
+    "question": "大洋洲面积最大且人口最多的国家是澳大利亚，那么在大洋洲中面积排名第二并且人口也位居第二的国家是哪个？",
+    "answer": "^(?:巴布亚新几内亚(?:独立国)|巴新)$",
+    "answerInRegex": true,
+    "submitter": "记忆°Blank丶"
+  },
+  "14": {
+    "question": "推崇用个体直感来表现内容，曾写下《雪国》《千纸鹤》《伊豆的舞女》等作品的，日本新感觉派的诺奖获奖作家是谁？",
+    "answer": "川端康成",
+    "answerInRegex": false,
+    "submitter": "Yamasuso"
+  },
+  "15": {
+    "question": "以提出该方法的美国气象学家命名，无需依赖船只或飞机的直接探测，而是通过分析卫星云图来间接推算热带气旋强度的技术叫什么？",
+    "answer": "^(?:德沃[拉夏]克(?:技术|法|分级法|方法|分析法)|德法)$",
+    "answerInRegex": true,
+    "submitter": "记忆°Blank丶"
+  },
+  "16": {
+    "question": "横跨比利牛斯山两侧，使用同名的孤立语言，并以象征荣誉的传统帽子“txapela”闻名的地区是哪里？",
+    "answer": "^巴斯克(?:地区)?$",
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
+  },
+  "17": {
+    "question": "作为大力神杯的前身，这座奖杯在1930至1970年间用于颁发给世界杯冠军，后来被巴西永久保留并最终神秘失踪。请问这座奖杯的名称是什么？",
+    "answer": "雷米特杯",
+    "answerInRegex": false,
+    "submitter": "记忆°Blank丶"
+  },
+  "18": {
+    "question": "主要分泌一种调节睡眠与觉醒节律的激素，在其他生物中具有感光功能的同源结构，并属于间脑的一部分的腺体是什么？",
+    "answer": "松果体",
+    "answerInRegex": false,
+    "submitter": "Yamasuso"
+  },
+  "19": {
+    "question": "东罗马帝国国力最强盛时期在位，并在与保加利亚的战争中挖去战俘大部分眼睛，只留下一个人一只眼睛负责带路的这位皇帝是谁？",
+    "answer": "^(?:(?:拜占庭|东罗马)皇帝)?巴西尔二世$",
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
   }
 }
