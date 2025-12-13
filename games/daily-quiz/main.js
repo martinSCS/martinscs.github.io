@@ -1,4 +1,4 @@
-import { Quiz } from './quiz-class.js';
+import { QuizType, Quiz } from './quiz-class.js';
 
 function getTodayQuizData() {
     const dateComponents = getQuizDateComponents();
@@ -26,27 +26,46 @@ function getTodayQuizData() {
         .then(monthData => {
             const todayQuiz = monthData[dayOfMonthKey];
             if (todayQuiz) {
-                let submitter = null;
-                if (todayQuiz.submitter) {
-                    submitter = todayQuiz.submitter;
+                const quizType = QuizType[todayQuiz.type] ?? QuizType['UNKNOWN'];
+                const quizData = todayQuiz.data;
+                quizData.date = `${year}-${month}-${dayOfMonthKey}`;
+                quiz = Quiz.create(quizType, quizData);
+                if (!quiz) {
+                    console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
                 }
-                let quote = null;
-                if (todayQuiz.quote) {
-                    quote = todayQuiz.quote;
-                }
-                quiz = new Quiz(todayQuiz.question, todayQuiz.answer, todayQuiz.answerInRegex, `${year}-${month}-${dayOfMonthKey}`, submitter, quote);
                 quiz.renderPage();
-                quiz.elementArray.forEach(ele => {
-                    document.querySelector('.quiz-question').appendChild(ele);
-                });
+                if (quiz.submitter) {
+                    document.querySelector('.submitted-by').textContent = `此问题由 “${quiz.submitter}” 投稿`;
+                }
+                if (quiz.quote) {
+                    const quoteBlock = document.createElement('div');
+                    quoteBlock.appendChild(document.createTextNode('此问题参考了'));
+                    quiz.quote.forEach((quote, index, array) => {
+                        if (!quote.site) {
+                            const quoteElement = document.createTextNode(quote.name);
+                            quoteBlock.appendChild(quoteElement);
+                        } else {
+                            const quoteElement = document.createElement('a');
+                            quoteElement.setAttribute('href', quote.site);
+                            quoteElement.textContent = quote.name;
+                            quoteBlock.appendChild(quoteElement);
+                        }
+                        if (index <= array.length - 3) {
+                            quoteBlock.appendChild(document.createTextNode('、'));
+                        } else if (index === array.length - 2) {
+                            quoteBlock.appendChild(document.createTextNode('和'));
+                        }
+                    });
+                    quoteBlock.appendChild(document.createTextNode('等内容。'));
+                    document.querySelector('.quote').appendChild(quoteBlock);
+                }
                 document.querySelector('#answer-submit').addEventListener('click', (e) => {
-                    const answerInput = document.querySelector('#answer-input').value;
+                    const answerInput = quiz.getUserAnswer();
                     if (!quiz.checkAnswer(answerInput)) {
-                        triggerErrorShake();
+                        quiz.handleWrongAnswer();
                     } else {
                         document.querySelector('#answer-submit').setAttribute('disabled', 'true');
-                        triggerCorrectPulse();
-                        quiz.showAll();
+                        quiz.handleCorrectAnswer();
                         const shareButton = document.createElement('button');
                         shareButton.setAttribute('id', 'share-button');
                         shareButton.textContent = '分享';
@@ -70,28 +89,6 @@ function getTodayQuizData() {
         .catch(error => {
             console.error('❌ 加载或处理题目数据时出错:', error.message);
         });
-}
-
-function triggerErrorShake() {
-    const answerInput = document.querySelector('#answer-input');
-    answerInput.classList.add('error-shake');
-    const animationDuration = 500;
-    setTimeout(() => {
-        answerInput.classList.remove('error-shake');
-        answerInput.style.color = 'var(--secondary-color)';
-    }, animationDuration);
-}
-
-function triggerCorrectPulse() {
-    const answerInput = document.querySelector('#answer-input');
-    answerInput.setAttribute('disabled', 'true');
-    answerInput.classList.add('correct-pulse');
-    const animationDuration = 700;
-    setTimeout(() => {
-        answerInput.classList.remove('correct-pulse');
-        answerInput.classList.add('correct-static');
-        answerInput.style.color = 'var(--correct-color)';
-    }, animationDuration);
 }
 
 function getQuizDateComponents() {
