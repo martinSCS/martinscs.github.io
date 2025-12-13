@@ -146,7 +146,7 @@ div.wadokaichin-quiz-question {
 }
 
 div.wadokaichin-quiz-character {
-    font-size: min(1.8em, calc(0.72 * var(--cell-size)));
+    font-size: min(1.7em, calc(0.7 * var(--cell-size)));
     font-weight: 700;
     color: var(--secondary-color);
     display: flex;
@@ -158,6 +158,10 @@ div.wadokaichin-quiz-character {
 div.wadokaichin-quiz-character.wadokaichin-quiz-character-missing {
     border: 3px solid #000;
     border-radius: calc(var(--radius) * 1.8);
+}
+
+div.wadokaichin-quiz-character.wadokaichin-quiz-character-missing.wadokaichin-quiz-character-correct {
+    color: var(--correct-color);
 }
 
 div.submitted-by {
