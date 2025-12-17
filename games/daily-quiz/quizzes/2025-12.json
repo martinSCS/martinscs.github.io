@@ -177,5 +177,23 @@
       "answerInRegex": false,
       "submitter": "无名"
     }
+  },
+  "22": {
+    "type": "FLIP",
+    "data": {
+      "question": "起源于山东，特点是四人合作演出，前三句完整陈述，第四人简短收尾的群众性说唱艺术形式是什么？",
+      "answer": "三句半",
+      "answerInRegex": false,
+      "submitter": "无名"
+    }
+  },
+  "23": {
+    "type": "FLIP",
+    "data": {
+      "question": "20世纪初，提出连续对称性与守恒定律之间对应关系，在抽象代数和代数拓扑领域做出杰出贡献的女性数学家是？",
+      "answer": "^(?:(?:(?:阿马莉·)?埃米·)?诺特|(?:(?:(?:Amalie )?Emmy )?Noether))$",
+      "answerInRegex": true,
+      "submitter": "Yamasuso"
+    }
   }
 }
