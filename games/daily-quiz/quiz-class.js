@@ -1,3 +1,5 @@
+import { characterBreak , normalizedStringCompare} from "./utils.js";
+
 export const QuizType = Object.freeze({
     UNKNOWN: Symbol("UNKNOWN"),
     FLIP: Symbol("FLIP"),
@@ -252,9 +254,9 @@ ${showUrl}`;
     }
 }
 
-/// 字符串拆分成单字函数
-const characterBreak = (p) => {
-    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-    const segments = segmenter.segment(p);
-    return Array.from(segments, s => s.segment);
+class CrossWordQuiz extends Quiz {
+    configureData() {
+        super.configureData();
+        this.answerList = this.data.answerList ?? null;
+    }
 }
