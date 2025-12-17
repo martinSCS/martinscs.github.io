@@ -199,22 +199,29 @@ class WadokaichinQuiz extends Quiz{
         container.classList.add('wadokaichin-quiz-question');
         for (let i=0; i < 25; i++) {
             const element = document.createElement('div');
-            element.classList.add('wadokaichin-quiz-character');
             if (i === 2) {
                 element.textContent = this.from[0];
+                element.classList.add('wadokaichin-quiz-character');
             } else if (i === 7 || i === 17) {
                 element.textContent = '↓';
+                element.classList.add('wadokaichin-quiz-character');
             } else if (i === 10) {
                 element.textContent = this.from[1];
+                element.classList.add('wadokaichin-quiz-character');
             } else if (i === 11 || i === 13) {
                 element.textContent = '→';
+                element.classList.add('wadokaichin-quiz-character');
             } else if (i === 12) {
                 element.classList.add('wadokaichin-quiz-character-missing');
                 element.textContent = '?';
+                element.classList.add('wadokaichin-quiz-character');
+                this.answerBlock = element;
             } else if (i === 14) {
                 element.textContent = this.to[0];
+                element.classList.add('wadokaichin-quiz-character');
             } else if (i === 22) {
                 element.textContent = this.to[1];
+                element.classList.add('wadokaichin-quiz-character');
             }
             container.appendChild(element)
         }
@@ -249,7 +256,5 @@ ${showUrl}`;
 const characterBreak = (p) => {
     const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
     const segments = segmenter.segment(p);
-    const textArray = Array.from(segments, s => s.segment);
-
-    return textArray;
+    return Array.from(segments, s => s.segment);
 }
