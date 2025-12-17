@@ -252,6 +252,12 @@ ${showUrl}`;
     getUserAnswer() {
         return document.querySelector('#answer-input').value;
     }
+
+    handleCorrectAnswer() {
+        super.handleCorrectAnswer();
+        this.answerBlock.textContent = this.getUserAnswer();
+        this.answerBlock.classList.add('wadokaichin-quiz-character-correct');
+    }
 }
 
 class CrossWordQuiz extends Quiz {
