@@ -204,5 +204,14 @@
       "answerInRegex": true,
       "submitter": "Yamasuso"
     }
+  },
+  "25": {
+    "type": "FLIP",
+    "data": {
+      "question": "1054年被中外天文文献记载为“天官客星”，位于金牛座方向，是超新星爆发遗迹、中心含有脉冲星的著名天体是？",
+      "answer": "蟹状星云",
+      "answerInRegex": false,
+      "submitter": "Yamasuso"
+    }
   }
 }
