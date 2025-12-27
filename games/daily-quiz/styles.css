@@ -237,6 +237,23 @@ div.answer {
     transform: scale(0.98);
 }
 
+#answer-submit:disabled {
+    background-color: #9bb7ea; /* 主色的浅灰化版本 */
+    color: rgba(255, 255, 255, 0.8);
+    cursor: not-allowed;
+    opacity: 0.9;
+    transform: none;
+}
+
+/* 禁用状态下不响应 hover / active */
+#answer-submit:disabled:hover {
+    background-color: #9bb7ea;
+}
+
+#answer-submit:disabled:active {
+    transform: none;
+}
+
 #share-button {
     padding: 0.6em 1.2em;
     font-size: 1.1em;

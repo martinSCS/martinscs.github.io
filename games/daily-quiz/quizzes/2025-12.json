@@ -221,5 +221,8 @@
       "answer": "^(?:国际音标|IPA)$",
       "answerInRegex": true
     }
+  },
+  "27": {
+    "type": "UNKNOWN"
   }
 }

@@ -28,7 +28,9 @@ function getTodayQuizData() {
             if (todayQuiz) {
                 const quizType = QuizType[todayQuiz.type] ?? QuizType['UNKNOWN'];
                 const quizData = todayQuiz.data;
-                quizData.date = `${year}-${month}-${dayOfMonthKey}`;
+                if (quizData) {
+                    quizData.date = `${year}-${month}-${dayOfMonthKey}`;
+                }
                 quiz = Quiz.create(quizType, quizData);
                 if (!quiz) {
                     console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
@@ -59,28 +61,32 @@ function getTodayQuizData() {
                     quoteBlock.appendChild(document.createTextNode('等内容。'));
                     document.querySelector('.quote').appendChild(quoteBlock);
                 }
-                document.querySelector('#answer-submit').addEventListener('click', (e) => {
-                    const answerInput = quiz.getUserAnswer();
-                    if (!quiz.checkAnswer(answerInput)) {
-                        quiz.handleWrongAnswer();
-                    } else {
-                        document.querySelector('#answer-submit').setAttribute('disabled', 'true');
-                        quiz.handleCorrectAnswer();
-                        const shareButton = document.createElement('button');
-                        shareButton.setAttribute('id', 'share-button');
-                        shareButton.textContent = '分享';
-                        document.querySelector('#answer-submit').after(shareButton);
-                        shareButton.addEventListener('click', () => {
-                            navigator.clipboard.writeText(quiz.copyInfo())
-                                .then(() => {
-                                    shareButton.textContent = '已复制';
-                                })
-                                .catch(err => {
-                                    shareButton.textContent = '复制失败';
-                                });
-                        });
-                    }
-                });
+                if (quiz.available) {
+                    document.querySelector('#answer-submit').addEventListener('click', (e) => {
+                        const answerInput = quiz.getUserAnswer();
+                        if (!quiz.checkAnswer(answerInput)) {
+                            quiz.handleWrongAnswer();
+                        } else {
+                            document.querySelector('#answer-submit').setAttribute('disabled', 'true');
+                            quiz.handleCorrectAnswer();
+                            const shareButton = document.createElement('button');
+                            shareButton.setAttribute('id', 'share-button');
+                            shareButton.textContent = '分享';
+                            document.querySelector('#answer-submit').after(shareButton);
+                            shareButton.addEventListener('click', () => {
+                                navigator.clipboard.writeText(quiz.copyInfo())
+                                    .then(() => {
+                                        shareButton.textContent = '已复制';
+                                    })
+                                    .catch(err => {
+                                        shareButton.textContent = '复制失败';
+                                    });
+                            });
+                        }
+                    });
+                } else {
+                    document.querySelector('#answer-submit').disabled = true;
+                }
             } else {
                 console.warn(`⚠️ 文件 ${fileName} 中找不到日期为 ${dayOfMonthKey} 的题目。`);
                 removeUrlParameterIfAndReload('date', true);

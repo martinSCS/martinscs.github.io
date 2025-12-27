@@ -19,6 +19,8 @@ export class Quiz {
                 return new FlipQuiz(type, data);
             case QuizType.WADOKAICHIN:
                 return new WadokaichinQuiz(type, data);
+            case QuizType.UNKNOWN:
+                return new UnknownQuiz(type, data);
             default:
                 return null;
         }
@@ -29,6 +31,7 @@ export class Quiz {
         this.date = this.data.date ?? null;
         this.submitter = this.data.submitter ?? null;
         this.quote = this.data.quote ?? null;
+        this.available = true;
     }
 
     /// 答案核验，供子类覆写
@@ -264,5 +267,19 @@ class CrossWordQuiz extends Quiz {
     configureData() {
         super.configureData();
         this.answerList = this.data.answerList ?? null;
+    }
+}
+
+class UnknownQuiz extends Quiz{
+    configureData() {
+        this.available = false;
+    }
+
+    renderPage() {
+        super.renderPage();
+        const container = document.createElement('div');
+        container.textContent = '今日不营业，向您致歉！'
+        container.style.fontSize = '1.5em';
+        document.querySelector('.quiz').append(container);
     }
 }
