@@ -236,9 +236,18 @@
   "29": {
     "type": "FLIP",
     "data": {
-      "question": "以清空疏淡的词风闻名，代表作有《暗香》《疏影》《扬州慢·淮左名都》，且精于音律的南宋时期文学家、音乐家是？",
+      "question": "以清空疏淡的词风闻名，代表作有《暗香》《疏影》《扬州慢·淮左名都》，且精于音律的南宋时期文学家、音乐家是谁？",
       "answer": "姜夔",
       "answerInRegex": false,
+      "submitter": "Yamasuso"
+    }
+  },
+  "30": {
+    "type": "FLIP",
+    "data": {
+      "question": "提出“语言的界限即世界的界限”，著有《逻辑哲学论》《哲学研究》的奥地利分析哲学家是谁？",
+      "answer": "^(?:(?:路德维希·(?:约瑟夫·)?)?约翰·)?维特根斯坦$",
+      "answerInRegex": true,
       "submitter": "Yamasuso"
     }
   }
