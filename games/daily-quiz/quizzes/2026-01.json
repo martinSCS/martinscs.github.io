@@ -6,5 +6,746 @@
       "answer": "^(?:黑潮|日本暖流)$",
       "answerInRegex": true
     }
+  },
+  "02": {
+    "type": "HAYAOSHI",
+    "data": {
+      "language": "zh-Hans",
+      "originalQuestion": "在越南国语字中用于标示高舌位元音，在法语正字法中用于标示元音后有省略的辅音字母，在数学中可用于表示傅立叶变换或估计量，在汉语拼音中可与e搭配表示/ɛ/音的符号是什么？",
+      "question": [
+        {
+          "operationTime": 1510.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "在"
+            }
+          ]
+        },
+        {
+          "operationTime": 1800.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "越"
+            }
+          ]
+        },
+        {
+          "operationTime": 1930.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "南"
+            }
+          ]
+        },
+        {
+          "operationTime": 2100.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "国"
+            }
+          ]
+        },
+        {
+          "operationTime": 2220.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "语"
+            }
+          ]
+        },
+        {
+          "operationTime": 2370.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "字"
+            }
+          ]
+        },
+        {
+          "operationTime": 2530.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 3160.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "用"
+            }
+          ]
+        },
+        {
+          "operationTime": 3370.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "于"
+            }
+          ]
+        },
+        {
+          "operationTime": 3600.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "标"
+            }
+          ]
+        },
+        {
+          "operationTime": 3860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "示"
+            }
+          ]
+        },
+        {
+          "operationTime": 4180.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "高"
+            }
+          ]
+        },
+        {
+          "operationTime": 4430.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "舌"
+            }
+          ]
+        },
+        {
+          "operationTime": 4630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "位"
+            }
+          ]
+        },
+        {
+          "operationTime": 4780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "元"
+            }
+          ]
+        },
+        {
+          "operationTime": 5050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 5450.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 5860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "在"
+            }
+          ]
+        },
+        {
+          "operationTime": 6130.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "法"
+            }
+          ]
+        },
+        {
+          "operationTime": 6360.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "语"
+            }
+          ]
+        },
+        {
+          "operationTime": 6530.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "正"
+            }
+          ]
+        },
+        {
+          "operationTime": 6700.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "字"
+            }
+          ]
+        },
+        {
+          "operationTime": 6820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "法"
+            }
+          ]
+        },
+        {
+          "operationTime": 7020.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 7670.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "用"
+            }
+          ]
+        },
+        {
+          "operationTime": 7830.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "于"
+            }
+          ]
+        },
+        {
+          "operationTime": 8029.999999999999,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "标"
+            }
+          ]
+        },
+        {
+          "operationTime": 8250.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "示"
+            }
+          ]
+        },
+        {
+          "operationTime": 8630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "元"
+            }
+          ]
+        },
+        {
+          "operationTime": 8820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 8990.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "后"
+            }
+          ]
+        },
+        {
+          "operationTime": 9390.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "有"
+            }
+          ]
+        },
+        {
+          "operationTime": 9650.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "省"
+            }
+          ]
+        },
+        {
+          "operationTime": 9920.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "略"
+            }
+          ]
+        },
+        {
+          "operationTime": 10080.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 10230.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "辅"
+            }
+          ]
+        },
+        {
+          "operationTime": 10440.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 10640.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "字"
+            }
+          ]
+        },
+        {
+          "operationTime": 10820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "母"
+            }
+          ]
+        },
+        {
+          "operationTime": 11220.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 11660.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "在"
+            }
+          ]
+        },
+        {
+          "operationTime": 11900.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "数"
+            }
+          ]
+        },
+        {
+          "operationTime": 12080.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "学"
+            }
+          ]
+        },
+        {
+          "operationTime": 12240.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 12830.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "可"
+            }
+          ]
+        },
+        {
+          "operationTime": 13020.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "用"
+            }
+          ]
+        },
+        {
+          "operationTime": 13180.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "于"
+            }
+          ]
+        },
+        {
+          "operationTime": 13350.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "表"
+            }
+          ]
+        },
+        {
+          "operationTime": 13560.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "示"
+            }
+          ]
+        },
+        {
+          "operationTime": 13880.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "傅"
+            }
+          ]
+        },
+        {
+          "operationTime": 14060.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "立"
+            }
+          ]
+        },
+        {
+          "operationTime": 14210.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "叶"
+            }
+          ]
+        },
+        {
+          "operationTime": 14380.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "变"
+            }
+          ]
+        },
+        {
+          "operationTime": 14620.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "换"
+            }
+          ]
+        },
+        {
+          "operationTime": 15070.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "或"
+            }
+          ]
+        },
+        {
+          "operationTime": 15360.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "估"
+            }
+          ]
+        },
+        {
+          "operationTime": 15580.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "计"
+            }
+          ]
+        },
+        {
+          "operationTime": 15740.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "量"
+            }
+          ]
+        },
+        {
+          "operationTime": 16140.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 16690.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "在"
+            }
+          ]
+        },
+        {
+          "operationTime": 16980.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "汉"
+            }
+          ]
+        },
+        {
+          "operationTime": 17200.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "语"
+            }
+          ]
+        },
+        {
+          "operationTime": 17320.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "拼"
+            }
+          ]
+        },
+        {
+          "operationTime": 17570.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 17740.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 18350.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "可"
+            }
+          ]
+        },
+        {
+          "operationTime": 18530.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "与"
+            }
+          ]
+        },
+        {
+          "operationTime": 19090.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "e"
+            }
+          ]
+        },
+        {
+          "operationTime": 19640.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "搭"
+            }
+          ]
+        },
+        {
+          "operationTime": 19810.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "配"
+            }
+          ]
+        },
+        {
+          "operationTime": 19970.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "表"
+            }
+          ]
+        },
+        {
+          "operationTime": 20150.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "示"
+            }
+          ]
+        },
+        {
+          "operationTime": 20760.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "/ɛ/"
+            }
+          ]
+        },
+        {
+          "operationTime": 21240.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 21420.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 21520.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "符"
+            }
+          ]
+        },
+        {
+          "operationTime": 21690.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "号"
+            }
+          ]
+        },
+        {
+          "operationTime": 22110.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "是"
+            }
+          ]
+        },
+        {
+          "operationTime": 22330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "什"
+            }
+          ]
+        },
+        {
+          "operationTime": 22600.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "么"
+            }
+          ]
+        },
+        {
+          "operationTime": 22890.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "？"
+            }
+          ]
+        }
+      ],
+      "audio": "./quizzes/audio/2026-01-02.m4a",
+      "answer": "^(?:扬抑符|抑扬符|折音符|circumflex|\\^|ˆ|̂)$",
+      "answerInRegex": true
+    }
   }
 }
