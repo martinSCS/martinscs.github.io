@@ -369,8 +369,8 @@ class HayaoshiQuiz extends Quiz {
             lineHeight: '1.4',
             letterSpacing: '0.04em',
             /* 容器 */
-            backgroundColor: '#fff7f7',
-            border: '2px solid #fecaca',
+            backgroundColor: '#f5f5f5',
+            border: '2px solid #d1d1d1',
             borderRadius: '12px',
             padding: '1rem 1.2rem',
             /* 滚动 */
