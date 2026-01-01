@@ -321,6 +321,10 @@ a.latest-link {
     margin-left: 1em;
 }
 
+[lang*="ja"].sans {
+    font-family: "Noto Sans JP", sans-serif;
+}
+
 @media (max-width: 600px) {
     div.answer {
         flex-wrap: wrap;

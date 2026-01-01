@@ -54,6 +54,7 @@ export class Quiz {
                 const inputBox = document.createElement('input');
                 inputBox.id = 'answer-input';
                 inputBox.lang = this.language;
+                inputBox.classList.add('sans');
                 document.querySelector('.answer').prepend(inputBox);
                 break;
             default:
@@ -349,6 +350,7 @@ class HayaoshiQuiz extends Quiz {
 
         this.textBox = document.createElement('div');
         this.textBox.lang = this.language;
+        this.textBox.classList.add('sans');
         Object.assign(this.textBox.style, {
             width: '90%',
             height: '200px',
