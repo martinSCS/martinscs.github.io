@@ -452,6 +452,7 @@ ${showUrl}`;
     handleCorrectAnswer() {
         super.handleCorrectAnswer();
         document.removeEventListener('keydown', this.onGlobalSpace);
+        this.controlButton.disabled = true;
         const remainedTextBox = document.createElement('span');
         remainedTextBox.style.color = 'var(--correct-color)';
         remainedTextBox.textContent = removePrefix(this.originalQuestion.trim(), this.textBox.textContent.trim());
