@@ -38,6 +38,8 @@ export class Quiz {
         this.quote = this.data.quote ?? null;
         this.available = true;
         this.language = this.data.language ?? "zh-Hans";
+        this.correctAudio = new Audio('./audio/correct.mp3');
+        this.wrongAudio = new Audio('./audio/wrong.mp3');
     }
 
     /// 答案核验，供子类覆写
@@ -77,6 +79,7 @@ export class Quiz {
         answerInput.setAttribute('disabled', 'true');
         answerInput.classList.add('correct-pulse');
         const animationDuration = 700;
+        this.correctAudio.play().then(r => {});
         setTimeout(() => {
             answerInput.classList.remove('correct-pulse');
             answerInput.classList.add('correct-static');
@@ -88,6 +91,7 @@ export class Quiz {
         const answerInput = document.querySelector('#answer-input');
         answerInput.classList.add('error-shake');
         const animationDuration = 500;
+        this.wrongAudio.play().then(r => {});
         setTimeout(() => {
             answerInput.classList.remove('error-shake');
             answerInput.style.color = 'var(--secondary-color)';
@@ -285,6 +289,7 @@ class HayaoshiQuiz extends Quiz {
         this.timeUsed = 0.0;
         this.duration = 0.0;
         this.onGlobalSpace = this.onGlobalSpace.bind(this);
+        this.getAnswerRightAudio = new Audio('./audio/Quiz-Button02-1(Multi).mp3');
 
         const images = [
             './quizzes/images/hayaoshi_on.png',
@@ -464,6 +469,7 @@ ${showUrl}`;
         if (this.audioPlayer.isPlaying()) {
             active = true;
             this.audioPlayer.pauseAudio();
+            this.getAnswerRightAudio.play().then(r => {});
         } else {
             active = false;
             this.audioPlayer.playAudio();
