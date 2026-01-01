@@ -39,7 +39,11 @@ export class Quiz {
         this.available = true;
         this.language = this.data.language ?? "zh-Hans";
         this.correctAudio = new Audio('./audio/correct.mp3');
+        this.correctAudio.volume = 0.2;
         this.wrongAudio = new Audio('./audio/wrong.mp3');
+        this.wrongAudio.volume = 0.2;
+        this.getAnswerPowerAudio = new Audio('./audio/Quiz-Button02-1(Multi).mp3');
+        this.getAnswerPowerAudio.volume = 0.2;
     }
 
     /// 答案核验，供子类覆写
@@ -289,7 +293,6 @@ class HayaoshiQuiz extends Quiz {
         this.timeUsed = 0.0;
         this.duration = 0.0;
         this.onGlobalSpace = this.onGlobalSpace.bind(this);
-        this.getAnswerRightAudio = new Audio('./audio/Quiz-Button02-1(Multi).mp3');
 
         const images = [
             './quizzes/images/hayaoshi_on.png',
@@ -469,7 +472,7 @@ ${showUrl}`;
         if (this.audioPlayer.isPlaying()) {
             active = true;
             this.audioPlayer.pauseAudio();
-            this.getAnswerRightAudio.play().then(r => {});
+            this.getAnswerPowerAudio.play().then(r => {});
         } else {
             active = false;
             this.audioPlayer.playAudio();
