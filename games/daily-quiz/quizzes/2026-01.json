@@ -744,7 +744,7 @@
         }
       ],
       "audio": "./quizzes/audio/2026-01-02.m4a",
-      "answer": "^(?:扬抑符|抑扬符|折音符|circumflex|\\^|ˆ|̂)$",
+      "answer": "^(?:扬抑符|折音符|circumflex|hat|帽子|roof|屋顶|\\^|ˆ|̂)$",
       "answerInRegex": true
     }
   }
