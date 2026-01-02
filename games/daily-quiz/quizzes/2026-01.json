@@ -747,5 +747,575 @@
       "answer": "^(?:扬抑符|折音符|circumflex|hat|帽子|roof|屋顶|\\^|ˆ|̂)$",
       "answerInRegex": true
     }
+  },
+  "03": {
+    "type": "HAYAOSHI",
+    "data": {
+      "language": "zh-Hans",
+      "originalQuestion": "普通话中将“不是”读成búshì，“一个”读成yígè这类，某些音在连续语流中因相邻音素影响而发生变调、弱化或省略的系统性语音变化现象叫什么？",
+      "question": [
+        {
+          "operationTime": 1780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "普"
+            }
+          ]
+        },
+        {
+          "operationTime": 1950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "通"
+            }
+          ]
+        },
+        {
+          "operationTime": 2070.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "话"
+            }
+          ]
+        },
+        {
+          "operationTime": 2270.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 2730.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "将"
+            }
+          ]
+        },
+        {
+          "operationTime": 3020.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "“不"
+            }
+          ]
+        },
+        {
+          "operationTime": 3280.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "是”"
+            }
+          ]
+        },
+        {
+          "operationTime": 3780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "读"
+            }
+          ]
+        },
+        {
+          "operationTime": 3910.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "成"
+            }
+          ]
+        },
+        {
+          "operationTime": 4200.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "bú"
+            }
+          ]
+        },
+        {
+          "operationTime": 4460.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "shì"
+            }
+          ]
+        },
+        {
+          "operationTime": 4660.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 5250.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "“一"
+            }
+          ]
+        },
+        {
+          "operationTime": 5440.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "个”"
+            }
+          ]
+        },
+        {
+          "operationTime": 5740.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "读"
+            }
+          ]
+        },
+        {
+          "operationTime": 5860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "成"
+            }
+          ]
+        },
+        {
+          "operationTime": 6310.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "yí"
+            }
+          ]
+        },
+        {
+          "operationTime": 6550.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "gè"
+            }
+          ]
+        },
+        {
+          "operationTime": 6810.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "这"
+            }
+          ]
+        },
+        {
+          "operationTime": 6950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "类"
+            }
+          ]
+        },
+        {
+          "operationTime": 7350.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 7660.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "某"
+            }
+          ]
+        },
+        {
+          "operationTime": 7840.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "些"
+            }
+          ]
+        },
+        {
+          "operationTime": 7980.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 8410.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "在"
+            }
+          ]
+        },
+        {
+          "operationTime": 8700.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "连"
+            }
+          ]
+        },
+        {
+          "operationTime": 8860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "续"
+            }
+          ]
+        },
+        {
+          "operationTime": 9050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "语"
+            }
+          ]
+        },
+        {
+          "operationTime": 9130.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "流"
+            }
+          ]
+        },
+        {
+          "operationTime": 9330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 9820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "因"
+            }
+          ]
+        },
+        {
+          "operationTime": 10120.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "相"
+            }
+          ]
+        },
+        {
+          "operationTime": 10410.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "邻"
+            }
+          ]
+        },
+        {
+          "operationTime": 10630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 10800.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "素"
+            }
+          ]
+        },
+        {
+          "operationTime": 11000.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "影"
+            }
+          ]
+        },
+        {
+          "operationTime": 11210.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "响"
+            }
+          ]
+        },
+        {
+          "operationTime": 11650.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "而"
+            }
+          ]
+        },
+        {
+          "operationTime": 11890.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "发"
+            }
+          ]
+        },
+        {
+          "operationTime": 12050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "生"
+            }
+          ]
+        },
+        {
+          "operationTime": 12260.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "变"
+            }
+          ]
+        },
+        {
+          "operationTime": 12520.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "调"
+            }
+          ]
+        },
+        {
+          "operationTime": 12720.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "、"
+            }
+          ]
+        },
+        {
+          "operationTime": 13030.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "弱"
+            }
+          ]
+        },
+        {
+          "operationTime": 13250.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "化"
+            }
+          ]
+        },
+        {
+          "operationTime": 13740.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "或"
+            }
+          ]
+        },
+        {
+          "operationTime": 13980.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "省"
+            }
+          ]
+        },
+        {
+          "operationTime": 14260.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "略"
+            }
+          ]
+        },
+        {
+          "operationTime": 14450.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 14840.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "系"
+            }
+          ]
+        },
+        {
+          "operationTime": 15030.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "统"
+            }
+          ]
+        },
+        {
+          "operationTime": 15250.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "性"
+            }
+          ]
+        },
+        {
+          "operationTime": 15670.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "语"
+            }
+          ]
+        },
+        {
+          "operationTime": 15780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 16030.000000000002,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "变"
+            }
+          ]
+        },
+        {
+          "operationTime": 16230.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "化"
+            }
+          ]
+        },
+        {
+          "operationTime": 16350.000000000002,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "现"
+            }
+          ]
+        },
+        {
+          "operationTime": 16540.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "象"
+            }
+          ]
+        },
+        {
+          "operationTime": 16950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "叫"
+            }
+          ]
+        },
+        {
+          "operationTime": 17190.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "什"
+            }
+          ]
+        },
+        {
+          "operationTime": 17380.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "么"
+            }
+          ]
+        },
+        {
+          "operationTime": 17400.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "？"
+            }
+          ]
+        }
+      ],
+      "audio": "./quizzes/audio/2026-01-03.m4a",
+      "answer": "语流音变",
+      "answerInRegex": false
+    }
   }
 }
