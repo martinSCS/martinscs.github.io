@@ -6,7 +6,8 @@ export const QuizType = Object.freeze({
     UNKNOWN: Symbol("UNKNOWN"),
     FLIP: Symbol("FLIP"),
     WADOKAICHIN: Symbol("WADOKAICHIN"),
-    HAYAOSHI: Symbol("HAYAOSHI")
+    HAYAOSHI: Symbol("HAYAOSHI"),
+    NAZOTOKI: Symbol("NAZOTOKI")
 });
 
 export class Quiz {
@@ -463,7 +464,9 @@ ${showUrl}`;
         this.controlButton.disabled = true;
         const remainedTextBox = document.createElement('span');
         remainedTextBox.style.color = 'var(--correct-color)';
-        remainedTextBox.textContent = removePrefix(this.originalQuestion.trim(), this.textBox.textContent.trim());
+        const showResult = removePrefix(this.originalQuestion.trim(), this.textBox.textContent.trim());
+        remainedTextBox.textContent = showResult[0];
+        this.textBox.textContent = showResult[1];
         this.textBox.appendChild(remainedTextBox);
     }
 

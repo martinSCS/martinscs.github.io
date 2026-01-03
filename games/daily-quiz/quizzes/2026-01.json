@@ -1317,5 +1317,701 @@
       "answer": "语流音变",
       "answerInRegex": false
     }
+  },
+  "04": {
+    "type": "HAYAOSHI",
+    "data": {
+      "language": "zh-Hans",
+      "originalQuestion": "中国西南地区的少数民族音乐的一种，由多人无指挥、无伴奏合唱完成，以多声部自然和声见长，并于2009年被列入联合国非物质文化遗产名录的传统歌唱形式叫什么？",
+      "question": [
+        {
+          "operationTime": 1590.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "中"
+            }
+          ]
+        },
+        {
+          "operationTime": 1780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "国"
+            }
+          ]
+        },
+        {
+          "operationTime": 2000.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "西"
+            }
+          ]
+        },
+        {
+          "operationTime": 2160.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "南"
+            }
+          ]
+        },
+        {
+          "operationTime": 2320.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "地"
+            }
+          ]
+        },
+        {
+          "operationTime": 2500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "区"
+            }
+          ]
+        },
+        {
+          "operationTime": 2690.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 2950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "少"
+            }
+          ]
+        },
+        {
+          "operationTime": 3160.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "数"
+            }
+          ]
+        },
+        {
+          "operationTime": 3320.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "民"
+            }
+          ]
+        },
+        {
+          "operationTime": 3490.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "族"
+            }
+          ]
+        },
+        {
+          "operationTime": 3630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "音"
+            }
+          ]
+        },
+        {
+          "operationTime": 3820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "乐"
+            }
+          ]
+        },
+        {
+          "operationTime": 3950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 4030.0000000000005,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "一"
+            }
+          ]
+        },
+        {
+          "operationTime": 4220.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "种"
+            }
+          ]
+        },
+        {
+          "operationTime": 4520.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 4900.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "由"
+            }
+          ]
+        },
+        {
+          "operationTime": 5180.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "多"
+            }
+          ]
+        },
+        {
+          "operationTime": 5380.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "人"
+            }
+          ]
+        },
+        {
+          "operationTime": 5680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "无"
+            }
+          ]
+        },
+        {
+          "operationTime": 5860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "指"
+            }
+          ]
+        },
+        {
+          "operationTime": 6040.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "挥"
+            }
+          ]
+        },
+        {
+          "operationTime": 6240.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "、"
+            }
+          ]
+        },
+        {
+          "operationTime": 6500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "无"
+            }
+          ]
+        },
+        {
+          "operationTime": 6680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "伴"
+            }
+          ]
+        },
+        {
+          "operationTime": 6900.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "奏"
+            }
+          ]
+        },
+        {
+          "operationTime": 7130.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "合"
+            }
+          ]
+        },
+        {
+          "operationTime": 7290.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "唱"
+            }
+          ]
+        },
+        {
+          "operationTime": 7460.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "完"
+            }
+          ]
+        },
+        {
+          "operationTime": 7620.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "成"
+            }
+          ]
+        },
+        {
+          "operationTime": 7820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 8490.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "以"
+            }
+          ]
+        },
+        {
+          "operationTime": 8730.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "多"
+            }
+          ]
+        },
+        {
+          "operationTime": 8930.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "声"
+            }
+          ]
+        },
+        {
+          "operationTime": 9160.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "部"
+            }
+          ]
+        },
+        {
+          "operationTime": 9510.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "自"
+            }
+          ]
+        },
+        {
+          "operationTime": 9690.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "然"
+            }
+          ]
+        },
+        {
+          "operationTime": 9880.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "和"
+            }
+          ]
+        },
+        {
+          "operationTime": 10090.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "声"
+            }
+          ]
+        },
+        {
+          "operationTime": 10270.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "见"
+            }
+          ]
+        },
+        {
+          "operationTime": 10480.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "长"
+            }
+          ]
+        },
+        {
+          "operationTime": 10680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "，"
+            }
+          ]
+        },
+        {
+          "operationTime": 11170.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "并"
+            }
+          ]
+        },
+        {
+          "operationTime": 11350.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "于"
+            }
+          ]
+        },
+        {
+          "operationTime": 11500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "2"
+            }
+          ]
+        },
+        {
+          "operationTime": 11530.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "0"
+            }
+          ]
+        },
+        {
+          "operationTime": 11660.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "0"
+            }
+          ]
+        },
+        {
+          "operationTime": 11950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "9"
+            }
+          ]
+        },
+        {
+          "operationTime": 12140.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "年"
+            }
+          ]
+        },
+        {
+          "operationTime": 12680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "被"
+            }
+          ]
+        },
+        {
+          "operationTime": 12890.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "列"
+            }
+          ]
+        },
+        {
+          "operationTime": 13080.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "入"
+            }
+          ]
+        },
+        {
+          "operationTime": 13390.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "联"
+            }
+          ]
+        },
+        {
+          "operationTime": 13590.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "合"
+            }
+          ]
+        },
+        {
+          "operationTime": 13700.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "国"
+            }
+          ]
+        },
+        {
+          "operationTime": 14040.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "非"
+            }
+          ]
+        },
+        {
+          "operationTime": 14270.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "物"
+            }
+          ]
+        },
+        {
+          "operationTime": 14420.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "质"
+            }
+          ]
+        },
+        {
+          "operationTime": 14550.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "文"
+            }
+          ]
+        },
+        {
+          "operationTime": 14680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "化"
+            }
+          ]
+        },
+        {
+          "operationTime": 14820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "遗"
+            }
+          ]
+        },
+        {
+          "operationTime": 14950.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "产"
+            }
+          ]
+        },
+        {
+          "operationTime": 15130.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "名"
+            }
+          ]
+        },
+        {
+          "operationTime": 15310.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "录"
+            }
+          ]
+        },
+        {
+          "operationTime": 15490.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "的"
+            }
+          ]
+        },
+        {
+          "operationTime": 15910.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "传"
+            }
+          ]
+        },
+        {
+          "operationTime": 16129.999999999998,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "统"
+            }
+          ]
+        },
+        {
+          "operationTime": 16329.999999999998,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "歌"
+            }
+          ]
+        },
+        {
+          "operationTime": 16480.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "唱"
+            }
+          ]
+        },
+        {
+          "operationTime": 16640.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "形"
+            }
+          ]
+        },
+        {
+          "operationTime": 16880.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "式"
+            }
+          ]
+        },
+        {
+          "operationTime": 17280.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "叫"
+            }
+          ]
+        },
+        {
+          "operationTime": 17470.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "什"
+            }
+          ]
+        },
+        {
+          "operationTime": 17640.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "么"
+            }
+          ]
+        },
+        {
+          "operationTime": 17840.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "？"
+            }
+          ]
+        }
+      ],
+      "audio": "./quizzes/audio/2026-01-04.m4a",
+      "answer": "侗族大歌",
+      "answerInRegex": false
+    }
   }
 }

@@ -42,7 +42,7 @@ export const removePrefix = (A, B) => {
         i++;
     }
 
-    return A.slice(i);
+    return [A.slice(i), A.slice(0, i)];
 }
 
 
