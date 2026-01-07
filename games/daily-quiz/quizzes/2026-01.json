@@ -3071,5 +3071,14 @@
       "answerInRegex": true,
       "submitter": "Yamasuso"
     }
+  },
+  "08": {
+    "type": "FLIP",
+    "data": {
+      "question": "现藏于陕西省历史博物馆，造型源于西方的酒具来通，由玛瑙雕成，整体成角状兽首形，兽首嘴部有金帽的饮酒器是什么？",
+      "answer": "^(?:镶金)?兽首玛瑙杯$",
+      "answerInRegex": true,
+      "submitter": "维生素蒂2"
+    }
   }
 }
