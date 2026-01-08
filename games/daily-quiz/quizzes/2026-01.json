@@ -3080,5 +3080,13 @@
       "answerInRegex": true,
       "submitter": "维生素蒂2"
     }
+  },
+  "09": {
+    "type": "FLIP",
+    "data": {
+      "question": "位于福建省南部，九龙江下游入海处，历史上为闽南文化重要发源地之一，并与厦门在经济与文化上联系密切的地级市是哪一座？",
+      "answer": "^(?:漳州市?)$",
+      "answerInRegex": true
+    }
   }
 }
