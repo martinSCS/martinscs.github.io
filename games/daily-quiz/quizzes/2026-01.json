@@ -3105,5 +3105,13 @@
       "answerInRegex": true,
       "submitter": "维生素蒂2"
     }
+  },
+  "12": {
+    "type": "FLIP",
+    "data": {
+      "question": "文章以“国之语音，异乎中国”开头的，记录了朝鲜王朝第四代国王与其子第五代国王主导创制的朝鲜语文字的书籍是什么？",
+      "answer": "^(?:《训民正音》|训民正音)$",
+      "answerInRegex": true
+    }
   }
 }
