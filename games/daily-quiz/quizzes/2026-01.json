@@ -3146,5 +3146,13 @@
       "answer": "死锁",
       "answerInRegex": false
     }
+  },
+  "17": {
+    "type": "FLIP",
+    "data": {
+      "question": "内容包含“학이시습지면 부역열호아”或“まなんでときにこれをならふ、またよろこばしからずや”的，内容以孔子言行为主的儒家经典是什么？",
+      "answer": "^(?:《论语》|论语)$",
+      "answerInRegex": true
+    }
   }
 }
