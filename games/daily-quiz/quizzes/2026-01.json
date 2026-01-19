@@ -3170,5 +3170,13 @@
       "answer": "^(?:水书|泐睢)$",
       "answerInRegex": true
     }
+  },
+  "20": {
+    "type": "FLIP",
+    "data": {
+      "question": "主要分布于中国西北天山地区，隶属于菊科蓍属，在植物分类学和本草文献中以其明确的地理指向性而得名的多年生草本植物是什么？",
+      "answer": "天山蓍",
+      "answerInRegex": false
+    }
   }
 }
