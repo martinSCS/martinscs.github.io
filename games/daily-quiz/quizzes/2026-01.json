@@ -3186,5 +3186,14 @@
       "answer": "^AZERTY(?:键盘|排列|键盘布局)?$",
       "answerInRegex": true
     }
+  },
+  "22": {
+    "type": "FLIP",
+    "data": {
+      "question": "由东浩纪在《动物化的后现代》中提出，认为御宅族文化通过构建萌元素数据库，注重符号化元素而非完整叙事的消费形态被称为什么？",
+      "answer": "数据库消费",
+      "answerInRegex": false,
+      "submitter": "Yamasuso"
+    }
   }
 }
