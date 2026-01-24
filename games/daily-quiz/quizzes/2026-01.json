@@ -3211,5 +3211,13 @@
       "answer": "^阿波罗(?:计划|工程)$",
       "answerInRegex": true
     }
+  },
+  "25": {
+    "type": "FLIP",
+    "data": {
+      "question": "以南诏、大理国旧都之名设州，实行民族区域自治，且辖区核心自然景观为高原湖泊与山地组合的行政区划全称是什么？",
+      "answer": "大理白族自治州",
+      "answerInRegex": false
+    }
   }
 }
