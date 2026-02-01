@@ -6,5 +6,993 @@
       "answer": "^国际(?:日期变更|日界|换日|日期)线$",
       "answerInRegex": true
     }
+  },
+  "02": {
+    "type": "HAYAOSHI",
+    "data": {
+      "language": "ja-JP",
+      "originalQuestion": "衣服の「すそ」が身体の下端に広がる部分を指すことになぞらえ、山体が下方でゆるやかに広がりながら平地へと連続していく形状を、比喩的に衣服用語で表現した地形用語は何？",
+      "question": [
+        {
+          "operationTime": 1780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "い"
+            }
+          ]
+        },
+        {
+          "operationTime": 1870.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ふ"
+            }
+          ]
+        },
+        {
+          "operationTime": 2040.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "衣服"
+            }
+          ]
+        },
+        {
+          "operationTime": 2220.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "の"
+            }
+          ]
+        },
+        {
+          "operationTime": 2360.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "「す"
+            }
+          ]
+        },
+        {
+          "operationTime": 2490.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "そ」"
+            }
+          ]
+        },
+        {
+          "operationTime": 2680.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "が"
+            }
+          ]
+        },
+        {
+          "operationTime": 3130.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "し"
+            }
+          ]
+        },
+        {
+          "operationTime": 3330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ん"
+            }
+          ]
+        },
+        {
+          "operationTime": 3420.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "た"
+            }
+          ]
+        },
+        {
+          "operationTime": 3630.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 3
+            },
+            {
+              "operationType": "APPEND",
+              "append": "身体"
+            }
+          ]
+        },
+        {
+          "operationTime": 3710.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "の"
+            }
+          ]
+        },
+        {
+          "operationTime": 3820.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "か"
+            }
+          ]
+        },
+        {
+          "operationTime": 3980.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "た"
+            }
+          ]
+        },
+        {
+          "operationTime": 4110.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "下端"
+            }
+          ]
+        },
+        {
+          "operationTime": 4240.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "に"
+            }
+          ]
+        },
+        {
+          "operationTime": 4330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ひ"
+            }
+          ]
+        },
+        {
+          "operationTime": 4510.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ろ"
+            }
+          ]
+        },
+        {
+          "operationTime": 4630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "が"
+            }
+          ]
+        },
+        {
+          "operationTime": 4740.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 3
+            },
+            {
+              "operationType": "APPEND",
+              "append": "広がる"
+            }
+          ]
+        },
+        {
+          "operationTime": 4870.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ぶ"
+            }
+          ]
+        },
+        {
+          "operationTime": 4990.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ぶ"
+            }
+          ]
+        },
+        {
+          "operationTime": 5120.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "部分"
+            }
+          ]
+        },
+        {
+          "operationTime": 5330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "を"
+            }
+          ]
+        },
+        {
+          "operationTime": 5400.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "さ"
+            }
+          ]
+        },
+        {
+          "operationTime": 5530.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 1
+            },
+            {
+              "operationType": "APPEND",
+              "append": "指す"
+            }
+          ]
+        },
+        {
+          "operationTime": 5620.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "こ"
+            }
+          ]
+        },
+        {
+          "operationTime": 5790.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "と"
+            }
+          ]
+        },
+        {
+          "operationTime": 5900.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "に"
+            }
+          ]
+        },
+        {
+          "operationTime": 6050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "な"
+            }
+          ]
+        },
+        {
+          "operationTime": 6190.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ぞ"
+            }
+          ]
+        },
+        {
+          "operationTime": 6300.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ら"
+            }
+          ]
+        },
+        {
+          "operationTime": 6480.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "え、"
+            }
+          ]
+        },
+        {
+          "operationTime": 7060.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "さ"
+            }
+          ]
+        },
+        {
+          "operationTime": 7250.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ん"
+            }
+          ]
+        },
+        {
+          "operationTime": 7320.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "た"
+            }
+          ]
+        },
+        {
+          "operationTime": 7530.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 3
+            },
+            {
+              "operationType": "APPEND",
+              "append": "山体"
+            }
+          ]
+        },
+        {
+          "operationTime": 7620.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "が"
+            }
+          ]
+        },
+        {
+          "operationTime": 7810.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "か"
+            }
+          ]
+        },
+        {
+          "operationTime": 7960.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ほ"
+            }
+          ]
+        },
+        {
+          "operationTime": 8150.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "下方"
+            }
+          ]
+        },
+        {
+          "operationTime": 8180.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "で"
+            }
+          ]
+        },
+        {
+          "operationTime": 8330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ゆ"
+            }
+          ]
+        },
+        {
+          "operationTime": 8500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "る"
+            }
+          ]
+        },
+        {
+          "operationTime": 8610.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "や"
+            }
+          ]
+        },
+        {
+          "operationTime": 8730.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "か"
+            }
+          ]
+        },
+        {
+          "operationTime": 8920.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "に"
+            }
+          ]
+        },
+        {
+          "operationTime": 9120.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ひ"
+            }
+          ]
+        },
+        {
+          "operationTime": 9290.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ろ"
+            }
+          ]
+        },
+        {
+          "operationTime": 9420.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "が"
+            }
+          ]
+        },
+        {
+          "operationTime": 9520.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 3
+            },
+            {
+              "operationType": "APPEND",
+              "append": "広がり"
+            }
+          ]
+        },
+        {
+          "operationTime": 9630.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "な"
+            }
+          ]
+        },
+        {
+          "operationTime": 9750.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "が"
+            }
+          ]
+        },
+        {
+          "operationTime": 9890.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ら"
+            }
+          ]
+        },
+        {
+          "operationTime": 10320.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "へ"
+            }
+          ]
+        },
+        {
+          "operationTime": 10500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "い"
+            }
+          ]
+        },
+        {
+          "operationTime": 10560.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "平地"
+            }
+          ]
+        },
+        {
+          "operationTime": 10750.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "へ"
+            }
+          ]
+        },
+        {
+          "operationTime": 10840.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "と"
+            }
+          ]
+        },
+        {
+          "operationTime": 11050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "れ"
+            }
+          ]
+        },
+        {
+          "operationTime": 11160.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ん"
+            }
+          ]
+        },
+        {
+          "operationTime": 11280.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ぞ"
+            }
+          ]
+        },
+        {
+          "operationTime": 11400.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "く"
+            }
+          ]
+        },
+        {
+          "operationTime": 11480.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "し"
+            }
+          ]
+        },
+        {
+          "operationTime": 11570.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 5
+            },
+            {
+              "operationType": "APPEND",
+              "append": "連続して"
+            }
+          ]
+        },
+        {
+          "operationTime": 11700.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "い"
+            }
+          ]
+        },
+        {
+          "operationTime": 11760.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "く"
+            }
+          ]
+        },
+        {
+          "operationTime": 11860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "け"
+            }
+          ]
+        },
+        {
+          "operationTime": 12050.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "い"
+            }
+          ]
+        },
+        {
+          "operationTime": 12100.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "じょ"
+            }
+          ]
+        },
+        {
+          "operationTime": 12280.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 4
+            },
+            {
+              "operationType": "APPEND",
+              "append": "形状"
+            }
+          ]
+        },
+        {
+          "operationTime": 12460.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "を、"
+            }
+          ]
+        },
+        {
+          "operationTime": 12860.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ひ"
+            }
+          ]
+        },
+        {
+          "operationTime": 13020.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ゆ"
+            }
+          ]
+        },
+        {
+          "operationTime": 13140.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "て"
+            }
+          ]
+        },
+        {
+          "operationTime": 13270.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 3
+            },
+            {
+              "operationType": "APPEND",
+              "append": "比喩的"
+            }
+          ]
+        },
+        {
+          "operationTime": 13400.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "に"
+            }
+          ]
+        },
+        {
+          "operationTime": 13500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "い"
+            }
+          ]
+        },
+        {
+          "operationTime": 13650.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ふ"
+            }
+          ]
+        },
+        {
+          "operationTime": 13770.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "衣服"
+            }
+          ]
+        },
+        {
+          "operationTime": 13900.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "よ"
+            }
+          ]
+        },
+        {
+          "operationTime": 14090.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "う"
+            }
+          ]
+        },
+        {
+          "operationTime": 14120.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "用語"
+            }
+          ]
+        },
+        {
+          "operationTime": 14230.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "で"
+            }
+          ]
+        },
+        {
+          "operationTime": 14310.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ひ"
+            }
+          ]
+        },
+        {
+          "operationTime": 14450.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ょ"
+            }
+          ]
+        },
+        {
+          "operationTime": 14500.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "う"
+            }
+          ]
+        },
+        {
+          "operationTime": 14540.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "げ"
+            }
+          ]
+        },
+        {
+          "operationTime": 14660.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 4
+            },
+            {
+              "operationType": "APPEND",
+              "append": "表現"
+            }
+          ]
+        },
+        {
+          "operationTime": 14730.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "し"
+            }
+          ]
+        },
+        {
+          "operationTime": 14780.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "た"
+            }
+          ]
+        },
+        {
+          "operationTime": 14990.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "ち"
+            }
+          ]
+        },
+        {
+          "operationTime": 15110.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "け"
+            }
+          ]
+        },
+        {
+          "operationTime": 15300.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "地形"
+            }
+          ]
+        },
+        {
+          "operationTime": 15330.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "よ"
+            }
+          ]
+        },
+        {
+          "operationTime": 15470.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "う"
+            }
+          ]
+        },
+        {
+          "operationTime": 15510.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 2
+            },
+            {
+              "operationType": "APPEND",
+              "append": "用語"
+            }
+          ]
+        },
+        {
+          "operationTime": 15660.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "は"
+            }
+          ]
+        },
+        {
+          "operationTime": 15990.0,
+          "operation": [
+            {
+              "operationType": "APPEND",
+              "append": "な"
+            }
+          ]
+        },
+        {
+          "operationTime": 16110.0,
+          "operation": [
+            {
+              "operationType": "REMOVE",
+              "remove": 1
+            },
+            {
+              "operationType": "APPEND",
+              "append": "何？"
+            }
+          ]
+        }
+      ],
+      "audio": "./quizzes/audio/2026-02-02.m4a",
+      "answer": "^(?:(?:[やヤ][まマ]|山)(?:[すス][そソ]|裾)|yamasuso)$",
+      "answerInRegex": true
+    }
   }
 }
