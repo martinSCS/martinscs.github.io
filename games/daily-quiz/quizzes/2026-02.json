@@ -1011,5 +1011,22 @@
       "answerInRegex": false,
       "submitter": "记忆°Blank丶"
     }
+  },
+  "05": {
+    "type": "FLIP",
+    "data": {
+      "question": "20世纪中期诞生于瑞士，强调中性、可读性与高度通用性，最初以拉丁语“瑞士”之名命名，后成为国际排版中的经典字体的无衬线字体是什么？",
+      "answer": "^(?:Helvetica|海维提卡|赫尔维蒂卡)$",
+      "answerInRegex": true
+    }
+  },
+  "06": {
+    "type": "FLIP",
+    "data": {
+      "question": "原指日本江户时代德川幕府为确保将军继承而设立的三个重要分家，后来引申为某一领域中最具代表性、最具影响力的三者，这一术语是什么？",
+      "answer": "御三家",
+      "answerInRegex": false,
+      "submitter": "记忆°Blank丶"
+    }
   }
 }
