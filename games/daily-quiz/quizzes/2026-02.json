@@ -1036,5 +1036,13 @@
       "answer": "午",
       "answerInRegex": false
     }
+  },
+  "08": {
+    "type": "FLIP",
+    "data": {
+      "question": "负责制定《奥林匹克宪章》，拥有奥林匹克标志与奥运会相关权利的最终解释权，并决定夏季和冬季奥运会举办城市的国际体育组织是什么？",
+      "answer": "^(?:国际(?:奥林匹克委员|奥委)会|IOC)$",
+      "answerInRegex": true
+    }
   }
 }
