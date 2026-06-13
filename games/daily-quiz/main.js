@@ -9,6 +9,11 @@ function getTodayQuizData() {
     const dateSet = dateComponents.dateSet;
     const isItToday = dateComponents.isItToday;
 
+    if (dateSet && dateComponents.shouldBlockFutureDate) {
+        renderMissingQuiz(dateString);
+        return;
+    }
+
     removeUrlParameterIf('date', dateSet && isItToday);
 
     const fileName = `${dateString}.json`;
@@ -39,66 +44,66 @@ function getTodayQuizData() {
                 return;
             }
             const quizType = QuizType[todayQuiz.type] ?? QuizType['UNKNOWN'];
-                const quizData = {
-                    ...(todayQuiz.data ?? {}),
-                    date: todayQuiz.date
-                };
-                quiz = Quiz.create(quizType, quizData);
-                if (!quiz) {
-                    console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
-                }
-                quiz.renderPage();
-                if (quiz.submitter) {
-                    document.querySelector('.submitted-by').textContent = `此问题由 “${quiz.submitter}” 投稿`;
-                }
-                if (quiz.quote) {
-                    const quoteBlock = document.createElement('div');
-                    quoteBlock.appendChild(document.createTextNode('此问题参考了'));
-                    quiz.quote.forEach((quote, index, array) => {
-                        if (!quote.site) {
-                            const quoteElement = document.createTextNode(quote.name);
-                            quoteBlock.appendChild(quoteElement);
-                        } else {
-                            const quoteElement = document.createElement('a');
-                            quoteElement.setAttribute('href', quote.site);
-                            quoteElement.textContent = quote.name;
-                            quoteBlock.appendChild(quoteElement);
-                        }
-                        if (index <= array.length - 3) {
-                            quoteBlock.appendChild(document.createTextNode('、'));
-                        } else if (index === array.length - 2) {
-                            quoteBlock.appendChild(document.createTextNode('和'));
-                        }
-                    });
-                    quoteBlock.appendChild(document.createTextNode('等内容。'));
-                    document.querySelector('.quote').appendChild(quoteBlock);
-                }
-                if (quiz.available) {
-                    document.querySelector('#answer-submit').addEventListener('click', (e) => {
-                        const answerInput = quiz.getUserAnswer();
-                        if (!quiz.checkAnswer(answerInput)) {
-                            quiz.handleWrongAnswer();
-                        } else {
-                            document.querySelector('#answer-submit').setAttribute('disabled', 'true');
-                            quiz.handleCorrectAnswer();
-                            const shareButton = document.createElement('button');
-                            shareButton.setAttribute('id', 'share-button');
-                            shareButton.textContent = '分享';
-                            document.querySelector('#answer-submit').after(shareButton);
-                            shareButton.addEventListener('click', () => {
-                                navigator.clipboard.writeText(quiz.copyInfo())
-                                    .then(() => {
-                                        shareButton.textContent = '已复制';
-                                    })
-                                    .catch(err => {
-                                        shareButton.textContent = '复制失败';
-                                    });
-                            });
-                        }
-                    });
-                } else {
-                    document.querySelector('#answer-submit').disabled = true;
-                }
+            const quizData = {
+                ...(todayQuiz.data ?? {}),
+                date: todayQuiz.date
+            };
+            quiz = Quiz.create(quizType, quizData);
+            if (!quiz) {
+                console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
+            }
+            quiz.renderPage();
+            if (quiz.submitter) {
+                document.querySelector('.submitted-by').textContent = `此问题由 “${quiz.submitter}” 投稿`;
+            }
+            if (quiz.quote) {
+                const quoteBlock = document.createElement('div');
+                quoteBlock.appendChild(document.createTextNode('此问题参考了'));
+                quiz.quote.forEach((quote, index, array) => {
+                    if (!quote.site) {
+                        const quoteElement = document.createTextNode(quote.name);
+                        quoteBlock.appendChild(quoteElement);
+                    } else {
+                        const quoteElement = document.createElement('a');
+                        quoteElement.setAttribute('href', quote.site);
+                        quoteElement.textContent = quote.name;
+                        quoteBlock.appendChild(quoteElement);
+                    }
+                    if (index <= array.length - 3) {
+                        quoteBlock.appendChild(document.createTextNode('、'));
+                    } else if (index === array.length - 2) {
+                        quoteBlock.appendChild(document.createTextNode('和'));
+                    }
+                });
+                quoteBlock.appendChild(document.createTextNode('等内容。'));
+                document.querySelector('.quote').appendChild(quoteBlock);
+            }
+            if (quiz.available) {
+                document.querySelector('#answer-submit').addEventListener('click', (e) => {
+                    const answerInput = quiz.getUserAnswer();
+                    if (!quiz.checkAnswer(answerInput)) {
+                        quiz.handleWrongAnswer();
+                    } else {
+                        document.querySelector('#answer-submit').setAttribute('disabled', 'true');
+                        quiz.handleCorrectAnswer();
+                        const shareButton = document.createElement('button');
+                        shareButton.setAttribute('id', 'share-button');
+                        shareButton.textContent = '分享';
+                        document.querySelector('#answer-submit').after(shareButton);
+                        shareButton.addEventListener('click', () => {
+                            navigator.clipboard.writeText(quiz.copyInfo())
+                                .then(() => {
+                                    shareButton.textContent = '已复制';
+                                })
+                                .catch(err => {
+                                    shareButton.textContent = '复制失败';
+                                });
+                        });
+                    }
+                });
+            } else {
+                document.querySelector('#answer-submit').disabled = true;
+            }
         })
         .catch(error => {
             console.error('❌ 加载或处理题目数据时出错:', error.message);
@@ -130,9 +135,11 @@ function renderMissingQuiz(dateString) {
     const latestLink = document.createElement('a');
     latestLink.href = '#';
     latestLink.textContent = '回到最新问题';
+    latestLink.setAttribute('data-latest-quiz-link', '');
+    latestLink.setAttribute('data-latest-quiz-source', 'page_404');
     latestLink.addEventListener('click', (event) => {
         event.preventDefault();
-        goToLatestRecordedQuiz();
+        goToLatestRecordedQuiz('page_404');
     });
 
     emptyState.appendChild(statusCode);
@@ -147,9 +154,10 @@ function renderMissingQuiz(dateString) {
     if (answerContainer) {
         answerContainer.classList.add('is-hidden');
     }
+    updateLatestQuizLinks();
 }
 
-function goToLatestRecordedQuiz() {
+function goToLatestRecordedQuiz(source = '') {
     fetch(`./quizzes/index.json?v=${Date.now()}`)
         .then(response => {
             if (!response.ok) {
@@ -158,11 +166,9 @@ function goToLatestRecordedQuiz() {
             return response.json();
         })
         .then(items => {
-            const latest = items
-                .filter(item => item.date)
-                .sort((a, b) => b.date.localeCompare(a.date))[0];
+            const latest = latestVisibleQuiz(items);
 
-            window.location.href = latest ? `index.html?date=${latest.date}` : 'index.html';
+            window.location.href = latest ? quizUrl(latest.date, source) : 'index.html';
         })
         .catch(error => {
             console.error('❌ 查找最新题目时出错:', error.message);
@@ -179,12 +185,10 @@ function updateLatestQuizLinks() {
             return response.json();
         })
         .then(items => {
-            const latest = items
-                .filter(item => item.date)
-                .sort((a, b) => b.date.localeCompare(a.date))[0];
+            const latest = latestVisibleQuiz(items);
 
             document.querySelectorAll('[data-latest-quiz-link]').forEach(link => {
-                link.href = latest ? `index.html?date=${latest.date}` : 'index.html';
+                link.href = latest ? quizUrl(latest.date, link.dataset.latestQuizSource) : 'index.html';
             });
         })
         .catch(error => {
@@ -192,9 +196,51 @@ function updateLatestQuizLinks() {
         });
 }
 
+function quizUrl(date, source = '') {
+    const params = new URLSearchParams({ date });
+    if (source) {
+        params.set('source', source);
+    }
+
+    return `index.html?${params.toString()}`;
+}
+
+function latestVisibleQuiz(items) {
+    const today = getShanghaiDateString();
+    return items
+        .filter(item => (
+            item.date &&
+            item.date <= today &&
+            item.type !== 'UNKNOWN'
+        ))
+        .sort((a, b) => b.date.localeCompare(a.date))[0];
+}
+
+function getShanghaiDateParts() {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Shanghai',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    });
+    const parts = formatter.formatToParts(new Date());
+
+    return {
+        year: parts.find(p => p.type === 'year').value,
+        month: parts.find(p => p.type === 'month').value,
+        day: parts.find(p => p.type === 'day').value
+    };
+}
+
+function getShanghaiDateString() {
+    const dateParts = getShanghaiDateParts();
+    return `${dateParts.year}-${dateParts.month}-${dateParts.day}`;
+}
+
 function getQuizDateComponents() {
     const urlParams = new URLSearchParams(window.location.search);
     const urlDateString = urlParams.get('date');
+    const source = urlParams.get('source') ?? '';
 
     const dateRegex = /^(\d{4})-(\d{2})-(\d{2})$/;
 
@@ -215,28 +261,24 @@ function getQuizDateComponents() {
         );
     }
 
-    const today = new Date();
-    const options = {
-        timeZone: 'Asia/Shanghai',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-    };
-
-    const formatter = new Intl.DateTimeFormat('en-US', options);
-    const parts = formatter.formatToParts(today);
-
-    const yearToday = parts.find(p => p.type === 'year').value;
-    const monthToday = parts.find(p => p.type === 'month').value;
-    const dayOfMonthKeyToday = parts.find(p => p.type === 'day').value;
+    const todayParts = getShanghaiDateParts();
+    const yearToday = todayParts.year;
+    const monthToday = todayParts.month;
+    const dayOfMonthKeyToday = todayParts.day;
+    const todayDateString = `${yearToday}-${monthToday}-${dayOfMonthKeyToday}`;
+    const isDebug = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+    const isFutureDate = isValidDate && urlDateString > todayDateString;
 
     const todayInfo = {
         year: yearToday,
         month: monthToday,
         dayOfMonthKey: dayOfMonthKeyToday,
-        dateString: `${yearToday}-${monthToday}-${dayOfMonthKeyToday}`,
+        dateString: todayDateString,
         dateSet: !!urlDateString,
-        isItToday: true
+        isItToday: true,
+        isFutureDate: false,
+        shouldBlockFutureDate: false,
+        source: source
     }
 
     const setInfo = {
@@ -245,24 +287,12 @@ function getQuizDateComponents() {
         dayOfMonthKey: dayOfMonthKey,
         dateString: urlDateString,
         dateSet: !!urlDateString,
-        isItToday: false
+        isItToday: false,
+        isFutureDate: isFutureDate,
+        shouldBlockFutureDate: isFutureDate && (!isDebug || source !== ''),
+        source: source
     };
 
-    const isDebug = window.location.hostname === 'localhost';
-
-    if (!isDebug) {
-        if (year > yearToday) {
-            return todayInfo;
-        } else if (year === yearToday) {
-            if (month > monthToday) {
-                return todayInfo;
-            } else if (month === monthToday) {
-                if (dayOfMonthKey > dayOfMonthKeyToday) {
-                    return todayInfo;
-                }
-            }
-        }
-    }
     if (isValidDate) {
         return setInfo;
     } else {

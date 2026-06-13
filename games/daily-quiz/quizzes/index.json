@@ -473,5 +473,10 @@
     "date": "2026-02-13",
     "type": "FLIP",
     "path": "quizzes/2026/02/2026-02-13.json"
+  },
+  {
+    "date": "2026-06-14",
+    "type": "FLIP",
+    "path": "quizzes/2026/06/2026-06-14.json"
   }
 ]
