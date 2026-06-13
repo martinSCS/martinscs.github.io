@@ -478,5 +478,25 @@
     "date": "2026-06-14",
     "type": "FLIP",
     "path": "quizzes/2026/06/2026-06-14.json"
+  },
+  {
+    "date": "2026-06-15",
+    "type": "FLIP",
+    "path": "quizzes/2026/06/2026-06-15.json"
+  },
+  {
+    "date": "2026-06-16",
+    "type": "FLIP",
+    "path": "quizzes/2026/06/2026-06-16.json"
+  },
+  {
+    "date": "2026-06-17",
+    "type": "SINGLE_CHOICE",
+    "path": "quizzes/2026/06/2026-06-17.json"
+  },
+  {
+    "date": "2026-06-18",
+    "type": "MULTIPLE_CHOICE",
+    "path": "quizzes/2026/06/2026-06-18.json"
   }
 ]

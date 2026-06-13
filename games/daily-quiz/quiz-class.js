@@ -7,7 +7,9 @@ export const QuizType = Object.freeze({
     FLIP: Symbol("FLIP"),
     WADOKAICHIN: Symbol("WADOKAICHIN"),
     HAYAOSHI: Symbol("HAYAOSHI"),
-    NAZOTOKI: Symbol("NAZOTOKI")
+    NAZOTOKI: Symbol("NAZOTOKI"),
+    SINGLE_CHOICE: Symbol("SINGLE_CHOICE"),
+    MULTIPLE_CHOICE: Symbol("MULTIPLE_CHOICE")
 });
 
 export class Quiz {
@@ -25,6 +27,10 @@ export class Quiz {
                 return new WadokaichinQuiz(type, data);
             case QuizType.HAYAOSHI:
                 return new HayaoshiQuiz(type, data);
+            case QuizType.SINGLE_CHOICE:
+                return new SingleChoiceQuiz(type, data);
+            case QuizType.MULTIPLE_CHOICE:
+                return new MultipleChoiceQuiz(type, data);
             case QuizType.UNKNOWN:
                 return new UnknownQuiz(type, data);
             default:
@@ -101,6 +107,248 @@ export class Quiz {
             answerInput.classList.remove('error-shake');
             answerInput.style.color = 'var(--secondary-color)';
         }, animationDuration);
+    }
+}
+
+class ChoiceQuiz extends Quiz {
+    configureData() {
+        super.configureData();
+        this.question = this.data.question ?? null;
+        this.options = this.normalizeOptions(this.data.options ?? []);
+        this.answerValues = this.normalizeAnswer(this.data.answer);
+        this.optionInputs = [];
+        this.optionLabels = [];
+    }
+
+    normalizeOptions(options) {
+        return options.map((option, index) => {
+            if (typeof option === 'object' && option !== null) {
+                return {
+                    value: String(option.value ?? option.id ?? index),
+                    label: String(option.label ?? option.text ?? option.value ?? option.id ?? '')
+                };
+            }
+
+            return {
+                value: String(index),
+                label: String(option)
+            };
+        });
+    }
+
+    normalizeAnswer(answer) {
+        const answers = Array.isArray(answer) ? answer : [answer];
+        return answers
+            .filter(answerItem => answerItem !== undefined && answerItem !== null)
+            .map(answerItem => this.normalizeAnswerItem(answerItem));
+    }
+
+    normalizeAnswerItem(answerItem) {
+        if (typeof answerItem === 'number') {
+            return this.options[answerItem]?.value ?? String(answerItem);
+        }
+
+        const answerString = String(answerItem);
+        const matchedOption = this.options.find(option => (
+            option.value === answerString ||
+            option.label === answerString
+        ));
+
+        return matchedOption ? matchedOption.value : answerString;
+    }
+
+    shuffleOptions() {
+        for (let i = this.options.length - 1; i > 0; i--) {
+            const randomIndex = Math.floor(Math.random() * (i + 1));
+            [this.options[i], this.options[randomIndex]] = [this.options[randomIndex], this.options[i]];
+        }
+    }
+
+    isMultiple() {
+        return false;
+    }
+
+    checkAnswer(userAnswer) {
+        const selectedValues = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+        const normalizedSelected = selectedValues
+            .filter(value => value !== undefined && value !== null && value !== '')
+            .map(value => String(value))
+            .sort();
+        const normalizedAnswer = [...this.answerValues].sort();
+
+        return (
+            normalizedSelected.length === normalizedAnswer.length &&
+            normalizedSelected.every((value, index) => value === normalizedAnswer[index])
+        );
+    }
+
+    renderPage() {
+        this.shuffleOptions();
+
+        const container = document.createElement('div');
+        container.classList.add('choice-quiz');
+
+        const badge = document.createElement('div');
+        badge.classList.add('choice-quiz-badge');
+        badge.textContent = this.isMultiple() ? '多选题' : '单选题';
+
+        const question = document.createElement('div');
+        question.classList.add('choice-quiz-question');
+        question.lang = this.language;
+        question.textContent = this.question;
+
+        const optionList = document.createElement('div');
+        optionList.classList.add('choice-quiz-options');
+
+        const inputType = this.isMultiple() ? 'checkbox' : 'radio';
+        const inputName = `choice-${this.date ?? Date.now()}`;
+
+        this.options.forEach((option, index) => {
+            const optionId = `${inputName}-${index}`;
+            const label = document.createElement('label');
+            label.classList.add('choice-quiz-option');
+            label.setAttribute('for', optionId);
+            label.dataset.value = option.value;
+            label.isAnswerCorrect = this.answerValues.includes(option.value);
+
+            const input = document.createElement('input');
+            input.type = inputType;
+            input.id = optionId;
+            input.name = inputName;
+            input.value = option.value;
+            input.addEventListener('change', () => this.updateSubmitState());
+
+            const marker = document.createElement('span');
+            marker.classList.add('choice-quiz-marker');
+            marker.textContent = this.optionMarker(index);
+
+            const text = document.createElement('span');
+            text.classList.add('choice-quiz-option-text');
+            text.textContent = option.label;
+
+            label.appendChild(input);
+            label.appendChild(marker);
+            label.appendChild(text);
+            optionList.appendChild(label);
+
+            this.optionInputs.push(input);
+            this.optionLabels.push(label);
+        });
+
+        container.appendChild(badge);
+        container.appendChild(question);
+        container.appendChild(optionList);
+        document.querySelector('.quiz').append(container);
+
+        this.updateSubmitState();
+    }
+
+    optionMarker(index) {
+        return String.fromCharCode(65 + index);
+    }
+
+    updateSubmitState() {
+        const submitButton = document.querySelector('#answer-submit');
+        if (!submitButton) {
+            return;
+        }
+        submitButton.disabled = this.getSelectedValues().length === 0;
+    }
+
+    getSelectedValues() {
+        return this.optionInputs
+            .filter(input => input.checked)
+            .map(input => input.value);
+    }
+
+    getUserAnswer() {
+        return this.getSelectedValues();
+    }
+
+    selectedOptionLabels() {
+        const selectedValues = new Set(this.getSelectedValues());
+        return this.options
+            .filter(option => selectedValues.has(option.value))
+            .map(option => option.label);
+    }
+
+    disableOptions() {
+        this.optionInputs.forEach(input => {
+            input.disabled = true;
+        });
+    }
+
+    revealResult() {
+        this.optionLabels.forEach(label => {
+            const input = label.querySelector('input');
+            if (label.isAnswerCorrect) {
+                label.classList.add('is-correct-answer');
+            }
+            if (input.checked && !label.isAnswerCorrect) {
+                label.classList.add('is-wrong-answer');
+            }
+        });
+    }
+
+    clearSelection() {
+        this.optionInputs.forEach(input => {
+            input.checked = false;
+        });
+        this.updateSubmitState();
+    }
+
+    copyInfo() {
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        let showUrl = window.location.href;
+        if (!params.has('date')) {
+            params.set('date', this.date);
+            showUrl = url.toString();
+        }
+
+        return `${this.date}
+
+${this.isMultiple() ? '多选题' : '单选题'}
+
+${showUrl}`;
+    }
+
+    handleCorrectAnswer() {
+        this.disableOptions();
+        this.optionLabels.forEach(label => {
+            const input = label.querySelector('input');
+            if (input.checked && label.isAnswerCorrect) {
+                label.classList.add('is-correct-answer');
+            }
+        });
+        document.querySelector('.choice-quiz').classList.add('correct-pulse');
+        this.correctAudio.play().then(r => {});
+    }
+
+    handleWrongAnswer() {
+        const selectedLabels = this.optionLabels.filter(label => label.querySelector('input').checked);
+        selectedLabels.forEach(label => {
+            label.classList.add('is-wrong-answer', 'error-shake');
+        });
+        this.wrongAudio.play().then(r => {});
+        setTimeout(() => {
+            selectedLabels.forEach(label => {
+                label.classList.remove('is-wrong-answer', 'error-shake');
+            });
+            this.clearSelection();
+        }, 500);
+    }
+}
+
+class SingleChoiceQuiz extends ChoiceQuiz {
+    getUserAnswer() {
+        return this.getSelectedValues()[0] ?? '';
+    }
+}
+
+class MultipleChoiceQuiz extends ChoiceQuiz {
+    isMultiple() {
+        return true;
     }
 }
 
