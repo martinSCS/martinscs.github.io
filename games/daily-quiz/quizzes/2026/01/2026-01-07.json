@@ -1,0 +1,10 @@
+{
+  "date": "2026-01-07",
+  "type": "FLIP",
+  "data": {
+    "question": "广泛存在于中枢与外周神经系统，可在神经–肌肉接头处直接触发骨骼肌收缩，还可以传递神经信号的物质是什么？",
+    "answer": "^(?:乙酰胆碱|ACh)$",
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
+  }
+}

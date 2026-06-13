@@ -1,0 +1,9 @@
+{
+  "date": "2025-11-10",
+  "type": "FLIP",
+  "data": {
+    "question": "位于中国和尼泊尔边界，属于喜马拉雅山脉的世界最高峰是哪一座？",
+    "answer": "珠穆朗玛峰",
+    "answerInRegex": false
+  }
+}

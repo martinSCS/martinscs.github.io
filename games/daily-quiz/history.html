@@ -11,16 +11,79 @@
 </head>
 <body>
 <div class="header">
-    <div class="header-start">
-
-    </div>
-    <div class="header-center">
-        每日一题
-    </div>
-    <div class="header-end">
-        <a class="history-link" href="history.html">历史题目</a>
-        <a class="latest-link" href="index.html">最新题目</a>
-    </div>
+    <a class="site-brand" href="index.html">每日一题</a>
+    <nav class="top-tabs" aria-label="每日一题导航">
+        <a class="top-tab" href="index.html" data-latest-quiz-link>最新问题</a>
+        <a class="top-tab is-active" href="history.html" aria-current="page">历史题目</a>
+    </nav>
 </div>
+<main class="history">
+    <h1>历史题目</h1>
+    <div id="history-list">加载中…</div>
+</main>
+<script type="module">
+    const listElement = document.querySelector('#history-list');
+
+    function quizTypeName(type) {
+        const names = {
+            FLIP: '翻牌',
+            HAYAOSHI: '抢答',
+            WADOKAICHIN: '和同开珍'
+        };
+
+        return names[type] ?? type;
+    }
+
+    fetch('./quizzes/index.json?v=' + Date.now())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`无法加载历史索引 (${response.status})`);
+            }
+            return response.json();
+        })
+        .then(items => {
+            listElement.textContent = '';
+            const visibleItems = items.filter(item => item.date && item.type !== 'UNKNOWN');
+            const latest = visibleItems
+                .sort((a, b) => b.date.localeCompare(a.date))[0];
+
+            document.querySelectorAll('[data-latest-quiz-link]').forEach(link => {
+                link.href = latest ? `index.html?date=${latest.date}` : 'index.html';
+            });
+
+            const groups = visibleItems
+                .slice()
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .reduce((result, item) => {
+                    const month = item.date.slice(0, 7);
+                    result[month] ??= [];
+                    result[month].push(item);
+                    return result;
+                }, {});
+
+            Object.entries(groups).forEach(([month, quizzes]) => {
+                const section = document.createElement('section');
+                const title = document.createElement('h2');
+                const list = document.createElement('div');
+
+                title.textContent = month;
+                list.classList.add('history-grid');
+
+                quizzes.forEach(quiz => {
+                    const link = document.createElement('a');
+                    link.href = `index.html?date=${quiz.date}`;
+                    link.textContent = `${quiz.date} · ${quizTypeName(quiz.type)}`;
+                    list.appendChild(link);
+                });
+
+                section.appendChild(title);
+                section.appendChild(list);
+                listElement.appendChild(section);
+            });
+        })
+        .catch(error => {
+            listElement.textContent = error.message;
+        });
+</script>
 </body>
 </html>

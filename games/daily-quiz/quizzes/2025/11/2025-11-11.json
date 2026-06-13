@@ -1,0 +1,9 @@
+{
+  "date": "2025-11-11",
+  "type": "FLIP",
+  "data": {
+    "question": "可以组成遗传指令，由脱氧核糖核苷酸通过酯键相连而成的，英文简称DNA的生物大分子是什么？",
+    "answer": "脱氧核糖核酸",
+    "answerInRegex": false
+  }
+}

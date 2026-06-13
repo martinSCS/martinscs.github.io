@@ -1,0 +1,9 @@
+{
+  "date": "2025-11-18",
+  "type": "FLIP",
+  "data": {
+    "question": "使用JavaScript编写，通过原生组件实现跨平台移动应用，由Meta推出的框架是什么？",
+    "answer": "^(?:RN|React Native)(?: *框架| Framework)?$",
+    "answerInRegex": true
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "date": "2025-12-30",
+  "type": "FLIP",
+  "data": {
+    "question": "提出“语言的界限即世界的界限”，著有《逻辑哲学论》《哲学研究》的奥地利分析哲学家是谁？",
+    "answer": "^(?:路德维希·(?:约瑟夫·约翰·)?)?维特根斯坦$",
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
+  }
+}

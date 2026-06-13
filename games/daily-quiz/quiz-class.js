@@ -39,11 +39,11 @@ export class Quiz {
         this.quote = this.data.quote ?? null;
         this.available = true;
         this.language = this.data.language ?? "zh-Hans";
-        this.correctAudio = new Audio('./audio/correct.mp3');
+        this.correctAudio = new Audio('./assets/audio/correct.mp3');
         this.correctAudio.volume = 0.2;
-        this.wrongAudio = new Audio('./audio/wrong.mp3');
+        this.wrongAudio = new Audio('./assets/audio/wrong.mp3');
         this.wrongAudio.volume = 0.2;
-        this.getAnswerPowerAudio = new Audio('./audio/Quiz-Button02-1(Multi).mp3');
+        this.getAnswerPowerAudio = new Audio('./assets/audio/Quiz-Button02-1(Multi).mp3');
         this.getAnswerPowerAudio.volume = 0.2;
     }
 
@@ -296,8 +296,8 @@ class HayaoshiQuiz extends Quiz {
         this.onGlobalSpace = this.onGlobalSpace.bind(this);
 
         const images = [
-            './quizzes/images/hayaoshi_on.png',
-            './quizzes/images/hayaoshi_off.png'
+            './assets/images/hayaoshi_on.png',
+            './assets/images/hayaoshi_off.png'
         ];
         preloadImages(Object.values(images)).then(() => {});
     }
@@ -349,7 +349,7 @@ class HayaoshiQuiz extends Quiz {
             height: '96px',
             border: 'none',
             padding: '0',
-            background: 'url("./quizzes/images/hayaoshi_off.png") bottom / contain no-repeat',
+            background: 'url("./assets/images/hayaoshi_off.png") bottom / contain no-repeat',
             cursor: 'pointer'
         });
 
@@ -480,7 +480,7 @@ ${showUrl}`;
             active = false;
             this.audioPlayer.playAudio();
         }
-        this.controlButton.style.background = `url("./quizzes/images/hayaoshi_${active ? 'on' : 'off'}.png") bottom / contain no-repeat`;
+        this.controlButton.style.background = `url("./assets/images/hayaoshi_${active ? 'on' : 'off'}.png") bottom / contain no-repeat`;
         this.controlButton.blur();
     }
 

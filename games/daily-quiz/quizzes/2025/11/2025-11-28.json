@@ -1,0 +1,10 @@
+{
+  "date": "2025-11-28",
+  "type": "FLIP",
+  "data": {
+    "question": "传说由华佗创制，部分地区有农历正月初一饮用之习俗，在王安石的诗中提到的一种药酒是什么？",
+    "answer": "^屠[苏酥]酒?$",
+    "answerInRegex": true,
+    "submitter": "无名"
+  }
+}

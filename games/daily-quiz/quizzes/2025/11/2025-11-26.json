@@ -1,0 +1,28 @@
+{
+  "date": "2025-11-26",
+  "type": "FLIP",
+  "data": {
+    "question": "描绘用手持拐杖在深渊旁行走，或手持巾在深渊旁擦拭，本表战战兢兢义，引申执事振敬义的会意字是什么？",
+    "answer": "^[肃肅\\u{26621}\\u{43cb}\\u{2267b}]$",
+    "answerInRegex": true,
+    "submitter": null,
+    "quote": [
+      {
+        "name": "字统网",
+        "site": "https://zi.tools"
+      },
+      {
+        "name": "字源",
+        "site": null
+      },
+      {
+        "name": "汉多",
+        "site": null
+      },
+      {
+        "name": "《康熙字典》",
+        "site": null
+      }
+    ]
+  }
+}

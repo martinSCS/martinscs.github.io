@@ -5,32 +5,44 @@ function getTodayQuizData() {
 
     const year = dateComponents.year;
     const month = dateComponents.month;
-    const dayOfMonthKey = dateComponents.dayOfMonthKey;
+    const dateString = dateComponents.dateString;
     const dateSet = dateComponents.dateSet;
     const isItToday = dateComponents.isItToday;
 
     removeUrlParameterIf('date', dateSet && isItToday);
 
-    const fileName = `${year}-${month}.json`;
-    const filePath = `quizzes/${fileName}?v=${Date.now()}`;
+    const fileName = `${dateString}.json`;
+    const filePath = `quizzes/${year}/${month}/${fileName}?v=${Date.now()}`;
 
     let quiz;
 
     fetch(filePath)
         .then(response => {
             if (!response.ok) {
+                if (response.status === 404) {
+                    console.warn(`⚠️ 找不到日期为 ${dateString} 的题目。`);
+                    return {
+                        missing: true,
+                        date: dateString
+                    };
+                }
                 throw new Error(`无法加载文件 (${response.status})：${fileName}`);
             }
             return response.json();
         })
-        .then(monthData => {
-            const todayQuiz = monthData[dayOfMonthKey];
-            if (todayQuiz) {
-                const quizType = QuizType[todayQuiz.type] ?? QuizType['UNKNOWN'];
-                const quizData = todayQuiz.data;
-                if (quizData) {
-                    quizData.date = `${year}-${month}-${dayOfMonthKey}`;
-                }
+        .then(todayQuiz => {
+            if (!todayQuiz) {
+                return;
+            }
+            if (todayQuiz.missing) {
+                renderMissingQuiz(todayQuiz.date);
+                return;
+            }
+            const quizType = QuizType[todayQuiz.type] ?? QuizType['UNKNOWN'];
+                const quizData = {
+                    ...(todayQuiz.data ?? {}),
+                    date: todayQuiz.date
+                };
                 quiz = Quiz.create(quizType, quizData);
                 if (!quiz) {
                     console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
@@ -87,13 +99,96 @@ function getTodayQuizData() {
                 } else {
                     document.querySelector('#answer-submit').disabled = true;
                 }
-            } else {
-                console.warn(`⚠️ 文件 ${fileName} 中找不到日期为 ${dayOfMonthKey} 的题目。`);
-                removeUrlParameterIfAndReload('date', true);
-            }
         })
         .catch(error => {
             console.error('❌ 加载或处理题目数据时出错:', error.message);
+        });
+}
+
+function renderMissingQuiz(dateString) {
+    const quizContainer = document.querySelector('.quiz');
+    const answerContainer = document.querySelector('.answer');
+    const submitButton = document.querySelector('#answer-submit');
+
+    quizContainer.textContent = '';
+    document.querySelector('.submitted-by').textContent = '';
+    document.querySelector('.quote').textContent = '';
+
+    const emptyState = document.createElement('div');
+    emptyState.classList.add('missing-quiz');
+
+    const statusCode = document.createElement('div');
+    statusCode.classList.add('missing-quiz-code');
+    statusCode.textContent = '404';
+
+    const title = document.createElement('h1');
+    title.textContent = '这一天的题还没有来呀';
+
+    const description = document.createElement('p');
+    description.textContent = `${dateString} 的每日一题暂时还没准备好。`;
+
+    const latestLink = document.createElement('a');
+    latestLink.href = '#';
+    latestLink.textContent = '回到最新问题';
+    latestLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        goToLatestRecordedQuiz();
+    });
+
+    emptyState.appendChild(statusCode);
+    emptyState.appendChild(title);
+    emptyState.appendChild(description);
+    emptyState.appendChild(latestLink);
+    quizContainer.appendChild(emptyState);
+
+    if (submitButton) {
+        submitButton.disabled = true;
+    }
+    if (answerContainer) {
+        answerContainer.classList.add('is-hidden');
+    }
+}
+
+function goToLatestRecordedQuiz() {
+    fetch(`./quizzes/index.json?v=${Date.now()}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`无法加载历史索引 (${response.status})`);
+            }
+            return response.json();
+        })
+        .then(items => {
+            const latest = items
+                .filter(item => item.date)
+                .sort((a, b) => b.date.localeCompare(a.date))[0];
+
+            window.location.href = latest ? `index.html?date=${latest.date}` : 'index.html';
+        })
+        .catch(error => {
+            console.error('❌ 查找最新题目时出错:', error.message);
+            window.location.href = 'index.html';
+        });
+}
+
+function updateLatestQuizLinks() {
+    fetch(`./quizzes/index.json?v=${Date.now()}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`无法加载历史索引 (${response.status})`);
+            }
+            return response.json();
+        })
+        .then(items => {
+            const latest = items
+                .filter(item => item.date)
+                .sort((a, b) => b.date.localeCompare(a.date))[0];
+
+            document.querySelectorAll('[data-latest-quiz-link]').forEach(link => {
+                link.href = latest ? `index.html?date=${latest.date}` : 'index.html';
+            });
+        })
+        .catch(error => {
+            console.error('❌ 更新最新题目链接时出错:', error.message);
         });
 }
 
@@ -139,6 +234,7 @@ function getQuizDateComponents() {
         year: yearToday,
         month: monthToday,
         dayOfMonthKey: dayOfMonthKeyToday,
+        dateString: `${yearToday}-${monthToday}-${dayOfMonthKeyToday}`,
         dateSet: !!urlDateString,
         isItToday: true
     }
@@ -147,6 +243,7 @@ function getQuizDateComponents() {
         year: year,
         month: month,
         dayOfMonthKey: dayOfMonthKey,
+        dateString: urlDateString,
         dateSet: !!urlDateString,
         isItToday: false
     };
@@ -208,11 +305,4 @@ function removeUrlParameterIfAndReload(paramName, condition) {
 }
 
 document.addEventListener('DOMContentLoaded', getTodayQuizData);
-document.addEventListener('DOMContentLoaded', () => {
-    let link = window.location.origin + window.location.pathname;
-    const latestLink = document.createElement('a');
-    latestLink.textContent = '最新问题';
-    latestLink.setAttribute('href', link);
-    latestLink.classList.add('latest-link');
-    document.querySelector('.header').appendChild(latestLink);
-})
+document.addEventListener('DOMContentLoaded', updateLatestQuizLinks);

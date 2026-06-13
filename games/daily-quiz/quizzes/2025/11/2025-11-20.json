@@ -1,0 +1,10 @@
+{
+  "date": "2025-11-20",
+  "type": "FLIP",
+  "data": {
+    "question": "F1蒙特卡洛赛道的所在地，世界上面积第二小也是人口密度最大的国家是哪里？",
+    "answer": "^摩纳哥(?:公国)?$",
+    "answerInRegex": true,
+    "submitter": "记忆°Blank丶"
+  }
+}

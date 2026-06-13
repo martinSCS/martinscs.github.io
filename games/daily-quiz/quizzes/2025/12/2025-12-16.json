@@ -1,0 +1,10 @@
+{
+  "date": "2025-12-16",
+  "type": "FLIP",
+  "data": {
+    "question": "横跨比利牛斯山两侧，使用同名的孤立语言，并以象征荣誉的传统帽子“txapela”闻名的地区是哪里？",
+    "answer": "^巴斯克(?:地区)?$",
+    "answerInRegex": true,
+    "submitter": "Yamasuso"
+  }
+}
