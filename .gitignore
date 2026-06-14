@@ -4,3 +4,4 @@
 /.idea/.gitignore
 /.idea
 serve-daily-quiz.sh
+**/.DS_Store
