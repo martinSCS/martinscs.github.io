@@ -575,6 +575,17 @@ main.history section {
     color: var(--primary-color);
 }
 
+.history-grid a.is-future-quiz {
+    border-color: #d97706;
+    background-color: #fff7ed;
+    color: #b45309;
+}
+
+.history-grid a.is-future-quiz:hover {
+    border-color: #f97316;
+    color: #c2410c;
+}
+
 [lang*="ja"].sans {
     font-family: "Noto Sans JP", sans-serif;
 }

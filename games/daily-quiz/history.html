@@ -51,6 +51,10 @@
         return `${year}-${month}-${day}`;
     }
 
+    function isDebugMode() {
+        return ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+    }
+
     fetch('./quizzes/index.json?v=' + Date.now())
         .then(response => {
             if (!response.ok) {
@@ -61,13 +65,15 @@
         .then(items => {
             listElement.textContent = '';
             const today = getShanghaiDateString();
+            const isDebug = isDebugMode();
             const visibleItems = items.filter(item => (
                 item.date &&
-                item.date <= today &&
+                (isDebug || item.date <= today) &&
                 item.type !== 'UNKNOWN'
             ));
             const latest = visibleItems
                 .slice()
+                .filter(item => item.date <= today)
                 .sort((a, b) => b.date.localeCompare(a.date))[0];
 
             document.querySelectorAll('[data-latest-quiz-link]').forEach(link => {
@@ -94,12 +100,16 @@
 
                 quizzes.forEach(quiz => {
                     const link = document.createElement('a');
-                    const params = new URLSearchParams({
-                        date: quiz.date,
-                        source: 'history_list'
-                    });
+                    const isFutureQuiz = quiz.date > today;
+                    const params = new URLSearchParams({ date: quiz.date });
+                    if (!isFutureQuiz) {
+                        params.set('source', 'history_list');
+                    }
                     link.href = `index.html?${params.toString()}`;
                     link.textContent = `${quiz.date} · ${quizTypeName(quiz.type)}`;
+                    if (isFutureQuiz) {
+                        link.classList.add('is-future-quiz');
+                    }
                     list.appendChild(link);
                 });
 
