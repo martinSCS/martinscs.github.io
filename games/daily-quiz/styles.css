@@ -346,6 +346,54 @@ div.wadokaichin-quiz-character.wadokaichin-quiz-character-missing.wadokaichin-qu
     animation: shake 0.5s ease-in-out forwards;
 }
 
+.image-text-quiz {
+    width: min(720px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid #dde3ee;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 12px 32px rgba(26, 115, 232, 0.08);
+}
+
+.image-text-quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background-color: rgba(26, 115, 232, 0.1);
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.image-text-quiz-prompt {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.image-text-quiz-frame {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 2px solid #d9e0ec;
+    border-radius: 0.85rem;
+    background-color: #f8fafc;
+}
+
+.image-text-quiz-frame img,
+.image-text-quiz-inline-svg {
+    display: block;
+    max-width: 100%;
+    max-height: min(50vh, 420px);
+    border-radius: 0.5rem;
+}
+
 div.submitted-by {
     padding: 1em;
     display: flex;

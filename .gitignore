@@ -5,3 +5,4 @@
 /.idea
 serve-daily-quiz.sh
 **/.DS_Store
+**/.tmp/

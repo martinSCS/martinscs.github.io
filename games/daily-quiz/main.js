@@ -1,6 +1,8 @@
 import { QuizType, Quiz } from './quiz-class.js';
 
 function getTodayQuizData() {
+    Quiz.clearCompletedStates();
+
     const dateComponents = getQuizDateComponents();
 
     const year = dateComponents.year;
@@ -53,6 +55,8 @@ function getTodayQuizData() {
                 console.log('❌ 题目格式有误，请检查:', todayQuiz.type, todayQuiz.data);
             }
             quiz.renderPage();
+            quiz.restoreUserState();
+            quiz.bindUserStatePersistence();
             if (quiz.submitter) {
                 document.querySelector('.submitted-by').textContent = `此问题由 “${quiz.submitter}” 投稿`;
             }
@@ -85,19 +89,22 @@ function getTodayQuizData() {
                         quiz.handleWrongAnswer();
                     } else {
                         document.querySelector('#answer-submit').setAttribute('disabled', 'true');
+                        quiz.markCorrectAnswer(answerInput);
                         quiz.handleCorrectAnswer();
                         const shareButton = document.createElement('button');
                         shareButton.setAttribute('id', 'share-button');
                         shareButton.textContent = '分享';
                         document.querySelector('#answer-submit').after(shareButton);
-                        shareButton.addEventListener('click', () => {
-                            navigator.clipboard.writeText(quiz.copyInfo())
-                                .then(() => {
-                                    shareButton.textContent = '已复制';
-                                })
-                                .catch(err => {
-                                    shareButton.textContent = '复制失败';
-                                });
+                        shareButton.addEventListener('click', async () => {
+                            shareButton.disabled = true;
+                            try {
+                                shareButton.textContent = await quiz.share();
+                            } catch (error) {
+                                console.error('❌ 分享失败:', error);
+                                shareButton.textContent = '分享失败';
+                            } finally {
+                                shareButton.disabled = false;
+                            }
                         });
                     }
                 });

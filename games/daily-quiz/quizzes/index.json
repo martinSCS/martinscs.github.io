@@ -498,5 +498,10 @@
     "date": "2026-06-18",
     "type": "MULTIPLE_CHOICE",
     "path": "quizzes/2026/06/2026-06-18.json"
+  },
+  {
+    "date": "2026-06-19",
+    "type": "IMAGE_TEXT",
+    "path": "quizzes/2026/06/2026-06-19.json"
   }
 ]

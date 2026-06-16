@@ -9,10 +9,13 @@ export const QuizType = Object.freeze({
     HAYAOSHI: Symbol("HAYAOSHI"),
     NAZOTOKI: Symbol("NAZOTOKI"),
     SINGLE_CHOICE: Symbol("SINGLE_CHOICE"),
-    MULTIPLE_CHOICE: Symbol("MULTIPLE_CHOICE")
+    MULTIPLE_CHOICE: Symbol("MULTIPLE_CHOICE"),
+    IMAGE_TEXT: Symbol("IMAGE_TEXT")
 });
 
 export class Quiz {
+    static stateStorageKey = 'dailyQuiz.questionStates.v1';
+
     constructor(type, data) {
         this.type = type;
         this.data = data;
@@ -31,10 +34,45 @@ export class Quiz {
                 return new SingleChoiceQuiz(type, data);
             case QuizType.MULTIPLE_CHOICE:
                 return new MultipleChoiceQuiz(type, data);
+            case QuizType.IMAGE_TEXT:
+                return new ImageTextQuiz(type, data);
             case QuizType.UNKNOWN:
                 return new UnknownQuiz(type, data);
             default:
                 return null;
+        }
+    }
+
+    static readStateStore() {
+        try {
+            return JSON.parse(window.localStorage.getItem(Quiz.stateStorageKey) ?? '{}') ?? {};
+        } catch (error) {
+            console.warn('⚠️ 无法读取题目本地状态:', error.message);
+            return {};
+        }
+    }
+
+    static writeStateStore(store) {
+        try {
+            window.localStorage.setItem(Quiz.stateStorageKey, JSON.stringify(store));
+        } catch (error) {
+            console.warn('⚠️ 无法写入题目本地状态:', error.message);
+        }
+    }
+
+    static clearCompletedStates() {
+        const store = Quiz.readStateStore();
+        let changed = false;
+
+        Object.entries(store).forEach(([key, state]) => {
+            if (state?.completed) {
+                delete store[key];
+                changed = true;
+            }
+        });
+
+        if (changed) {
+            Quiz.writeStateStore(store);
         }
     }
 
@@ -64,6 +102,7 @@ export class Quiz {
             case QuizType.FLIP:
             case QuizType.WADOKAICHIN:
             case QuizType.HAYAOSHI:
+            case QuizType.IMAGE_TEXT:
                 const inputBox = document.createElement('input');
                 inputBox.id = 'answer-input';
                 inputBox.lang = this.language;
@@ -75,9 +114,76 @@ export class Quiz {
         }
     }
 
+    stateKey() {
+        const typeName = this.type.description ?? String(this.type);
+        return `${this.date ?? 'unknown'}::${typeName}`;
+    }
+
+    getSavedState() {
+        const store = Quiz.readStateStore();
+        const state = store[this.stateKey()];
+        return state && typeof state === 'object' ? state : null;
+    }
+
+    getPersistableState() {
+        const answerInput = document.querySelector('#answer-input');
+        return {
+            answer: answerInput?.value ?? ''
+        };
+    }
+
+    applyPersistedState(state) {
+        const answerInput = document.querySelector('#answer-input');
+        if (answerInput && typeof state.answer === 'string') {
+            answerInput.value = state.answer;
+        }
+    }
+
+    restoreUserState() {
+        const state = this.getSavedState();
+        if (!state || state.completed) {
+            return;
+        }
+
+        this.applyPersistedState(state);
+    }
+
+    bindUserStatePersistence() {
+        const answerInput = document.querySelector('#answer-input');
+        if (answerInput) {
+            answerInput.addEventListener('input', () => this.saveUserState());
+            answerInput.addEventListener('change', () => this.saveUserState());
+        }
+    }
+
+    saveUserState(extraState = {}) {
+        const store = Quiz.readStateStore();
+        store[this.stateKey()] = {
+            ...store[this.stateKey()],
+            date: this.date,
+            type: this.type.description ?? String(this.type),
+            ...this.getPersistableState(),
+            ...extraState,
+            updatedAt: new Date().toISOString()
+        };
+        Quiz.writeStateStore(store);
+    }
+
+    markCorrectAnswer(answer) {
+        this.saveUserState({
+            answer,
+            completed: true
+        });
+    }
+
     /// 复制分享信息，供子类覆写
     copyInfo() {
 
+    }
+
+    async share() {
+        await navigator.clipboard.writeText(this.copyInfo());
+        return '已复制';
     }
 
     /// 获取用户答案
@@ -265,6 +371,28 @@ class ChoiceQuiz extends Quiz {
         return this.getSelectedValues();
     }
 
+    getPersistableState() {
+        return {
+            selectedValues: this.getSelectedValues()
+        };
+    }
+
+    applyPersistedState(state) {
+        if (Array.isArray(state.selectedValues)) {
+            const selectedValues = new Set(state.selectedValues.map(value => String(value)));
+            this.optionInputs.forEach(input => {
+                input.checked = selectedValues.has(input.value);
+            });
+            this.updateSubmitState();
+        }
+    }
+
+    bindUserStatePersistence() {
+        this.optionInputs.forEach(input => {
+            input.addEventListener('change', () => this.saveUserState());
+        });
+    }
+
     selectedOptionLabels() {
         const selectedValues = new Set(this.getSelectedValues());
         return this.options
@@ -336,6 +464,7 @@ ${showUrl}`;
                 label.classList.remove('is-wrong-answer', 'error-shake');
             });
             this.clearSelection();
+            this.saveUserState();
         }, 500);
     }
 }
@@ -349,6 +478,392 @@ class SingleChoiceQuiz extends ChoiceQuiz {
 class MultipleChoiceQuiz extends ChoiceQuiz {
     isMultiple() {
         return true;
+    }
+}
+
+class ImageTextQuiz extends Quiz {
+    configureData() {
+        super.configureData();
+        this.prompt = this.data.prompt ?? '请打出图片上的文字';
+        this.image = this.data.image ?? null;
+        this.imageAlt = this.data.imageAlt ?? '题目图片';
+        this.answer = this.data.answer ?? null;
+        this.answerInRegex = this.data.answerInRegex || false;
+        this.shareImageDataUrl = null;
+        this.googleCSS = this.data.googleCSS ?? this.data.googleCss ?? this.data.googleFontCSS ?? this.data.googleFontCss ?? null;
+        this.fontFamily = this.data.fontFamily ?? null;
+    }
+
+    checkAnswer(userAnswer) {
+        const normalizedUserAnswer = userAnswer.trim();
+        if (this.answerInRegex) {
+            const regex = new RegExp(this.answer, 'gui');
+            return regex.test(normalizedUserAnswer);
+        }
+
+        return normalizedUserAnswer === String(this.answer).trim();
+    }
+
+    renderPage() {
+        super.renderPage();
+
+        const inputBox = document.querySelector('#answer-input');
+        this.loadGoogleFont();
+        inputBox.style.fontFamily = this.fontFamily ? this.cssFontFamily(this.fontFamily) : 'inherit';
+
+        const container = document.createElement('div');
+        container.classList.add('image-text-quiz');
+
+        const badge = document.createElement('div');
+        badge.classList.add('image-text-quiz-badge');
+        badge.textContent = '图片题';
+
+        const prompt = document.createElement('div');
+        prompt.classList.add('image-text-quiz-prompt');
+        prompt.textContent = this.prompt;
+
+        const imageFrame = document.createElement('div');
+        imageFrame.classList.add('image-text-quiz-frame');
+
+        container.appendChild(badge);
+        container.appendChild(prompt);
+        container.appendChild(imageFrame);
+        document.querySelector('.quiz').append(container);
+
+        this.renderImage(imageFrame);
+    }
+
+    renderImage(imageFrame) {
+        if (this.isSvgImage()) {
+            this.renderInlineSvg(imageFrame);
+            return;
+        }
+
+        this.renderImageElement(imageFrame);
+    }
+
+    isSvgImage() {
+        return this.image?.split('?')[0].toLowerCase().endsWith('.svg');
+    }
+
+    renderInlineSvg(imageFrame) {
+        fetch(this.withCacheBust(this.image))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`无法加载 SVG (${response.status})`);
+                }
+                return response.text();
+            })
+            .then(async svgText => {
+                await this.prepareSvgShareImageDataUrl(svgText);
+
+                const parser = new DOMParser();
+                const documentSvg = parser.parseFromString(svgText, 'image/svg+xml');
+                const parserError = documentSvg.querySelector('parsererror');
+                const svg = documentSvg.querySelector('svg');
+
+                if (parserError || !svg) {
+                    throw new Error('SVG 格式有误');
+                }
+
+                const inlineSvg = document.importNode(svg, true);
+                inlineSvg.setAttribute('role', 'img');
+                inlineSvg.setAttribute('aria-label', this.imageAlt);
+                inlineSvg.classList.add('image-text-quiz-inline-svg');
+                imageFrame.textContent = '';
+                imageFrame.appendChild(inlineSvg);
+            })
+            .catch(error => {
+                console.error('❌ 内联 SVG 失败，回退到 img:', error.message);
+                this.renderImageElement(imageFrame);
+            });
+    }
+
+    renderImageElement(imageFrame) {
+        const image = document.createElement('img');
+        image.src = this.withCacheBust(this.image);
+        image.alt = this.imageAlt;
+        image.loading = 'eager';
+        image.decoding = 'async';
+        this.prepareShareImageDataUrl();
+
+        imageFrame.textContent = '';
+        imageFrame.appendChild(image);
+    }
+
+    withCacheBust(url) {
+        if (!url) {
+            return '';
+        }
+
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}v=${Date.now()}`;
+    }
+
+    copyInfo() {
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        let showUrl = window.location.href;
+        if (!params.has('date')) {
+            params.set('date', this.date);
+            showUrl = url.toString();
+        }
+
+        return `${this.date}
+
+打字题
+
+${showUrl}`;
+    }
+
+    async share() {
+        const shareText = this.copyInfo();
+
+        if (this.shareImageDataUrl && await this.copyRichContentToClipboard(shareText, this.shareImageDataUrl)) {
+            return '已复制';
+        }
+
+        await navigator.clipboard.writeText(`${shareText}
+
+图片：${this.absoluteImageUrl()}`);
+        return '已复制';
+    }
+
+    async prepareShareImageDataUrl() {
+        if (!this.image) {
+            return;
+        }
+
+        try {
+            const response = await fetch(this.withCacheBust(this.image));
+            if (!response.ok) {
+                throw new Error(`无法加载分享图片 (${response.status})`);
+            }
+
+            const blob = await response.blob();
+            const imageDataUrl = await this.blobToDataUrl(blob);
+            this.shareImageDataUrl = await this.imageDataUrlWithBackground(imageDataUrl);
+        } catch (error) {
+            console.warn('⚠️ 分享图片预加载失败:', error.message);
+        }
+    }
+
+    async prepareSvgShareImageDataUrl(svgText) {
+        try {
+            this.shareImageDataUrl = await this.svgTextToPngDataUrl(svgText);
+        } catch (error) {
+            console.warn('⚠️ SVG 转 PNG 失败，回退到 SVG:', error.message);
+            this.shareImageDataUrl = this.svgTextToDataUrl(svgText);
+        }
+    }
+
+    async copyRichContentToClipboard(shareText, imageDataUrl) {
+        if (!window.ClipboardItem || !navigator.clipboard?.write) {
+            return false;
+        }
+
+        try {
+            const clipboardItem = new ClipboardItem({
+                'text/html': new Blob([this.richShareHtml(shareText, imageDataUrl)], { type: 'text/html' }),
+                'text/plain': new Blob([shareText], { type: 'text/plain' })
+            });
+            await navigator.clipboard.write([clipboardItem]);
+            return true;
+        } catch (error) {
+            console.warn('⚠️ 图文混排复制不可用，回退到文字链接:', error.name || 'UnknownError', error.message);
+            return false;
+        }
+    }
+
+    richShareHtml(shareText, imageDataUrl) {
+        const lines = shareText
+            .split('\n')
+            .map(line => line.trim())
+            .filter(Boolean);
+        const paragraphs = lines
+            .map(line => `<div style="margin:0 0 0.75em;">${this.escapeHtml(line)}</div>`)
+            .join('\n');
+
+        return `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.5;margin:0;padding:0;">${paragraphs}<img src="${imageDataUrl}" alt="${this.escapeHtml(this.imageAlt)}" style="display:block;max-width:240px;height:auto;margin:0;padding:0;background:#fff;"></div>`;
+    }
+
+    blobToDataUrl(blob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(blob);
+        });
+    }
+
+    imageDataUrlWithBackground(imageDataUrl) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.onload = () => {
+                const width = image.naturalWidth || 240;
+                const height = image.naturalHeight || 120;
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const context = canvas.getContext('2d');
+
+                if (!context) {
+                    reject(new Error('无法创建 canvas context'));
+                    return;
+                }
+
+                context.fillStyle = '#fff';
+                context.fillRect(0, 0, width, height);
+                context.drawImage(image, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/png'));
+            };
+            image.onerror = () => reject(new Error('图片加载失败'));
+            image.src = imageDataUrl;
+        });
+    }
+
+    svgTextToDataUrl(svgText) {
+        return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgText)}`;
+    }
+
+    svgTextToPngDataUrl(svgText) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            const svgUrl = this.svgTextToDataUrl(svgText);
+
+            image.onload = () => {
+                const width = image.naturalWidth || this.svgDimension(svgText, 'width') || 240;
+                const height = image.naturalHeight || this.svgDimension(svgText, 'height') || 120;
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const context = canvas.getContext('2d');
+
+                if (!context) {
+                    reject(new Error('无法创建 canvas context'));
+                    return;
+                }
+
+                context.fillStyle = '#fff';
+                context.fillRect(0, 0, width, height);
+                context.drawImage(image, 0, 0, width, height);
+                resolve(canvas.toDataURL('image/png'));
+            };
+
+            image.onerror = () => reject(new Error('SVG 图片加载失败'));
+            image.src = svgUrl;
+        });
+    }
+
+    svgDimension(svgText, attributeName) {
+        const parser = new DOMParser();
+        const documentSvg = parser.parseFromString(svgText, 'image/svg+xml');
+        const value = documentSvg.querySelector('svg')?.getAttribute(attributeName);
+        const numberValue = Number.parseFloat(value ?? '');
+        return Number.isFinite(numberValue) ? numberValue : null;
+    }
+
+    escapeHtml(value) {
+        return String(value)
+            .replaceAll('&', '&amp;')
+            .replaceAll('<', '&lt;')
+            .replaceAll('>', '&gt;')
+            .replaceAll('"', '&quot;')
+            .replaceAll("'", '&#039;');
+    }
+
+    loadGoogleFont() {
+        if (!this.googleCSS) {
+            return;
+        }
+
+        const existingLink = [...document.querySelectorAll('link[data-quiz-google-css]')]
+            .some(link => link.dataset.quizGoogleCss === this.googleCSS);
+        if (existingLink) {
+            return;
+        }
+
+        if (this.googleCSS.startsWith('https://fonts.googleapis.com')) {
+            this.addGoogleFontPreconnects();
+        }
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = this.googleCSS;
+        link.dataset.quizGoogleCss = this.googleCSS;
+        link.id = `quiz-google-font-${this.safeDomId(this.fontFamily ?? 'font')}`;
+        document.head.appendChild(link);
+    }
+
+    addGoogleFontPreconnects() {
+        [
+            ['https://fonts.googleapis.com'],
+            ['https://fonts.gstatic.com', 'anonymous']
+        ].forEach(([href, crossOrigin]) => {
+            const exists = [...document.querySelectorAll('link[rel="preconnect"]')]
+                .some(link => link.href === `${href}/` || link.href === href);
+            if (exists) {
+                return;
+            }
+
+            const link = document.createElement('link');
+            link.rel = 'preconnect';
+            link.href = href;
+            if (crossOrigin) {
+                link.crossOrigin = crossOrigin;
+            }
+            document.head.appendChild(link);
+        });
+    }
+
+    cssFontFamily(value) {
+        if (value.includes(',') || value.startsWith('"') || value.startsWith("'")) {
+            return value;
+        }
+
+        return JSON.stringify(value);
+    }
+
+    safeDomId(value) {
+        return String(value).toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '') || 'font';
+    }
+
+    absoluteImageUrl() {
+        return new URL(this.image, window.location.href).toString();
+    }
+
+    imageFileName() {
+        const pathname = new URL(this.image, window.location.href).pathname;
+        const fileName = pathname.split('/').pop();
+        return fileName || `${this.date}-image${this.imageExtension()}`;
+    }
+
+    imageMimeType() {
+        const extension = this.imageExtension().toLowerCase();
+        switch (extension) {
+            case '.svg':
+                return 'image/svg+xml';
+            case '.png':
+                return 'image/png';
+            case '.jpg':
+            case '.jpeg':
+                return 'image/jpeg';
+            case '.webp':
+                return 'image/webp';
+            default:
+                return 'application/octet-stream';
+        }
+    }
+
+    imageExtension() {
+        const pathname = new URL(this.image, window.location.href).pathname;
+        const fileName = pathname.split('/').pop() ?? '';
+        const extensionMatch = fileName.match(/\.[^.]+$/);
+        return extensionMatch ? extensionMatch[0] : '';
+    }
+
+    getUserAnswer() {
+        return document.querySelector('#answer-input').value;
     }
 }
 
@@ -384,6 +899,7 @@ class FlipQuiz extends Quiz{
                     e.target.setAttribute('data-character', ch);
                     this.guessedList.push(parseInt(e.target.getAttribute('data-number')));
                     e.target.classList.add('click-show');
+                    this.saveUserState();
                 }
             });
             this.elementArray.push(chElement);
@@ -435,6 +951,38 @@ ${showUrl}`;
 
     getUserAnswer() {
         return document.querySelector('#answer-input').value;
+    }
+
+    getPersistableState() {
+        return {
+            ...super.getPersistableState(),
+            guessedList: [...this.guessedList]
+        };
+    }
+
+    applyPersistedState(state) {
+        super.applyPersistedState(state);
+
+        if (!Array.isArray(state.guessedList)) {
+            return;
+        }
+
+        const questionList = characterBreak(this.question);
+        const guessedSet = new Set(
+            state.guessedList
+                .map(index => Number.parseInt(index))
+                .filter(index => Number.isInteger(index) && index >= 0 && index < this.elementArray.length)
+        );
+
+        this.guessedList = [...guessedSet];
+        this.elementArray.forEach((element, index) => {
+            if (!guessedSet.has(index)) {
+                return;
+            }
+
+            element.setAttribute('data-character', questionList[index]);
+            element.classList.add('click-show');
+        });
     }
 
     handleCorrectAnswer() {
