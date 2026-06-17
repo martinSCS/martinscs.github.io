@@ -488,7 +488,7 @@ class ImageTextQuiz extends Quiz {
         this.image = this.data.image ?? null;
         this.imageAlt = this.data.imageAlt ?? '题目图片';
         this.answer = this.data.answer ?? null;
-        this.answerInRegex = this.data.answerInRegex || false;
+        this.answerInRegex = this.data.answerInRegex === true;
         this.shareImageDataUrl = null;
         this.googleCSS = this.data.googleCSS ?? this.data.googleCss ?? this.data.googleFontCSS ?? this.data.googleFontCss ?? null;
         this.fontFamily = this.data.fontFamily ?? null;

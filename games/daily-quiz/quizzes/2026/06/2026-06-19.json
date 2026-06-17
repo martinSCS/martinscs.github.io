@@ -4,8 +4,9 @@
   "data": {
     "prompt": "请打出图片上的文字。",
     "image": "./quizzes/2026/06/2026-06-19-image.png",
-    "imageAlt": "一张包含一个西夏文的题目图片",
+    "imageAlt": "一张包含一段越南文的题目图片",
     "answer": "Nhật Bản",
+    "answerInRegex": false,
     "googleCSS": "https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,600&display=swap",
     "fontFamily": "Inter"
   }

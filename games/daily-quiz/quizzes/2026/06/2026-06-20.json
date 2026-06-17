@@ -1,0 +1,11 @@
+{
+  "date": "2026-06-20",
+  "type": "IMAGE_TEXT",
+  "data": {
+    "prompt": "【QK检定】请用一个汉字描述圆圈中西夏文的意思。",
+    "image": "./quizzes/2026/06/2026-06-20-image.jpeg",
+    "imageAlt": "一张包含一个西夏文的图片",
+    "answer": "忘",
+    "answerInRegex": false
+  }
+}
