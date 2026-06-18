@@ -611,7 +611,7 @@ class ImageTextQuiz extends Quiz {
 
         return `${this.date}
 
-打字题
+图片题
 
 ${showUrl}`;
     }
