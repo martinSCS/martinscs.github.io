@@ -89,6 +89,7 @@ export class Quiz {
         this.wrongAudio.volume = 0.2;
         this.getAnswerPowerAudio = new Audio('./assets/audio/Quiz-Button02-1(Multi).mp3');
         this.getAnswerPowerAudio.volume = 0.2;
+        this.answerInput = this.normalizeAnswerInputConfig(this.data.answerInput);
     }
 
     /// 答案核验，供子类覆写
@@ -107,10 +108,59 @@ export class Quiz {
                 inputBox.id = 'answer-input';
                 inputBox.lang = this.language;
                 inputBox.classList.add('sans');
+                this.applyAnswerInputConfig(inputBox);
                 document.querySelector('.answer').prepend(inputBox);
                 break;
             default:
                 return;
+        }
+    }
+
+    normalizeAnswerInputConfig(config) {
+        const source = config && typeof config === 'object' ? config : {};
+
+        return {
+            height: this.normalizeCssLength(source.height),
+            writingMode: this.normalizeWritingMode(source.writingMode ?? source['writing-mode'])
+        };
+    }
+
+    normalizeCssLength(value) {
+        if (value === undefined || value === null) {
+            return null;
+        }
+
+        if (typeof value === 'number' && Number.isFinite(value)) {
+            return `${value}px`;
+        }
+
+        const text = String(value).trim();
+        return text ? text : null;
+    }
+
+    normalizeWritingMode(value) {
+        if (value === undefined || value === null) {
+            return null;
+        }
+
+        const writingMode = String(value).trim();
+        const allowedWritingModes = new Set([
+            'horizontal-tb',
+            'vertical-rl',
+            'vertical-lr',
+            'sideways-rl',
+            'sideways-lr'
+        ]);
+
+        return allowedWritingModes.has(writingMode) ? writingMode : null;
+    }
+
+    applyAnswerInputConfig(inputBox) {
+        if (this.answerInput.height) {
+            inputBox.style.height = this.answerInput.height;
+        }
+        if (this.answerInput.writingMode) {
+            inputBox.style.writingMode = this.answerInput.writingMode;
         }
     }
 

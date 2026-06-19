@@ -508,5 +508,10 @@
     "date": "2026-06-20",
     "type": "IMAGE_TEXT",
     "path": "quizzes/2026/06/2026-06-20.json"
+  },
+  {
+    "date": "2026-06-21",
+    "type": "IMAGE_TEXT",
+    "path": "quizzes/2026/06/2026-06-21.json"
   }
 ]

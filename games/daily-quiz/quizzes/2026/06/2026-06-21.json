@@ -1,0 +1,17 @@
+{
+  "date": "2026-06-21",
+  "type": "IMAGE_TEXT",
+  "data": {
+    "prompt": "请打出图片上的文字。",
+    "image": "./quizzes/2026/06/2026-06-21-image.png",
+    "imageAlt": "一张包含一段蒙古文的图片",
+    "answer": "ᠴᠢᠩᠭᠢᠰ ᠬᠠᠭᠠᠨ",
+    "answerInRegex": false,
+    "googleCSS": "https://cdn.jsdelivr.net/gh/martinSCS/MongolianWhite/mongolian-white.css",
+    "fontFamily": "Mongolian White",
+    "answerInput": {
+      "height": "5.5em",
+      "writing-mode": "vertical-lr"
+    }
+  }
+}
