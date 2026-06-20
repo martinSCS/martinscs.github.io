@@ -7,7 +7,7 @@
     "imageAlt": "一张包含一段蒙古文的图片",
     "answer": "ᠴᠢᠩᠭᠢᠰ ᠬᠠᠭᠠᠨ",
     "answerInRegex": false,
-    "googleCSS": "https://cdn.jsdelivr.net/gh/martinSCS/MongolianWhite/mongolian-white.css",
+    "googleCSS": "https://cdn.jsdelivr.net/gh/martinSCS/MongolianWhite/mongolian-white-full.css",
     "fontFamily": "Mongolian White",
     "answerInput": {
       "height": "6em",
