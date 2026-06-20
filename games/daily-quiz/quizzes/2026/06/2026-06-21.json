@@ -10,7 +10,7 @@
     "googleCSS": "https://cdn.jsdelivr.net/gh/martinSCS/MongolianWhite/mongolian-white.css",
     "fontFamily": "Mongolian White",
     "answerInput": {
-      "height": "5.5em",
+      "height": "6em",
       "writing-mode": "vertical-lr"
     }
   }
