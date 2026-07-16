@@ -1368,7 +1368,7 @@ class MandarinPinyinQuiz extends Quiz {
             nucleus: '',
             coda: '',
             special: '',
-            tone: null
+            tone: 0
         };
         this.inputMode = 'pinyin';
         this.initialKeys = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 's'];
@@ -1608,7 +1608,10 @@ class MandarinPinyinQuiz extends Quiz {
     }
 
     emptyPartValue(partName) {
-        return partName === 'tone' ? null : '';
+        if (['z', 'c', 's', 'r', 'zh', 'ch', 'sh'].includes(this.syllable.initial) && partName === 'final') {
+            return 'i';
+        }
+        return partName === 'tone' ? (this.inputMode === 'pinyin' ? 0 : 1) : '';
     }
 
     clearSyllable() {
@@ -1618,7 +1621,7 @@ class MandarinPinyinQuiz extends Quiz {
             nucleus: '',
             coda: '',
             special: '',
-            tone: null
+            tone: this.inputMode === 'pinyin' ? 0 : 1,
         };
     }
 
@@ -1636,7 +1639,7 @@ class MandarinPinyinQuiz extends Quiz {
             case 'zhuyin-tone':
                 return this.syllable.tone;
             case 'zhuyin-medial':
-                return this.syllable.medial;
+                return this.zhuyinMedialValue(this.syllable);
             case 'zhuyin-rime':
                 return this.zhuyinRimeValue(this.syllable);
             default:
@@ -1648,18 +1651,7 @@ class MandarinPinyinQuiz extends Quiz {
         switch (partName) {
             case 'initial':
             case 'zhuyin-initial':
-                if (
-                    this.isApicalInitial(this.syllable.initial) &&
-                    !this.isApicalInitial(value) &&
-                    this.getPartValue('final') === 'i'
-                ) {
-                    this.setFinalValue('');
-                }
-                this.syllable.initial = value;
-                this.syllable.special = '';
-                if (this.isApicalInitial(value) && !this.getPartValue('final')) {
-                    this.setFinalValue('i');
-                }
+                this.setInitialValue(value);
                 break;
             case 'final':
                 this.setFinalValue(value);
@@ -1676,7 +1668,7 @@ class MandarinPinyinQuiz extends Quiz {
                 this.syllable.tone = value;
                 break;
             case 'zhuyin-medial':
-                this.syllable.medial = value;
+                this.setZhuyinMedialValue(value);
                 this.syllable.special = '';
                 break;
             case 'zhuyin-rime':
@@ -1686,17 +1678,67 @@ class MandarinPinyinQuiz extends Quiz {
         }
     }
 
+    setInitialValue(value) {
+        const previousInitial = this.syllable.initial;
+        const previousFinal = this.getPartValue('final');
+        const wasApicalInitial = this.isApicalInitial(previousInitial);
+        const willBeApicalInitial = this.isApicalInitial(value);
+
+        this.syllable.initial = value;
+        this.syllable.special = '';
+
+        if (this.inputMode === 'zhuyin' && this.isApicalRime(this.syllable) && !willBeApicalInitial) {
+            this.setFinalValue('');
+            return;
+        }
+
+        if (previousFinal === 'i') {
+            if (willBeApicalInitial) {
+                this.setApicalRime();
+            } else if (wasApicalInitial || this.isApicalRime(this.syllable)) {
+                this.setFinalValue('i');
+            }
+            return;
+        }
+
+        if (willBeApicalInitial && !previousFinal) {
+            this.setApicalRime();
+        }
+    }
+
     setFinalValue(final) {
         const parts = this.pinyinFinalToSyllableParts(final);
         this.syllable.medial = parts.medial;
-        this.syllable.nucleus = parts.nucleus;
+        this.syllable.nucleus = final === 'i' && this.isApicalInitial(this.syllable.initial)
+            ? 'apical'
+            : parts.nucleus;
         this.syllable.coda = parts.coda;
+    }
+
+    setApicalRime() {
+        this.syllable.medial = '';
+        this.syllable.nucleus = 'apical';
+        this.syllable.coda = '';
+    }
+
+    isApicalRime(syllable) {
+        return !syllable.medial && syllable.nucleus === 'apical' && !syllable.coda;
+    }
+
+    setZhuyinMedialValue(value) {
+        if (this.isStandaloneMedialFinal(this.syllable) || this.isApicalRime(this.syllable)) {
+            this.syllable.nucleus = '';
+        }
+
+        this.syllable.medial = value;
+        this.restoreApicalRimeWhenEmpty();
     }
 
     setZhuyinRimeValue(value) {
         if (!value) {
             this.syllable.nucleus = '';
             this.syllable.coda = '';
+            this.restoreApicalRimeWhenEmpty();
             return;
         }
 
@@ -1705,10 +1747,41 @@ class MandarinPinyinQuiz extends Quiz {
         this.syllable.coda = coda;
     }
 
+    restoreApicalRimeWhenEmpty() {
+        if (
+            this.isApicalInitial(this.syllable.initial) &&
+            !this.syllable.medial &&
+            !this.syllable.nucleus &&
+            !this.syllable.coda
+        ) {
+            this.setApicalRime();
+        }
+    }
+
+    zhuyinMedialValue(syllable) {
+        if (syllable.medial) {
+            return syllable.medial;
+        }
+
+        return this.isStandaloneMedialFinal(syllable) ? syllable.nucleus : '';
+    }
+
+    isStandaloneMedialFinal(syllable) {
+        if (this.isApicalInitial(syllable.initial) && syllable.nucleus === 'i') {
+            return false;
+        }
+
+        return !syllable.medial && !syllable.coda && ['i', 'u', 'ü'].includes(syllable.nucleus);
+    }
+
     zhuyinRimeValue(syllable) {
         const nucleus = syllable.nucleus ?? '';
         const coda = syllable.coda ?? '';
         if (!nucleus) {
+            return '';
+        }
+
+        if (this.isApicalRime(syllable)) {
             return '';
         }
 
@@ -1737,7 +1810,7 @@ class MandarinPinyinQuiz extends Quiz {
             i: ['', 'i', ''],
             ia: ['i', 'a', ''],
             iai: ['i', 'a', 'i'],
-            ie: ['i', 'e', ''],
+            ie: ['i', 'ê', ''],
             iao: ['i', 'a', 'o'],
             iu: ['i', 'o', 'u'],
             ian: ['i', 'a', 'n'],
@@ -1754,7 +1827,7 @@ class MandarinPinyinQuiz extends Quiz {
             un: ['u', 'e', 'n'],
             uang: ['u', 'a', 'ng'],
             'ü': ['', 'ü', ''],
-            'üe': ['ü', 'e', ''],
+            'üe': ['ü', 'ê', ''],
             'üan': ['ü', 'a', 'n'],
             'ün': ['ü', 'e', 'n'],
             er: ['', 'er', '']
@@ -1769,6 +1842,10 @@ class MandarinPinyinQuiz extends Quiz {
     }
 
     syllableToPinyinFinal(syllable) {
+        if (this.isApicalRime(syllable)) {
+            return 'i';
+        }
+
         if (syllable.medial && !syllable.nucleus && !syllable.coda) {
             return syllable.medial;
         }
@@ -1798,6 +1875,22 @@ class MandarinPinyinQuiz extends Quiz {
             special: typeof state.special === 'string' ? state.special : '',
             tone: this.normalizePersistedTone(state.tone)
         };
+        this.normalizeSyllableShape();
+    }
+
+    normalizeSyllableShape() {
+        if (
+            this.isApicalInitial(this.syllable.initial) &&
+            !this.syllable.medial &&
+            this.syllable.nucleus === 'i' &&
+            !this.syllable.coda
+        ) {
+            this.setApicalRime();
+        }
+
+        if (this.isApicalRime(this.syllable) && !this.isApicalInitial(this.syllable.initial)) {
+            this.setFinalValue('');
+        }
     }
 
     normalizePersistedTone(value) {
@@ -1903,7 +1996,7 @@ class MandarinPinyinQuiz extends Quiz {
         }
 
         if (['z', 'c', 's', 'r', 'zh', 'ch', 'sh'].includes(this.syllable.initial)) {
-            return false;
+            return medial === 'u';
         }
 
         if (medial === 'ü' && !['n', 'l'].includes(this.syllable.initial)) {
