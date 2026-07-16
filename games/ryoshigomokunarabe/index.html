@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>量子五子棋</title>
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+    <main class="game-shell">
+        <section class="top-panel" aria-labelledby="game-title">
+            <div>
+                <a class="back-link" href="../../index.html">返回游戏集</a>
+                <h1 id="game-title">量子五子棋</h1>
+                <p class="lead">每枚棋子先以概率存在，观测后塌缩成黑或白；五子连线者胜。</p>
+            </div>
+            <div class="controls" aria-label="游戏控制">
+                <button id="observe-btn" class="primary-btn" type="button">开始观测</button>
+                <button id="reset-btn" class="secondary-btn" type="button">重置</button>
+            </div>
+        </section>
+
+        <section class="play-layout">
+            <div class="board-wrap" aria-label="棋盘区域">
+                <div id="board" class="board" role="grid" aria-label="十五路量子五目棋棋盘"></div>
+            </div>
+
+            <aside class="status-panel" aria-label="游戏状态">
+                <div class="status-card">
+                    <span class="label">接下来的棋子</span>
+                    <div id="next-stone" class="next-stone"></div>
+                </div>
+                <div class="status-card">
+                    <span class="label">当前状态</span>
+                    <strong id="result-text">未分胜负</strong>
+                </div>
+                <div class="status-card">
+                    <span class="label">落子顺序</span>
+                    <div class="sequence">
+                        <span class="prob-chip black">90</span>
+                        <span class="prob-chip white">10</span>
+                        <span class="prob-chip dark-gray">70</span>
+                        <span class="prob-chip light-gray">30</span>
+                    </div>
+                </div>
+                <div class="status-card compact">
+                    <span class="label">规则</span>
+                    <p>点击空位落子。观测时，90/70 更容易变黑，10/30 更容易变白。观测期间不能继续落子。</p>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>

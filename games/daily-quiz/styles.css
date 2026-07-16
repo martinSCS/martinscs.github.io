@@ -394,6 +394,193 @@ div.wadokaichin-quiz-character.wadokaichin-quiz-character-missing.wadokaichin-qu
     border-radius: 0.5rem;
 }
 
+.mandarin-pinyin-quiz {
+    width: min(760px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid #dde3ee;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 12px 32px rgba(26, 115, 232, 0.08);
+}
+
+.mandarin-pinyin-quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background-color: rgba(26, 115, 232, 0.1);
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.mandarin-pinyin-quiz-question {
+    margin-top: 1rem;
+    color: var(--secondary-color);
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-weight: 800;
+    line-height: 1.55;
+}
+
+.quiz-emphasis {
+    color: #b42318;
+    font-weight: 900;
+    text-decoration: underline;
+    text-decoration-thickness: 0.12em;
+    text-underline-offset: 0.18em;
+}
+
+.pinyin-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3.4rem;
+    margin-top: 1.35rem;
+    padding: 0.65rem 1rem;
+    border: 2px solid #d9e0ec;
+    border-radius: 0.85rem;
+    background-color: #f8fafc;
+    color: var(--secondary-color);
+    font-size: clamp(1.5rem, 6vw, 2.3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.pinyin-preview.is-empty {
+    color: #7a8494;
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    font-weight: 700;
+}
+
+.pinyin-preview.is-correct {
+    border-color: var(--correct-color);
+    color: var(--correct-color);
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.pinyin-preview.is-wrong {
+    border-color: var(--accent-color, #e74c3c);
+    color: var(--accent-color, #e74c3c);
+    background-color: rgba(231, 76, 60, 0.08);
+}
+
+.pinyin-preview.correct-pulse {
+    animation: flash-green 0.7s ease-out;
+}
+
+.pinyin-preview.error-shake {
+    animation: shake 0.5s ease-in-out forwards;
+}
+
+.phonetic-mode-switch {
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(4.5rem, 1fr));
+    gap: 0.25rem;
+    margin-top: 1rem;
+    padding: 0.25rem;
+    border: 1px solid #d9e0ec;
+    border-radius: 999px;
+    background-color: #f3f6fb;
+}
+
+.phonetic-mode-button {
+    min-height: 2rem;
+    padding: 0 0.85rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: transparent;
+    color: #5f6368;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.phonetic-mode-button.is-selected {
+    background-color: #fff;
+    color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.14);
+}
+
+.pinyin-panel {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.35rem;
+}
+
+.phonetic-panel[hidden] {
+    display: none;
+}
+
+.pinyin-key-group {
+    display: grid;
+    gap: 0.55rem;
+}
+
+.pinyin-key-group-title {
+    color: #5f6368;
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+.pinyin-key-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(3.1rem, 1fr));
+    gap: 0.45rem;
+}
+
+.pinyin-key-grid-final {
+    grid-template-columns: repeat(auto-fit, minmax(3.6rem, 1fr));
+}
+
+.pinyin-key,
+.pinyin-control {
+    min-height: 2.4rem;
+    padding: 0.35rem 0.55rem;
+    border: 2px solid #d9e0ec;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+.pinyin-key:hover,
+.pinyin-control:hover {
+    border-color: rgba(26, 115, 232, 0.55);
+}
+
+.pinyin-key:active,
+.pinyin-control:active {
+    transform: scale(0.98);
+}
+
+.pinyin-key.is-selected {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.pinyin-key:disabled,
+.pinyin-control:disabled {
+    cursor: default;
+    opacity: 0.72;
+    transform: none;
+}
+
+.pinyin-control-group {
+    justify-items: end;
+}
+
+.pinyin-control {
+    min-width: 5rem;
+    background-color: #f8fafc;
+}
+
 div.submitted-by {
     padding: 1em;
     display: flex;
@@ -673,5 +860,15 @@ main.history section {
         width: calc(50% - 5px);
         padding: 0.5em 0.8em;
         font-size: 1em;
+    }
+
+    .mandarin-pinyin-quiz {
+        width: calc(100% - 24px);
+        padding: 1rem;
+    }
+
+    .pinyin-key-grid,
+    .pinyin-key-grid-final {
+        grid-template-columns: repeat(auto-fit, minmax(2.9rem, 1fr));
     }
 }

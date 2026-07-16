@@ -513,5 +513,15 @@
     "date": "2026-06-21",
     "type": "IMAGE_TEXT",
     "path": "quizzes/2026/06/2026-06-21.json"
+  },
+  {
+    "date": "2026-07-17",
+    "type": "FLIP",
+    "path": "quizzes/2026/06/2026-06-23.json"
+  },
+  {
+    "date": "2026-07-18",
+    "type": "MANDARIN_PINYIN",
+    "path": "quizzes/2026/07/2026-07-17.json"
   }
 ]

@@ -10,7 +10,8 @@ export const QuizType = Object.freeze({
     NAZOTOKI: Symbol("NAZOTOKI"),
     SINGLE_CHOICE: Symbol("SINGLE_CHOICE"),
     MULTIPLE_CHOICE: Symbol("MULTIPLE_CHOICE"),
-    IMAGE_TEXT: Symbol("IMAGE_TEXT")
+    IMAGE_TEXT: Symbol("IMAGE_TEXT"),
+    MANDARIN_PINYIN: Symbol("MANDARIN_PINYIN")
 });
 
 export class Quiz {
@@ -36,6 +37,8 @@ export class Quiz {
                 return new MultipleChoiceQuiz(type, data);
             case QuizType.IMAGE_TEXT:
                 return new ImageTextQuiz(type, data);
+            case QuizType.MANDARIN_PINYIN:
+                return new MandarinPinyinQuiz(type, data);
             case QuizType.UNKNOWN:
                 return new UnknownQuiz(type, data);
             default:
@@ -1348,6 +1351,922 @@ ${showUrl}`;
 
         e.preventDefault();
         this.handleButtonClicked();
+    }
+}
+
+class MandarinPinyinQuiz extends Quiz {
+    configureData() {
+        super.configureData();
+        this.question = this.data.question ?? '';
+        this.questionRich = Array.isArray(this.data.questionRich) ? this.data.questionRich : null;
+        this.answerValues = (Array.isArray(this.data.answer) ? this.data.answer : [this.data.answer])
+            .filter(answer => answer !== undefined && answer !== null)
+            .map(answer => this.normalizePinyin(answer));
+        this.syllable = {
+            initial: '',
+            medial: '',
+            nucleus: '',
+            coda: '',
+            special: '',
+            tone: null
+        };
+        this.inputMode = 'pinyin';
+        this.initialKeys = ['b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'zh', 'ch', 'sh', 'r', 'z', 'c', 's'];
+        this.finalKeys = ['a', 'o', 'e', 'ê', 'ai', 'ei', 'ao', 'ou', 'an', 'en', 'ang', 'eng', 'ong', 'i', 'ia', 'iai', 'ie', 'iao', 'iu', 'ian', 'in', 'iang', 'ing', 'iong', 'u', 'ua', 'uo', 'uai', 'ui', 'uan', 'un', 'uang', 'ü', 'üe', 'üan', 'ün', 'er'];
+        this.specialKeys = ['m', 'n', 'ng', 'hm', 'hng'];
+        this.toneKeys = [
+            { value: 1, label: '1' },
+            { value: 2, label: '2' },
+            { value: 3, label: '3' },
+            { value: 4, label: '4' }
+        ];
+        this.zhuyinInitialKeys = [
+            { value: 'b', label: 'ㄅ' },
+            { value: 'p', label: 'ㄆ' },
+            { value: 'm', label: 'ㄇ' },
+            { value: 'f', label: 'ㄈ' },
+            { value: 'd', label: 'ㄉ' },
+            { value: 't', label: 'ㄊ' },
+            { value: 'n', label: 'ㄋ' },
+            { value: 'l', label: 'ㄌ' },
+            { value: 'g', label: 'ㄍ' },
+            { value: 'k', label: 'ㄎ' },
+            { value: 'h', label: 'ㄏ' },
+            { value: 'j', label: 'ㄐ' },
+            { value: 'q', label: 'ㄑ' },
+            { value: 'x', label: 'ㄒ' },
+            { value: 'zh', label: 'ㄓ' },
+            { value: 'ch', label: 'ㄔ' },
+            { value: 'sh', label: 'ㄕ' },
+            { value: 'r', label: 'ㄖ' },
+            { value: 'z', label: 'ㄗ' },
+            { value: 'c', label: 'ㄘ' },
+            { value: 's', label: 'ㄙ' }
+        ];
+        this.zhuyinMedialKeys = [
+            { value: 'i', label: 'ㄧ' },
+            { value: 'u', label: 'ㄨ' },
+            { value: 'ü', label: 'ㄩ' }
+        ];
+        this.zhuyinRimeKeys = [
+            { value: 'a|', label: 'ㄚ' },
+            { value: 'o|', label: 'ㄛ' },
+            { value: 'e|', label: 'ㄜ' },
+            { value: 'ê|', label: 'ㄝ' },
+            { value: 'a|i', label: 'ㄞ' },
+            { value: 'e|i', label: 'ㄟ' },
+            { value: 'a|o', label: 'ㄠ' },
+            { value: 'o|u', label: 'ㄡ' },
+            { value: 'a|n', label: 'ㄢ' },
+            { value: 'e|n', label: 'ㄣ' },
+            { value: 'a|ng', label: 'ㄤ' },
+            { value: 'e|ng', label: 'ㄥ' },
+            { value: 'er|', label: 'ㄦ' }
+        ];
+        this.zhuyinSpecialKeys = [
+            { value: 'm', label: 'ㄇ' },
+            { value: 'n', label: 'ㄋ' },
+            { value: 'ng', label: 'ㄫ' },
+            { value: 'hm', label: 'ㄏㄇ' },
+            { value: 'hng', label: 'ㄏㄫ' }
+        ];
+        this.zhuyinToneKeys = [
+            { value: 2, label: 'ˊ' },
+            { value: 3, label: 'ˇ' },
+            { value: 4, label: 'ˋ' },
+            { value: 0, label: '˙' }
+        ];
+        this.keyButtons = [];
+    }
+
+    renderPage() {
+        const container = document.createElement('div');
+        container.classList.add('mandarin-pinyin-quiz');
+
+        const badge = document.createElement('div');
+        badge.classList.add('mandarin-pinyin-quiz-badge');
+        badge.textContent = '现代标准汉语注音题';
+
+        const question = document.createElement('div');
+        question.classList.add('mandarin-pinyin-quiz-question');
+        question.lang = this.language;
+        this.renderRichText(question, this.questionRich ?? this.question);
+
+        this.preview = document.createElement('div');
+        this.preview.classList.add('pinyin-preview');
+        this.preview.setAttribute('aria-live', 'polite');
+
+        const modeSwitch = this.renderModeSwitch();
+        this.pinyinPanel = this.renderPinyinPanel();
+        this.zhuyinPanel = this.renderZhuyinPanel();
+
+        container.appendChild(badge);
+        container.appendChild(question);
+        container.appendChild(this.preview);
+        container.appendChild(modeSwitch);
+        container.appendChild(this.pinyinPanel);
+        container.appendChild(this.zhuyinPanel);
+        document.querySelector('.quiz').append(container);
+
+        this.updatePanelVisibility();
+        this.updatePreview();
+        this.updateSubmitState();
+    }
+
+    renderModeSwitch() {
+        const switcher = document.createElement('div');
+        switcher.classList.add('phonetic-mode-switch');
+
+        [
+            ['pinyin', '拼音'],
+            ['zhuyin', '注音']
+        ].forEach(([mode, label]) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.classList.add('phonetic-mode-button');
+            button.dataset.mode = mode;
+            button.textContent = label;
+            button.addEventListener('click', () => {
+                this.inputMode = mode;
+                this.updatePanelVisibility();
+                this.updatePreview();
+                this.saveUserState();
+            });
+            switcher.appendChild(button);
+        });
+
+        return switcher;
+    }
+
+    renderPinyinPanel() {
+        const panel = document.createElement('div');
+        panel.classList.add('pinyin-panel', 'phonetic-panel');
+        panel.dataset.panelMode = 'pinyin';
+        panel.appendChild(this.renderKeyGroup('声母', 'initial', this.initialKeys));
+        panel.appendChild(this.renderKeyGroup('韵母', 'final', this.finalKeys));
+        panel.appendChild(this.renderKeyGroup('特殊音节', 'special', this.specialKeys));
+        panel.appendChild(this.renderKeyGroup('声调', 'tone', this.toneKeys));
+        panel.appendChild(this.renderControlGroup());
+        return panel;
+    }
+
+    renderZhuyinPanel() {
+        const panel = document.createElement('div');
+        panel.classList.add('pinyin-panel', 'phonetic-panel');
+        panel.dataset.panelMode = 'zhuyin';
+        panel.appendChild(this.renderKeyGroup('声母', 'zhuyin-initial', this.zhuyinInitialKeys));
+        panel.appendChild(this.renderKeyGroup('介音', 'zhuyin-medial', this.zhuyinMedialKeys));
+        panel.appendChild(this.renderKeyGroup('韵母', 'zhuyin-rime', this.zhuyinRimeKeys));
+        panel.appendChild(this.renderKeyGroup('特殊音节', 'zhuyin-special', this.zhuyinSpecialKeys));
+        panel.appendChild(this.renderKeyGroup('声调', 'zhuyin-tone', this.zhuyinToneKeys));
+        panel.appendChild(this.renderControlGroup());
+        return panel;
+    }
+
+    updatePanelVisibility() {
+        document.querySelectorAll('.phonetic-mode-button').forEach(button => {
+            button.classList.toggle('is-selected', button.dataset.mode === this.inputMode);
+        });
+
+        [this.pinyinPanel, this.zhuyinPanel].forEach(panel => {
+            if (!panel) {
+                return;
+            }
+            panel.hidden = panel.dataset.panelMode !== this.inputMode;
+        });
+    }
+
+    renderRichText(container, value) {
+        container.textContent = '';
+
+        if (Array.isArray(value)) {
+            value.forEach(part => {
+                const span = document.createElement('span');
+                if (part && typeof part === 'object') {
+                    span.textContent = String(part.text ?? '');
+                    if (part.emphasis) {
+                        span.classList.add('quiz-emphasis');
+                    }
+                    if (part.lang) {
+                        span.lang = String(part.lang);
+                    }
+                } else {
+                    span.textContent = String(part ?? '');
+                }
+                container.appendChild(span);
+            });
+            return;
+        }
+
+        container.textContent = String(value ?? '');
+    }
+
+    renderKeyGroup(title, partName, keys) {
+        const group = document.createElement('section');
+        group.classList.add('pinyin-key-group');
+
+        const heading = document.createElement('div');
+        heading.classList.add('pinyin-key-group-title');
+        heading.textContent = title;
+
+        const keyGrid = document.createElement('div');
+        keyGrid.classList.add('pinyin-key-grid', `pinyin-key-grid-${partName}`);
+
+        keys.forEach(key => {
+            const keyConfig = typeof key === 'object' ? key : { value: key, label: key };
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.classList.add('pinyin-key');
+            button.textContent = keyConfig.label;
+            button.dataset.part = partName;
+            button.dataset.value = String(keyConfig.value);
+            button.dataset.baseLabel = String(keyConfig.label);
+            button.addEventListener('click', () => {
+                const currentValue = this.getPartValue(partName);
+                const nextValue = this.nextPartValue(partName, currentValue, keyConfig.value);
+                this.setPartValue(partName, nextValue);
+                this.preview.classList.remove('is-correct', 'is-wrong', 'correct-pulse', 'error-shake');
+                this.updatePreview();
+                this.updateSubmitState();
+                this.saveUserState();
+            });
+            keyGrid.appendChild(button);
+            this.keyButtons.push(button);
+        });
+
+        group.appendChild(heading);
+        group.appendChild(keyGrid);
+        return group;
+    }
+
+    nextPartValue(partName, currentValue, keyValue) {
+        if (partName === 'zhuyin-tone' && currentValue === keyValue) {
+            return 1;
+        }
+
+        return currentValue === keyValue ? this.emptyPartValue(partName) : keyValue;
+    }
+
+    emptyPartValue(partName) {
+        return partName === 'tone' ? null : '';
+    }
+
+    clearSyllable() {
+        this.syllable = {
+            initial: '',
+            medial: '',
+            nucleus: '',
+            coda: '',
+            special: '',
+            tone: null
+        };
+    }
+
+    getPartValue(partName) {
+        switch (partName) {
+            case 'initial':
+            case 'zhuyin-initial':
+                return this.syllable.initial;
+            case 'final':
+                return this.syllableToPinyinFinal(this.syllable);
+            case 'special':
+            case 'zhuyin-special':
+                return this.syllable.special;
+            case 'tone':
+            case 'zhuyin-tone':
+                return this.syllable.tone;
+            case 'zhuyin-medial':
+                return this.syllable.medial;
+            case 'zhuyin-rime':
+                return this.zhuyinRimeValue(this.syllable);
+            default:
+                return '';
+        }
+    }
+
+    setPartValue(partName, value) {
+        switch (partName) {
+            case 'initial':
+            case 'zhuyin-initial':
+                if (
+                    this.isApicalInitial(this.syllable.initial) &&
+                    !this.isApicalInitial(value) &&
+                    this.getPartValue('final') === 'i'
+                ) {
+                    this.setFinalValue('');
+                }
+                this.syllable.initial = value;
+                this.syllable.special = '';
+                if (this.isApicalInitial(value) && !this.getPartValue('final')) {
+                    this.setFinalValue('i');
+                }
+                break;
+            case 'final':
+                this.setFinalValue(value);
+                this.syllable.special = '';
+                break;
+            case 'special':
+            case 'zhuyin-special':
+                this.syllable.initial = '';
+                this.setFinalValue('');
+                this.syllable.special = value;
+                break;
+            case 'tone':
+            case 'zhuyin-tone':
+                this.syllable.tone = value;
+                break;
+            case 'zhuyin-medial':
+                this.syllable.medial = value;
+                this.syllable.special = '';
+                break;
+            case 'zhuyin-rime':
+                this.setZhuyinRimeValue(value);
+                this.syllable.special = '';
+                break;
+        }
+    }
+
+    setFinalValue(final) {
+        const parts = this.pinyinFinalToSyllableParts(final);
+        this.syllable.medial = parts.medial;
+        this.syllable.nucleus = parts.nucleus;
+        this.syllable.coda = parts.coda;
+    }
+
+    setZhuyinRimeValue(value) {
+        if (!value) {
+            this.syllable.nucleus = '';
+            this.syllable.coda = '';
+            return;
+        }
+
+        const [nucleus, coda = ''] = String(value).split('|');
+        this.syllable.nucleus = nucleus;
+        this.syllable.coda = coda;
+    }
+
+    zhuyinRimeValue(syllable) {
+        const nucleus = syllable.nucleus ?? '';
+        const coda = syllable.coda ?? '';
+        if (!nucleus) {
+            return '';
+        }
+
+        if (['i', 'u', 'ü'].includes(nucleus) && !coda) {
+            return '';
+        }
+
+        return `${nucleus}|${coda}`;
+    }
+
+    pinyinFinalToSyllableParts(final) {
+        const finalParts = {
+            a: ['', 'a', ''],
+            o: ['', 'o', ''],
+            e: ['', 'e', ''],
+            'ê': ['', 'ê', ''],
+            ai: ['', 'a', 'i'],
+            ei: ['', 'e', 'i'],
+            ao: ['', 'a', 'o'],
+            ou: ['', 'o', 'u'],
+            an: ['', 'a', 'n'],
+            en: ['', 'e', 'n'],
+            ang: ['', 'a', 'ng'],
+            eng: ['', 'e', 'ng'],
+            ong: ['', 'o', 'ng'],
+            i: ['', 'i', ''],
+            ia: ['i', 'a', ''],
+            iai: ['i', 'a', 'i'],
+            ie: ['i', 'e', ''],
+            iao: ['i', 'a', 'o'],
+            iu: ['i', 'o', 'u'],
+            ian: ['i', 'a', 'n'],
+            in: ['i', 'e', 'n'],
+            iang: ['i', 'a', 'ng'],
+            ing: ['i', 'e', 'ng'],
+            iong: ['i', 'o', 'ng'],
+            u: ['', 'u', ''],
+            ua: ['u', 'a', ''],
+            uo: ['u', 'o', ''],
+            uai: ['u', 'a', 'i'],
+            ui: ['u', 'e', 'i'],
+            uan: ['u', 'a', 'n'],
+            un: ['u', 'e', 'n'],
+            uang: ['u', 'a', 'ng'],
+            'ü': ['', 'ü', ''],
+            'üe': ['ü', 'e', ''],
+            'üan': ['ü', 'a', 'n'],
+            'ün': ['ü', 'e', 'n'],
+            er: ['', 'er', '']
+        };
+        const parts = finalParts[final] ?? ['', '', ''];
+
+        return {
+            medial: parts[0],
+            nucleus: parts[1],
+            coda: parts[2]
+        };
+    }
+
+    syllableToPinyinFinal(syllable) {
+        if (syllable.medial && !syllable.nucleus && !syllable.coda) {
+            return syllable.medial;
+        }
+
+        const finalParts = this.pinyinFinalParts();
+        const matchedFinal = Object.entries(finalParts).find(([, parts]) => (
+            parts.medial === (syllable.medial ?? '') &&
+            parts.nucleus === (syllable.nucleus ?? '') &&
+            parts.coda === (syllable.coda ?? '')
+        ));
+
+        return matchedFinal ? matchedFinal[0] : '';
+    }
+
+    pinyinFinalParts() {
+        return Object.fromEntries(
+            this.finalKeys.map(final => [final, this.pinyinFinalToSyllableParts(final)])
+        );
+    }
+
+    applyPersistedSyllableState(state) {
+        this.syllable = {
+            initial: typeof state.initial === 'string' ? state.initial : '',
+            medial: typeof state.medial === 'string' ? state.medial : '',
+            nucleus: typeof state.nucleus === 'string' ? state.nucleus : '',
+            coda: typeof state.coda === 'string' ? state.coda : '',
+            special: typeof state.special === 'string' ? state.special : '',
+            tone: this.normalizePersistedTone(state.tone)
+        };
+    }
+
+    normalizePersistedTone(value) {
+        if (value === null || value === undefined || value === '') {
+            return null;
+        }
+
+        const tone = Number(value);
+        return Number.isFinite(tone) ? tone : null;
+    }
+
+    renderControlGroup() {
+        const group = document.createElement('section');
+        group.classList.add('pinyin-key-group', 'pinyin-control-group');
+
+        const clearButton = document.createElement('button');
+        clearButton.type = 'button';
+        clearButton.classList.add('pinyin-control');
+        clearButton.textContent = '清空';
+        clearButton.addEventListener('click', () => {
+            this.clearSyllable();
+            this.preview.classList.remove('is-correct', 'is-wrong', 'correct-pulse', 'error-shake');
+            this.updatePreview();
+            this.updateSubmitState();
+            this.saveUserState();
+        });
+
+        group.appendChild(clearButton);
+        return group;
+    }
+
+    updatePreview() {
+        this.ensureAllowedFinal();
+        const previewText = this.getPreviewText();
+        this.preview.textContent = previewText || '请选择声母、韵母和声调';
+        this.preview.classList.toggle('is-empty', !previewText);
+        this.keyButtons.forEach(button => {
+            const partName = button.dataset.part;
+            const value = partName === 'tone' || partName === 'zhuyin-tone' ? Number(button.dataset.value) : button.dataset.value;
+            if (partName === 'final') {
+                button.hidden = !this.isFinalAllowed(button.dataset.value);
+            } else if (partName === 'zhuyin-medial') {
+                button.hidden = !this.isZhuyinMedialAllowed(button.dataset.value);
+            } else if (partName === 'zhuyin-rime') {
+                button.hidden = !this.isZhuyinRimeAllowed(button.dataset.value);
+            }
+            button.textContent = this.keyButtonLabel(button);
+            button.classList.toggle('is-selected', this.getPartValue(partName) === value);
+        });
+    }
+
+    ensureAllowedFinal() {
+        if (this.syllable.medial && !this.isZhuyinMedialAllowed(this.syllable.medial)) {
+            this.syllable.medial = '';
+        }
+
+        const final = this.getPartValue('final');
+        if (final && !this.isFinalAllowed(final)) {
+            this.setPartValue('final', '');
+        }
+    }
+
+    isFinalAllowed(final) {
+        if (!final || !this.syllable.initial) {
+            return true;
+        }
+
+        const initial = this.syllable.initial;
+        if (['j', 'q', 'x'].includes(initial)) {
+            return this.isQichiFinal(final) || this.isCuokouFinal(final);
+        }
+
+        if (['z', 'c', 's', 'r', 'zh', 'ch', 'sh'].includes(initial)) {
+            return !this.isCuokouFinal(final) && (!this.isQichiFinal(final) || final === 'i');
+        }
+
+        if (!['n', 'l'].includes(initial) && this.isCuokouFinal(final)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    isQichiFinal(final) {
+        return final.startsWith('i');
+    }
+
+    isCuokouFinal(final) {
+        return final.startsWith('ü');
+    }
+
+    isApicalInitial(initial) {
+        return ['z', 'c', 's', 'r', 'zh', 'ch', 'sh'].includes(initial);
+    }
+
+    isZhuyinMedialAllowed(medial) {
+        if (!this.syllable.initial) {
+            return true;
+        }
+
+        if (['j', 'q', 'x'].includes(this.syllable.initial)) {
+            return medial === 'i' || medial === 'ü';
+        }
+
+        if (['z', 'c', 's', 'r', 'zh', 'ch', 'sh'].includes(this.syllable.initial)) {
+            return false;
+        }
+
+        if (medial === 'ü' && !['n', 'l'].includes(this.syllable.initial)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    isZhuyinRimeAllowed(value) {
+        const [nucleus, coda = ''] = String(value).split('|');
+        const final = this.syllableToPinyinFinal({
+            ...this.syllable,
+            nucleus,
+            coda
+        });
+
+        return !final || this.isFinalAllowed(final);
+    }
+
+    keyButtonLabel(button) {
+        if (button.dataset.part !== 'final') {
+            return button.dataset.baseLabel ?? button.textContent;
+        }
+
+        const final = button.dataset.value;
+        if (!final) {
+            return button.dataset.baseLabel ?? '';
+        }
+
+        if (!this.syllable.initial) {
+            return this.zeroInitialFinal(final);
+        }
+
+        return this.displayFinalAfterInitial(this.syllable.initial, final);
+    }
+
+    updateSubmitState() {
+        const submitButton = document.querySelector('#answer-submit');
+        if (!submitButton) {
+            return;
+        }
+        submitButton.disabled = !this.getUserAnswer();
+    }
+
+    getUserAnswer() {
+        return this.composePinyin(this.syllable);
+    }
+
+    getPreviewText() {
+        const final = this.getPartValue('final');
+        if (this.syllable.special || final) {
+            return this.inputMode === 'zhuyin'
+                ? this.composeZhuyin(this.syllable)
+                : this.composePinyin(this.syllable);
+        }
+
+        if (this.syllable.initial) {
+            return this.inputMode === 'zhuyin'
+                ? this.zhuyinInitialLabel(this.syllable.initial)
+                : this.syllable.initial;
+        }
+
+        if (this.syllable.tone !== null) {
+            const tone = this.toneKeys.find(toneKey => toneKey.value === this.syllable.tone);
+            return tone ? `${tone.label}声` : '';
+        }
+
+        return '';
+    }
+
+    composeZhuyin(syllable) {
+        const base = this.composeBaseZhuyin(syllable);
+        if (!base || syllable.tone === null || syllable.tone === undefined) {
+            return base;
+        }
+
+        const tone = Number(syllable.tone);
+        if (tone === 0) {
+            return `˙${base}`;
+        }
+
+        const toneMarks = {
+            2: 'ˊ',
+            3: 'ˇ',
+            4: 'ˋ'
+        };
+
+        return toneMarks[tone] ? `${base}${toneMarks[tone]}` : base;
+    }
+
+    composeBaseZhuyin(syllable) {
+        if (syllable.special) {
+            return this.zhuyinSpecialLabel(syllable.special);
+        }
+
+        const initial = this.zhuyinInitialLabel(syllable.initial ?? '');
+        const final = this.syllableToPinyinFinal(syllable);
+
+        return `${initial}${this.zhuyinFinalLabel(final, syllable.initial)}`;
+    }
+
+    zhuyinInitialLabel(initial) {
+        return this.zhuyinInitialKeys.find(key => key.value === initial)?.label ?? '';
+    }
+
+    zhuyinSpecialLabel(special) {
+        return this.zhuyinSpecialKeys.find(key => key.value === special)?.label ?? special;
+    }
+
+    zhuyinFinalLabel(final, initial = '') {
+        if (final === 'i' && this.isApicalInitial(initial)) {
+            return '';
+        }
+
+        const finalLabels = {
+            a: 'ㄚ',
+            o: 'ㄛ',
+            e: 'ㄜ',
+            'ê': 'ㄝ',
+            ai: 'ㄞ',
+            ei: 'ㄟ',
+            ao: 'ㄠ',
+            ou: 'ㄡ',
+            an: 'ㄢ',
+            en: 'ㄣ',
+            ang: 'ㄤ',
+            eng: 'ㄥ',
+            ong: 'ㄨㄥ',
+            i: 'ㄧ',
+            ia: 'ㄧㄚ',
+            iai: 'ㄧㄞ',
+            ie: 'ㄧㄝ',
+            iao: 'ㄧㄠ',
+            iu: 'ㄧㄡ',
+            ian: 'ㄧㄢ',
+            in: 'ㄧㄣ',
+            iang: 'ㄧㄤ',
+            ing: 'ㄧㄥ',
+            iong: 'ㄩㄥ',
+            u: 'ㄨ',
+            ua: 'ㄨㄚ',
+            uo: 'ㄨㄛ',
+            uai: 'ㄨㄞ',
+            ui: 'ㄨㄟ',
+            uan: 'ㄨㄢ',
+            un: 'ㄨㄣ',
+            uang: 'ㄨㄤ',
+            'ü': 'ㄩ',
+            'üe': 'ㄩㄝ',
+            'üan': 'ㄩㄢ',
+            'ün': 'ㄩㄣ',
+            er: 'ㄦ'
+        };
+
+        return finalLabels[final] ?? '';
+    }
+
+    checkAnswer(userAnswer) {
+        return this.answerValues.includes(this.normalizePinyin(userAnswer));
+    }
+
+    composePinyin(parts) {
+        const base = this.composeBasePinyin(parts);
+        const tone = Number(parts.tone);
+        if (!base || tone <= 0) {
+            return base;
+        }
+        return this.applyToneMark(base, tone);
+    }
+
+    composeBasePinyin(parts) {
+        if (parts.special) {
+            return parts.special;
+        }
+
+        const initial = parts.initial ?? '';
+        const final = this.syllableToPinyinFinal(parts);
+
+        if (!final) {
+            return '';
+        }
+
+        if (!initial) {
+            return this.zeroInitialFinal(final);
+        }
+
+        return `${initial}${this.displayFinalAfterInitial(initial, final)}`;
+    }
+
+    zeroInitialFinal(final) {
+        const zeroInitialMap = {
+            i: 'yi',
+            ia: 'ya',
+            iai: 'yai',
+            ie: 'ye',
+            iao: 'yao',
+            iu: 'you',
+            ian: 'yan',
+            in: 'yin',
+            iang: 'yang',
+            ing: 'ying',
+            iong: 'yong',
+            u: 'wu',
+            ua: 'wa',
+            uo: 'wo',
+            uai: 'wai',
+            ui: 'wei',
+            uan: 'wan',
+            un: 'wen',
+            uang: 'wang',
+            ong: 'weng',
+            ueng: 'weng',
+            ü: 'yu',
+            üe: 'yue',
+            üan: 'yuan',
+            ün: 'yun'
+        };
+
+        return zeroInitialMap[final] ?? final;
+    }
+
+    displayFinalAfterInitial(initial, final) {
+        if (['j', 'q', 'x'].includes(initial) && final.startsWith('ü')) {
+            return `u${final.slice(1)}`;
+        }
+
+        return final;
+    }
+
+    applyToneMark(text, tone) {
+        const markTarget = this.toneMarkIndex(text);
+        if (markTarget < 0) {
+            return text;
+        }
+
+        const char = text[markTarget];
+        const toneMarks = {
+            a: ['ā', 'á', 'ǎ', 'à'],
+            e: ['ē', 'é', 'ě', 'è'],
+            ê: ['ê̄', 'ế', 'ê̌', 'ề'],
+            i: ['ī', 'í', 'ǐ', 'ì'],
+            o: ['ō', 'ó', 'ǒ', 'ò'],
+            u: ['ū', 'ú', 'ǔ', 'ù'],
+            ü: ['ǖ', 'ǘ', 'ǚ', 'ǜ'],
+            m: ['m̄', 'ḿ', 'm̌', 'm̀'],
+            n: ['n̄', 'ń', 'ň', 'ǹ']
+        };
+        const marked = toneMarks[char]?.[tone - 1];
+        if (!marked) {
+            return text;
+        }
+
+        return `${text.slice(0, markTarget)}${marked}${text.slice(markTarget + 1)}`;
+    }
+
+    toneMarkIndex(text) {
+        for (const vowel of ['a', 'e', 'ê']) {
+            const index = text.indexOf(vowel);
+            if (index >= 0) {
+                return index;
+            }
+        }
+
+        const ouIndex = text.indexOf('ou');
+        if (ouIndex >= 0) {
+            return ouIndex;
+        }
+
+        for (let i = text.length - 1; i >= 0; i--) {
+            if ('iouü'.includes(text[i])) {
+                return i;
+            }
+        }
+
+        for (let i = 0; i < text.length; i++) {
+            if ('mn'.includes(text[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    normalizePinyin(value) {
+        return String(value ?? '')
+            .trim()
+            .toLowerCase()
+            .replaceAll('u:', 'ü')
+            .replaceAll('v', 'ü')
+            .normalize('NFC');
+    }
+
+    getPersistableState() {
+        return {
+            inputMode: this.inputMode,
+            pinyinSyllable: { ...this.syllable }
+        };
+    }
+
+    applyPersistedState(state) {
+        if (state?.inputMode === 'pinyin' || state?.inputMode === 'zhuyin') {
+            this.inputMode = state.inputMode;
+            this.updatePanelVisibility();
+        }
+
+        if (state?.pinyinSyllable && typeof state.pinyinSyllable === 'object') {
+            this.applyPersistedSyllableState(state.pinyinSyllable);
+            this.updatePreview();
+            this.updateSubmitState();
+            return;
+        }
+
+        if (!state?.pinyinParts || typeof state.pinyinParts !== 'object') {
+            return;
+        }
+
+        this.syllable.initial = typeof state.pinyinParts.initial === 'string' ? state.pinyinParts.initial : '';
+        this.syllable.special = typeof state.pinyinParts.special === 'string' ? state.pinyinParts.special : '';
+        this.syllable.tone = this.normalizePersistedTone(state.pinyinParts.tone);
+        this.setFinalValue(typeof state.pinyinParts.final === 'string' ? state.pinyinParts.final : '');
+        this.updatePreview();
+        this.updateSubmitState();
+    }
+
+    bindUserStatePersistence() {}
+
+    copyInfo() {
+        const url = new URL(window.location.href);
+        const params = url.searchParams;
+        let showUrl = window.location.href;
+        if (!params.has('date')) {
+            params.set('date', this.date);
+            showUrl = url.toString();
+        }
+
+        return `${this.date}
+
+现代标准汉语注音题
+
+${showUrl}`;
+    }
+
+    handleCorrectAnswer() {
+        this.keyButtons.forEach(button => {
+            button.disabled = true;
+        });
+        document.querySelectorAll('.pinyin-control').forEach(button => {
+            button.disabled = true;
+        });
+        this.preview.classList.remove('is-wrong', 'error-shake');
+        this.preview.classList.add('is-correct', 'correct-pulse');
+        this.correctAudio.play().catch(() => {});
+    }
+
+    handleWrongAnswer() {
+        this.preview.classList.remove('error-shake');
+        void this.preview.offsetWidth;
+        this.preview.classList.add('is-wrong', 'error-shake');
+        this.wrongAudio.play().catch(() => {});
+        setTimeout(() => {
+            this.preview.classList.remove('is-wrong', 'error-shake');
+        }, 500);
     }
 }
 
