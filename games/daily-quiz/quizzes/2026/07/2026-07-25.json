@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-25",
+  "type": "MANDARIN_PINYIN",
+  "data": {
+    "question": "中肯",
+    "questionRich": [
+      {
+        "text": "中",
+        "emphasis": true
+      },
+      {
+        "text": "肯"
+      }
+    ],
+    "answer": [
+      "zhòng"
+    ]
+  }
+}
