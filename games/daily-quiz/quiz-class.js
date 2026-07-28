@@ -2126,6 +2126,7 @@ class MandarinPinyinQuiz extends Quiz {
             ang: 'ㄤ',
             eng: 'ㄥ',
             ong: 'ㄨㄥ',
+            ueng: 'ㄨㄥ',
             i: 'ㄧ',
             ia: 'ㄧㄚ',
             iai: 'ㄧㄞ',
@@ -2287,6 +2288,7 @@ class MandarinPinyinQuiz extends Quiz {
             .toLowerCase()
             .replaceAll('u:', 'ü')
             .replaceAll('v', 'ü')
+            .replace(/^u([eēéěè])ng$/, 'w$1ng')
             .normalize('NFC');
     }
 
