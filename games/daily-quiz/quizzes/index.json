@@ -528,5 +528,10 @@
     "date": "2026-07-25",
     "type": "MANDARIN_PINYIN",
     "path": "quizzes/2026/07/2026-07-25.json"
+  },
+  {
+    "date": "2026-07-29",
+    "type": "MANDARIN_PINYIN",
+    "path": "quizzes/2026/07/2026-07-29.json"
   }
 ]

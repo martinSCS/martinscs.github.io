@@ -1,0 +1,19 @@
+{
+  "date": "2026-07-29",
+  "type": "MANDARIN_PINYIN",
+  "data": {
+    "question": "嘉南大圳",
+    "questionRich": [
+      {
+        "text": "嘉南大"
+      },
+      {
+        "text": "圳",
+        "emphasis": true
+      }
+    ],
+    "answer": [
+      "zùn"
+    ]
+  }
+}
