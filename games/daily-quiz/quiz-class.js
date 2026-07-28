@@ -1806,7 +1806,7 @@ class MandarinPinyinQuiz extends Quiz {
             en: ['', 'e', 'n'],
             ang: ['', 'a', 'ng'],
             eng: ['', 'e', 'ng'],
-            ong: ['', 'o', 'ng'],
+            ong: ['u', 'e', 'ng'],
             i: ['', 'i', ''],
             ia: ['i', 'a', ''],
             iai: ['i', 'a', 'i'],
